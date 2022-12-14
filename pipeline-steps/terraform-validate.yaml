@@ -1,0 +1,28 @@
+parameters:
+  - name: tfversion
+    type: string
+
+  - name: stack
+    type: string
+
+steps:
+#  - template: keyvault-read.yaml
+#    parameters:
+#      serviceConnection: $(serviceConnection)
+#      environment: ${{ parameters.environment }}
+      
+  - task: TerraformInstaller@0
+    displayName: 'Install Terraform ${{ parameters.tfversion }}'
+    inputs:
+          terraformVersion: ${{ parameters.tfversion }}
+
+  - task: TerraformCLI@0
+    displayName: 'Terraform init'
+    inputs:
+      command: 'init'
+      commandOptions: '-backend=false -input=false'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/${{ parameters.stack }}'
+
+  - template: templates/tests/terraform/allTests.yaml@templates
+    parameters:
+      terraformPath: '$(System.DefaultWorkingDirectory)/terraform/${{ parameters.stack }}'

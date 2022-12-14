@@ -1,0 +1,29 @@
+parameters:
+  - name: environment
+    type: string
+
+variables:
+  - group: vh-test-api
+  - group: vh-bookings-api
+  - group: vh-key-vault-vars
+  - group: vh-user-api
+  - group: vh-admin-web
+  - group: vh-test-users
+  - group: Saucelabs
+  - group: govuk-notify-${{ parameters.environment }}
+  - group: vh-booking-queue-subscriber
+  - group: vh-video-web-${{ parameters.environment }}
+  - group: vh-test-web
+  - group: vh-user-groups
+  - group: vh-video-api
+  - group: QuickLinks_${{ parameters.environment }}
+  - group: FeatureFlags_${{ parameters.environment }}
+  - group: vh-video-web
+  - group: Ejud_${{ parameters.environment }}
+  - group: Dynatrace_${{ parameters.environment }}
+  - group: KinlyConfiguration_${{ parameters.environment }}
+  - group: vh-scheduler-jobs
+  - ${{ if eq(parameters.environment, 'prod') }}:
+    - group: vh-common-${{ parameters.environment }}
+  - ${{ else }}:
+    - group: vh-common
