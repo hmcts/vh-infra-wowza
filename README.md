@@ -45,12 +45,11 @@ This pipeline is triggered during PRs and when merged in to the `master` branch.
 When triggered via a PR the following stages will run:
 
 ```mermaid
-graph LR;  
-    subgraph DEV
-        B[Terraform_Plan_Dev]-->|APPROVAL REQUIRED|C
-        C[Terraform_Apply_Dev]
+flowchart LR;  
+    v[Validate_Terraform_Code] --> d
+    subgraph d [DEV]
+        d1[Terraform_Plan_Dev]-->|APPROVAL REQUIRED|d2[Terraform_Apply_Dev]
     end
-    A[Validate_Terraform_Code] --> DEV
 ```
 
 ### Master run
@@ -58,21 +57,17 @@ graph LR;
 When triggered via a merge to `master` or manually triggered from the `master` branch the following stages will run (see above for details of each stage):
 
 ```mermaid
-graph LR;
-    A[Validate_Terraform_Code];
-    subgraph DEV
-        B[Terraform_Plan_Dev]-->|APPROVAL REQUIRED|C;
-        C[Terraform_Apply_Dev];
+flowchart LR;
+    v[Validate_Terraform_Code]-->d
+    subgraph d [DEV]
+        d1[Terraform_Plan_Dev]-->|APPROVAL REQUIRED|d2[Terraform_Apply_Dev];
     end
-    subgraph STG
-        D[Terraform_Plan_Stg]-->|APPROVAL REQUIRED|E;
-        E[Terraform_Apply_Stg];
+    d-->s;
+    subgraph s [STG]
+        s1[Terraform_Plan_Stg]-->|APPROVAL REQUIRED|s2[Terraform_Apply_Stg];
     end
-    subgraph PROD
-        F[Terraform_Plan_Prod]-->|APPROVAL REQUIRED|G;
-        G[Terraform_Apply_Prod];
+    s-->p;
+    subgraph p [PROD]
+        p1[Terraform_Plan_Prod]-->|APPROVAL REQUIRED|p2[Terraform_Apply_Prod];
     end
-    A --> DEV
-    DEV --> STG
-    STG --> PROD
 ```
