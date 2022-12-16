@@ -47,11 +47,11 @@ When triggered via a PR the following stages will run:
 ```mermaid
 graph LR;
     A[Validate_Terraform_Code];
-    subgraph DEV
+
         B[Terraform_Plan_Dev]-->|APPROVAL REQUIRED|C;
         C[Terraform_Apply_Dev];
-    end
-    A --> DEV;
+
+    A --> B;
 ```
 
 ### Master run
