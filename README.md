@@ -51,7 +51,7 @@ graph LR;
         B[Terraform_Plan_Dev]-->|APPROVAL REQUIRED|C;
         C[Terraform_Apply_Dev];
     end
-    A --> DEV
+    A --> DEV;
 ```
 
 ### Master run
