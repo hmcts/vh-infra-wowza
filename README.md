@@ -45,13 +45,12 @@ This pipeline is triggered during PRs and when merged in to the `master` branch.
 When triggered via a PR the following stages will run:
 
 ```mermaid
-graph LR;
-    A[Validate_Terraform_Code];
-
-        B[Terraform_Plan_Dev]-->|APPROVAL REQUIRED|C;
-        C[Terraform_Apply_Dev];
-
-    A --> B;
+graph LR;  
+    subgraph DEV
+        B[Terraform_Plan_Dev]-->|APPROVAL REQUIRED|C
+        C[Terraform_Apply_Dev]
+    end
+    A[Validate_Terraform_Code] --> DEV
 ```
 
 ### Master run
