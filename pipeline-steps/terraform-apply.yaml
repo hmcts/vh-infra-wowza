@@ -59,7 +59,7 @@ steps:
       backendAzureRmContainerName: tfstate
       backendAzureRmKey: '${{ parameters.location }}/${{ parameters.project }}/${{ lower(parameters.environment) }}/${{ parameters.stack }}/terraform.tfstate'
   
-  - if ${{ or(eq(parameters.environment, 'Stg'), eq(parameters.environment, 'Prod')) }}:
+  - ${{ if or(eq(parameters.environment, 'Stg'), eq(parameters.environment, 'Prod')) }}:
     - template: templates/azure/common/unlock-lock.yaml@templates
       parameters:
         addOrDelete: delete
