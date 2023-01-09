@@ -22,8 +22,7 @@ locals {
 }
 
 resource "azurerm_monitor_metric_alert" "wowza_lb_alert" {
-  #for_each = var.environment == "prod" ? local.wowzaLoadBalancers : {}
-  for_each = local.wowzaLoadBalancers
+  for_each = var.environment == "prod" ? local.wowzaLoadBalancers : {}
 
   name                = "VH - SDS - ${each.value.name}"
   resource_group_name = azurerm_resource_group.wowza.name
