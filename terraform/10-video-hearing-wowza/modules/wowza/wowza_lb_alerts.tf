@@ -12,17 +12,18 @@ locals {
   wowzaLoadBalancers = {
     private = {
       scope = [azurerm_lb.wowza.id]
-      name  = "vh-wowza-lb-private-alert-${var.environment}"
+      name  = "Wowza Load Balancer Private ${title(var.environment)}"
     }
     public = {
       scope = [azurerm_lb.wowza-public.id]
-      name  = "vh-wowza-lb-public-alert-${var.environment}"
+      name  = "Wowza Load Balancer Public ${title(var.environment)}"
     }
   }
 }
 
 resource "azurerm_monitor_metric_alert" "wowza_lb_alert" {
-  for_each = var.environment == "prod" ? local.wowzaLoadBalancers : {}
+  #for_each = var.environment == "prod" ? local.wowzaLoadBalancers : {}
+  for_each = local.wowzaLoadBalancers
 
   name                = each.value.name
   resource_group_name = azurerm_resource_group.wowza.name
