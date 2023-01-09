@@ -12,11 +12,11 @@ locals {
   wowzaLoadBalancers = {
     private = {
       scope = [azurerm_lb.wowza.id]
-      name  = "Wowza Load Balancer Private ${title(var.environment)}"
+      name  = "Wowza Private Load Balancer ${title(var.environment)}"
     }
     public = {
       scope = [azurerm_lb.wowza-public.id]
-      name  = "Wowza Load Balancer Public ${title(var.environment)}"
+      name  = "Wowza Public Load Balancer ${title(var.environment)}"
     }
   }
 }
@@ -25,7 +25,7 @@ resource "azurerm_monitor_metric_alert" "wowza_lb_alert" {
   #for_each = var.environment == "prod" ? local.wowzaLoadBalancers : {}
   for_each = local.wowzaLoadBalancers
 
-  name                = each.value.name
+  name                = "VH - SDS - ${each.value.name}"
   resource_group_name = azurerm_resource_group.wowza.name
   scopes              = each.value.scope
   description         = "Wowza Load Balancer Health is Below 95%, Please Investigate ASAP as this may impact the service."
