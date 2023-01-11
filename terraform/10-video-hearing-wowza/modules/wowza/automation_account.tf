@@ -30,15 +30,15 @@ resource "azurerm_automation_account" "vh_infra_wowza" {
 #   mi_principal_id = azurerm_user_assigned_identity.wowza-automation-account-mi.principal_id
 # }
 
-# module "dynatrace_runbook" {
-#   source = "git::https://github.com/hmcts/sds-module-automation-runbook-new-dynatrace-alert.git?ref=v1.0.0-BETA"
+module "dynatrace_runbook" {
+  source = "git::https://github.com/hmcts/sds-module-automation-runbook-new-dynatrace-alert.git?ref=v1.0.0-BETA"
 
-#   automation_account_name = azurerm_automation_account.vh_infra_wowza.name
-#   resource_group_name     = azurerm_resource_group.wowza.name
-#   location                = azurerm_resource_group.wowza.location
-#   tags                    = var.tags
+  automation_account_name = azurerm_automation_account.vh_infra_wowza.name
+  resource_group_name     = azurerm_resource_group.wowza.name
+  location                = azurerm_resource_group.wowza.location
+  tags                    = var.tags
 
-#   depends_on = [
-#     azurerm_automation_account.vh_infra_wowza
-#   ]
-# }
+  depends_on = [
+    azurerm_automation_account.vh_infra_wowza
+  ]
+}
