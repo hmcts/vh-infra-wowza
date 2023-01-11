@@ -35,6 +35,6 @@ module "dynatrace_runbook" {
 
   automation_account_name = azurerm_automation_account.vm-start-stop.name
   resource_group_name     = azurerm_resource_group.wowza.name
-  tags                    = var.tags
   location                = azurerm_resource_group.wowza.location
+  tags                    = var.tags
 }
