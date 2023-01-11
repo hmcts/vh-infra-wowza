@@ -31,12 +31,22 @@ resource "azurerm_automation_account" "vh_infra_wowza" {
 # }
 
 module "dynatrace_runbook" {
-  source = "git::https://github.com/hmcts/cnp-module-automation-runbook-new-dynatrace-alert.git?ref=v1.0.0-beta"
+  source = "git::https://github.com/hmcts/cnp-module-automation-runbook-new-dynatrace-alert.git?ref=v1.0.0"
 
   automation_account_name = azurerm_automation_account.vh_infra_wowza.name
   resource_group_name     = azurerm_resource_group.wowza.name
   location                = azurerm_resource_group.wowza.location
-  tags                    = var.tags
+
+  automation_crednetial = [
+    {
+      name        = "Dynatrace-Token"
+      username    = "Dynatrace"
+      password    = data.azurerm_key_vault_secret.dynatrace_token.value
+      description = "Dynatrace API Token"
+    }
+  ]
+
+  tags = var.tags
 
   depends_on = [
     azurerm_automation_account.vh_infra_wowza
