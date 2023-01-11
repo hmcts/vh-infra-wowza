@@ -1,7 +1,6 @@
 
-resource "azurerm_automation_account" "vm-start-stop" {
-
-  name                = "vh-wowza-${var.environment}-aa"
+resource "azurerm_automation_account" "vh_infra_wowza" {
+  name                = "vh-infra-wowza-${var.environment}"
   location            = var.location
   resource_group_name = azurerm_resource_group.wowza.name
   sku_name            = "Basic"
@@ -29,3 +28,27 @@ resource "azurerm_automation_account" "vm-start-stop" {
 #   ]
 #   mi_principal_id = azurerm_user_assigned_identity.wowza-automation-account-mi.principal_id
 # }
+
+module "dynatrace_runbook" {
+  source = "git::https://github.com/hmcts/cnp-module-automation-runbook-new-dynatrace-alert.git?ref=v1.0.0"
+  count  = var.environment == "prod" || var.environment == "stg" ? 1 : 0
+
+  automation_account_name = azurerm_automation_account.vh_infra_wowza.name
+  resource_group_name     = azurerm_resource_group.wowza.name
+  location                = azurerm_resource_group.wowza.location
+
+  automation_credentials = [
+    {
+      name        = "Dynatrace-Token"
+      username    = "Dynatrace"
+      password    = var.dynatrace_token
+      description = "Dynatrace API Token"
+    }
+  ]
+
+  tags = var.tags
+
+  depends_on = [
+    azurerm_automation_account.vh_infra_wowza
+  ]
+}
