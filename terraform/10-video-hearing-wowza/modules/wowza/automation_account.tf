@@ -1,7 +1,7 @@
 
-resource "azurerm_automation_account" "vm-start-stop" {
+resource "azurerm_automation_account" "vh_infra_wowza" {
 
-  name                = "vh-wowza-${var.environment}-aa"
+  name                = "vh-infra-wowza-${var.environment}"
   location            = var.location
   resource_group_name = azurerm_resource_group.wowza.name
   sku_name            = "Basic"
@@ -33,7 +33,7 @@ resource "azurerm_automation_account" "vm-start-stop" {
 module "dynatrace_runbook" {
   source = "git::https://github.com/hmcts/sds-module-automation-runbook-new-dynatrace-alert.git?ref=v1.0.0-BETA"
 
-  automation_account_name = azurerm_automation_account.vm-start-stop.name
+  automation_account_name = azurerm_automation_account.vh_infra_wowza.name
   resource_group_name     = azurerm_resource_group.wowza.name
   location                = azurerm_resource_group.wowza.location
   tags                    = var.tags
