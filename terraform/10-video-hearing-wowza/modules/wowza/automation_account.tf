@@ -41,7 +41,7 @@ module "dynatrace_runbook" {
     {
       name        = "Dynatrace-Token"
       username    = "Dynatrace"
-      password    = data.azurerm_key_vault_secret.dynatrace_token.value
+      password    = var.dynatrace_token
       description = "Dynatrace API Token"
     }
   ]
