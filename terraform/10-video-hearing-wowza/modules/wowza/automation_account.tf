@@ -37,7 +37,7 @@ module "dynatrace_runbook" {
   resource_group_name     = azurerm_resource_group.wowza.name
   location                = azurerm_resource_group.wowza.location
 
-  automation_crednetial = [
+  automation_crednetials = [
     {
       name        = "Dynatrace-Token"
       username    = "Dynatrace"
