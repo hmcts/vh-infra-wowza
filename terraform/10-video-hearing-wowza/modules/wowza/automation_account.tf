@@ -1,6 +1,5 @@
 
 resource "azurerm_automation_account" "vh_infra_wowza" {
-
   name                = "vh-infra-wowza-${var.environment}"
   location            = var.location
   resource_group_name = azurerm_resource_group.wowza.name
@@ -32,6 +31,7 @@ resource "azurerm_automation_account" "vh_infra_wowza" {
 
 module "dynatrace_runbook" {
   source = "git::https://github.com/hmcts/cnp-module-automation-runbook-new-dynatrace-alert.git?ref=v1.0.0"
+  count  = var.environment == "prod" || var.environment == "stg" ? 1 : 0
 
   automation_account_name = azurerm_automation_account.vh_infra_wowza.name
   resource_group_name     = azurerm_resource_group.wowza.name
