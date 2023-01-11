@@ -37,4 +37,8 @@ module "dynatrace_runbook" {
   resource_group_name     = azurerm_resource_group.wowza.name
   location                = azurerm_resource_group.wowza.location
   tags                    = var.tags
+
+  depends_on = [
+    azurerm_automation_account.vh_infra_wowza
+  ]
 }
