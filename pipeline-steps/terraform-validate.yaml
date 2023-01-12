@@ -18,8 +18,8 @@ steps:
     inputs:
       command: 'init'
       commandOptions: '-backend=false -input=false'
-      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/wowza'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
 
   - template: templates/tests/terraform/allTests.yaml@templates
     parameters:
-      terraformPath: '$(System.DefaultWorkingDirectory)/terraform/wowza'
+      terraformPath: '$(System.DefaultWorkingDirectory)/terraform'

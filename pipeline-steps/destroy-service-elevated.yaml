@@ -34,7 +34,7 @@ steps:
     displayName: 'Subscription Replacement'
     inputs:
       targetType: 'inline'
-      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/wowza'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
       script: |
             sed -i 's|REPLACE_ME|$(ARM_SUBSCRIPTION_ID)|g' '00-init.tf'
 
@@ -48,7 +48,7 @@ steps:
     inputs:
           command: init
           terraformVersion: ${{ parameters.tfversion }}
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/wowza'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
           backendType: azurerm
           backendServiceArm: ${{ parameters.serviceConnection }} 
           backendAzureRmResourceGroupName: 'azure-control-${{ parameters.environment }}-rg'
@@ -65,7 +65,7 @@ steps:
     inputs:
           command: validate
           terraformVersion: ${{ parameters.tfversion }}
-          workingDirectory: $(System.DefaultWorkingDirectory)/terraform/wowza
+          workingDirectory: $(System.DefaultWorkingDirectory)/terraform
 
 
   - task: TerraformCLI@0
@@ -74,5 +74,5 @@ steps:
     inputs:
       command: destroy
       terraformVersion: ${{ parameters.tfversion }}
-      workingDirectory: $(System.DefaultWorkingDirectory)/terraform/wowza
+      workingDirectory: $(System.DefaultWorkingDirectory)/terraform
       environmentServiceName: ${{ parameters.serviceConnection }} 
