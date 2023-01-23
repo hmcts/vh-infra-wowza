@@ -54,6 +54,7 @@ variable "workspace_to_address_space_map" {
     test = "10.100.197.208/28"
     sbox = "10.100.198.32/28"
     ithc = "10.100.197.224/28"
+    demo = "10.254.0.224/28"
   }
 }
 
