@@ -41,3 +41,5 @@ route_table = [
     next_hop_in_ip_address = null
   }
 ]
+
+wowza_lb_private_ip_address = "10.100.198.69"

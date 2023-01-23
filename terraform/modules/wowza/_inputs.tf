@@ -123,3 +123,8 @@ variable "dynatrace_token" {
   description = "Dynatrace Token."
   type        = string
 }
+
+variable "wowza_lb_private_ip_address" {
+  type        = string
+  description = "static ip address given to wowza private lb"
+}

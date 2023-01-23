@@ -14,7 +14,9 @@ resource "azurerm_lb" "wowza" {
     name                          = local.wowza_frontend_ip_name
     subnet_id                     = azurerm_subnet.wowza.id
     private_ip_address_allocation = "Static"
+    private_ip_address            = var.wowza_lb_private_ip_address
   }
+
   tags = var.tags
 }
 
