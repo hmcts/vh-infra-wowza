@@ -61,4 +61,5 @@ module "wowza" {
   dynatrace_token             = data.azurerm_key_vault_secret.dynatrace_token.value
   schedules                   = var.schedules
   wowza_instance_count        = var.environment == "dev" || var.environment == "test" ? 1 : 2
+  wowza_lb_private_ip_address = var.wowza_lb_private_ip_address
 }
