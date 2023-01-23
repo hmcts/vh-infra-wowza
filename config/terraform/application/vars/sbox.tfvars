@@ -17,7 +17,7 @@ schedules = [
 route_table = [
   {
     name                   = "ss_sbox_aks"
-    address_prefix         = "AKS"
+    address_prefix         = "10.140.0.0/18"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.10.200.36"
   },
