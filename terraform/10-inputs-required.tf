@@ -140,3 +140,8 @@ variable "dynatrace_tenant" {
   default     = ""
   type        = string
 }
+
+variable "wowza_lb_private_ip_address" {
+  type        = string
+  description = "static ip address given to wowza private lb"
+}
