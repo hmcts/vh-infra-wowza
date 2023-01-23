@@ -31,10 +31,11 @@ steps:
           '*ithc*' { $envTag = "ITHC"}
           '*test*' { $envTag = "testing"}
           '*sbox*' { $envTag = "sandbox"}
+          '*demo*' { $envTag = "demo"}
         }
 
         $containerName="${{ parameters.containerName }}"
-        $tags=@("application=video-hearings-service", "builtFrom=hmcts/vh-shared-infrastructure", "businessArea=Cross-Cutting", "criticality=High", "environment=$envTag")
+        $tags=@("application=video-hearings-service", "builtFrom=hmcts/vh-infra-wowza", "businessArea=Cross-Cutting", "criticality=High", "environment=$envTag")
         az group create --name $resourceGroup --location $location --tags $tags
         az storage account create --name $storageAccountName --resource-group $resourceGroup `
                                   --location $location --kind "StorageV2" --allow-blob-public-access "false" `
