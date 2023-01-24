@@ -36,4 +36,4 @@ route_table = [
   }
 ]
 
-wowza_lb_private_ip_address = "10.254.0.230"
+wowza_lb_private_ip_address = "10.254.0.231"
