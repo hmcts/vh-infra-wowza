@@ -163,7 +163,6 @@ steps:
       environmentServiceName: ${{ parameters.serviceConnection }}
       commandOptions: >
         -out $(Build.BuildId)-${{ parameters.project }}-${{ lower(parameters.environment) }}-wowza.tfplan
-        -var control_vault=$(controlKeyVault)
         -var environment=${{ lower(parameters.environment) }}
         -var project=${{ parameters.project }}
         -var builtFrom=${{ parameters.builtFrom }}
