@@ -2,8 +2,6 @@ location = "uksouth"
 
 service_name = "vh-infra-wowza-test"
 
-dns_zone_name                  = "hearings.reform.hmcts.net"
-
 schedules = [
   {
     name      = "vm-off",

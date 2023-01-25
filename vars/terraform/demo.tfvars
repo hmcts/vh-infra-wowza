@@ -4,8 +4,6 @@ address_space = "10.254.0.224/28"
 
 service_name = "vh-infra-wowza-demo"
 
-dns_zone_name                  = "hearings.reform.hmcts.net"
-
 schedules = [
   {
     name      = "vm-on"
