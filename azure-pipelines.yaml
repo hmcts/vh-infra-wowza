@@ -23,10 +23,10 @@ parameters:
 - name: environment
   type: object
   default:
+    - name: Demo
+      dependsOnEnv: ""
     - name: Dev
       dependsOnEnv: ""
-    - name: Demo
-      dependsOnEnv: "Dev"
     - name: Stg
       dependsOnEnv: "Dev"
     - name: Prod
@@ -59,7 +59,7 @@ stages:
 ################################################
 # Terraform Plan & Apply. ######################
 - ${{ each env in parameters.environment }}:
-  - ${{ if and( eq(env.name, 'Dev'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
+  - ${{ if and( eq(env.name, 'Demo'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
     - template: templates/terraform-plan-apply.yaml
       parameters:
         terraformVersion: ${{ variables.tfVersion }}
