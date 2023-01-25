@@ -35,3 +35,5 @@ route_table = [
   }
 ]
 dynatrace_tenant = "ebe20728"
+
+wowza_lb_private_ip_address = "10.50.11.24"

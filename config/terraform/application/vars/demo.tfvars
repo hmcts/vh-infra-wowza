@@ -23,16 +23,10 @@ schedules = [
 
 route_table = [
   {
-    name                   = "ss_dev_aks"
-    address_prefix         = "10.145.0.0/18"
+    name                   = "ss_demo_aks"
+    address_prefix         = "10.51.64.0/18"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.11.72.36"
-  },
-  {
-    name                   = "ss_stg_aks"
-    address_prefix         = "10.148.0.0/18"
-    next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "10.11.8.36"
   },
   {
     name                   = "azure_control_plane"
@@ -42,4 +36,4 @@ route_table = [
   }
 ]
 
-wowza_lb_private_ip_address = "10.100.198.69"
+wowza_lb_private_ip_address = "10.254.0.231"

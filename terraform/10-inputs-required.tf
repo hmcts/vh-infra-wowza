@@ -54,6 +54,7 @@ variable "workspace_to_address_space_map" {
     test = "10.100.197.208/28"
     sbox = "10.100.198.32/28"
     ithc = "10.100.197.224/28"
+    demo = "10.254.0.224/28"
   }
 }
 
@@ -138,4 +139,9 @@ variable "dynatrace_tenant" {
   description = "Dynatrace Tenant"
   default     = ""
   type        = string
+}
+
+variable "wowza_lb_private_ip_address" {
+  type        = string
+  description = "static ip address given to wowza private lb"
 }
