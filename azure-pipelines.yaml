@@ -16,6 +16,9 @@ trigger:
     include:
     - master
 
+pool:
+  vmImage: 'ubuntu-latest'
+
 parameters:
 - name: environment
   type: object
@@ -29,27 +32,19 @@ parameters:
     - name: Prod
       dependsOnEnv: "Stg"
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 variables:
 - name: tfVersion
   value: 1.3.7
-
 - name: azureLocation
   value: 'UK South'
-
 - name: tfDirectory
   value: $(System.DefaultWorkingDirectory)/terraform/infra
-
 - group: external
 
 
 stages:
-
 ################################################
 # Validate Infra Code. #########################
-
 - stage: Validate_Terraform_Code
   displayName: 'Validate Terraform Code'
   jobs:
@@ -63,7 +58,6 @@ stages:
 
 ################################################
 # Terraform Plan & Apply. ######################
-
 - ${{ each env in parameters.environment }}:
   - ${{ if and( eq(env.name, 'Dev'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
     - template: templates/terraform-plan-apply.yaml
