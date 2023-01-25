@@ -57,7 +57,7 @@ steps:
     inputs:
       command: init
       terraformVersion: ${{ parameters.tfversion }}
-      workingDirectory: '$(Pipeline.Workspace)'
+      workingDirectory: '$(Pipeline.Workspace)/infra'
       backendType: azurerm
       backendServiceArm: ${{ parameters.serviceConnection }}
       backendAzureRmResourceGroupName: ${{ lower(parameters.tfStateResourceGroup) }}
@@ -80,7 +80,7 @@ steps:
     inputs:
       command: apply
       terraformVersion: ${{ parameters.tfversion }}
-      workingDirectory: '$(Pipeline.Workspace)/terraform'
+      workingDirectory: '$(Pipeline.Workspace)/infra'
       environmentServiceName: ${{ parameters.serviceConnection }}
       commandOptions: '-input=false $(Build.BuildId)-${{ parameters.project }}-${{ lower(parameters.environment) }}-wowza.tfplan'
 
