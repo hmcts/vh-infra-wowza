@@ -57,10 +57,6 @@ variable "wowza_instance_count" {
   default = 2
 }
 
-variable "private_dns_zone_group_name" {}
-
-variable "private_dns_zone_group" {}
-
 # Networking Client Details
 variable "network_client_id" {
   description = "Client ID of the GlobalNetworkPeering SP"
@@ -91,16 +87,12 @@ variable "schedules" {
 
 variable "route_table" {
   description = "Route Table routes"
+  type        = list(map(string))
 }
 
 variable "dynatrace_tenant" {
   description = "Dynatrace Tenant"
   default     = ""
-  type        = string
-}
-
-variable "dynatrace_token" {
-  description = "Dynatrace Token."
   type        = string
 }
 
