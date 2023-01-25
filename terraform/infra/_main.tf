@@ -31,10 +31,3 @@ data "azurerm_private_dns_zone" "core-infra-intsvc" {
   name                = "privatelink.blob.core.windows.net"
   resource_group_name = "core-infra-intsvc-rg"
 }
-
-module "wowza" {
-  source                = "../modules/wowza"
-  network_client_id     = var.network_client_id
-  network_client_secret = var.network_client_secret
-  network_tenant_id     = var.network_tenant_id
-}

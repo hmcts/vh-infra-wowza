@@ -23,10 +23,14 @@ parameters:
 - name: environment
   type: object
   default:
+    - name: Dev
+      dependsOnEnv: ""
+    - name: Demo
+      dependsOnEnv: "Dev"
     - name: Stg
-      dependsOnEnv: ""
+      dependsOnEnv: "Dev"
     - name: Prod
-      dependsOnEnv: ""
+      dependsOnEnv: "Stg"
 
 variables:
 - name: tfVersion
@@ -36,7 +40,6 @@ variables:
 - name: tfDirectory
   value: $(System.DefaultWorkingDirectory)/terraform/infra
 - group: external
-
 
 stages:
 ################################################
@@ -55,30 +58,30 @@ stages:
 ################################################
 # Terraform Plan & Apply. ######################
 - ${{ each env in parameters.environment }}:
-  # - ${{ if and( eq(env.name, 'Prod'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
-  - template: templates/terraform-plan-apply.yaml
-    parameters:
-      terraformVersion: ${{ variables.tfVersion }}
-      env: ${{ env.name }}
-      location: ${{ variables.azureLocation }}
-      environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
-      product: wowza
-      activityName: Video_Hearing_Wowza
-      tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
-      tfStateStorageAccountName: vhinfracore${{ env.name }}tf
-      dependsOnEnv: ${{ env.dependsOnEnv }}
-      workingDirectory: ${{ variables.tfDirectory }}
+  - ${{ if and( eq(env.name, 'Dev'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
+    - template: templates/terraform-plan-apply.yaml
+      parameters:
+        terraformVersion: ${{ variables.tfVersion }}
+        env: ${{ env.name }}
+        location: ${{ variables.azureLocation }}
+        environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+        product: wowza
+        activityName: Video_Hearing_Wowza
+        tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
+        tfStateStorageAccountName: vhinfracore${{ env.name }}tf
+        dependsOnEnv: ${{ env.dependsOnEnv }}
+        workingDirectory: ${{ variables.tfDirectory }}
 
-  # - ${{ elseif eq(variables['Build.SourceBranchName'], 'master') }}:
-  #     - template: templates/terraform-plan-apply.yaml
-  #       parameters:
-  #         terraformVersion: ${{ variables.tfVersion }}
-  #         env: ${{ env.name }}
-  #         location: ${{ variables.azureLocation }}
-  #         environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
-  #         product: wowza
-  #         activityName: Video_Hearing_Wowza
-  #         tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
-  #         tfStateStorageAccountName: vhinfracore${{ env.name }}tf
-  #         dependsOnEnv: ${{ env.dependsOnEnv }}
-  #         workingDirectory: ${{ variables.tfDirectory }}
+  - ${{ elseif eq(variables['Build.SourceBranchName'], 'master') }}:
+      - template: templates/terraform-plan-apply.yaml
+        parameters:
+          terraformVersion: ${{ variables.tfVersion }}
+          env: ${{ env.name }}
+          location: ${{ variables.azureLocation }}
+          environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+          product: wowza
+          activityName: Video_Hearing_Wowza
+          tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
+          tfStateStorageAccountName: vhinfracore${{ env.name }}tf
+          dependsOnEnv: ${{ env.dependsOnEnv }}
+          workingDirectory: ${{ variables.tfDirectory }}
