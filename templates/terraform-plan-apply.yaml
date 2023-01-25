@@ -23,14 +23,12 @@ parameters:
 - name: product
   type: string
   values:
-    - vh
     - wowza
 
 - name: activityName
   type: string
   values:
     - Video_Hearing_Wowza
-    - Video_Hearing_Core
 
 - name: tfStateResourceGroup
   type: string
@@ -42,6 +40,9 @@ parameters:
   type: string
   default: ''
 
+- name: workingDirectory
+  type: string
+
 
 stages:
 - stage: 'Terraform_Plan_${{ parameters.env }}'
@@ -51,8 +52,8 @@ stages:
   ${{ else }}:
     dependsOn: 'Terraform_Apply_${{ parameters.dependsOnEnv }}'
   variables:
-    - template: ../config\pipeline\vars\${{ lower(parameters.product) }}/common.yaml
-    - template: ../config\pipeline\vars\${{ lower(parameters.product) }}/${{ lower(parameters.env) }}.yaml
+    - template: $(System.DefaultWorkingDirectory)/vars/pipeline/common.yaml
+    - template: $(System.DefaultWorkingDirectory)/vars/pipeline/${{ lower(parameters.env) }}.yaml
   jobs: 
     - job: 'Terraform_Plan_${{ parameters.env }}'
       displayName: 'Terraform Plan ${{ parameters.env }}'
@@ -68,22 +69,10 @@ stages:
         # so that someone doesn't pick the wrong var in the dropdown
         # same comment as above ^^
       steps:
-      - ${{ if eq(parameters.activityName, 'Video_Hearing_Core') }}:
-        - template: vh-tenant-replacement.yaml
-          parameters:
-            environment: ${{ variables.environment }}
-
-        - template: ado-vars-to-tf.yaml
-          parameters: 
-            environment: ${{ variables.environment }}
-
       - template: templates\Azure\Common\unlock-resource-group.yml@templates
         parameters:
           subscriptionName: ${{parameters.environmentServiceConnection}}
-          ${{ if eq(parameters.activityName, 'Video_Hearing_Wowza') }}:
-            resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
-          ${{ else }}:
-            resourceGroupName: "vh-infra-core-${{variables.environment}}" 
+          resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
           lockName: "${{variables.environment}}-lock"
 
       - template: terraform-plan.yaml
@@ -97,9 +86,8 @@ stages:
           serviceConnection: ${{ parameters.environmentServiceConnection }}
           tfStateResourceGroup: ${{ lower(parameters.tfStateResourceGroup) }}
           tfStateStorageAccountName: ${{ lower(parameters.tfStateStorageAccountName) }}
+          workingDirectory: ${{ parameters.workingDirectory }}
           activity_name: ${{ parameters.activityName  }}
-          ${{ if eq(parameters.activityName, 'Video_Hearing_Core') }}:
-            additional_tf_var: $(ado_vars_to_tf.ado_vars)
 
 ################################################
 # Terraform Apply Dev. #########################
@@ -130,7 +118,6 @@ stages:
         runOnce:
           deploy:
             steps:
-
             - template: terraform-apply.yaml
               parameters:
                 environment: ${{ parameters.env }}
@@ -146,29 +133,28 @@ stages:
                 ${{ if eq(parameters.activityName, 'Video_Hearing_Core') }}:
                   additional_tf_var: $(ado_vars_to_tf.ado_vars)
 
-    - ${{ if eq(parameters.activityName, 'Video_Hearing_Wowza') }}:
-      - job: ApplyExtToEnv
-        displayName: 'Extensions to ${{parameters.env}}'
-        dependsOn: Terraform_Apply_${{ parameters.env }}
-        steps:
-          - template: az-ext-oms.yaml
+    - job: ApplyExtToEnv
+      displayName: 'Extensions to ${{parameters.env}}'
+      dependsOn: Terraform_Apply_${{ parameters.env }}
+      steps:
+        - template: az-ext-oms.yaml
+          parameters:
+            subscription: ${{parameters.environmentServiceConnection}}
+            ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'prod')) }}:
+              vmNames: ["vh-infra-wowza-${{parameters.env}}-1","vh-infra-wowza-${{parameters.env}}-2" ]
+            ${{ else }}:
+              vmNames: ["vh-infra-wowza-${{parameters.env}}-1"]
+            vmRgName:  "vh-infra-wowza-${{parameters.env}}"
+            env: ${{ parameters.env }}
+            env_long: ${{ variables.env_long }}
+        - ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'prod')) }}:
+          - template: az-ext-dynatrace-api.yaml
             parameters:
               subscription: ${{parameters.environmentServiceConnection}}
-              ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'prod')) }}:
-                vmNames: ["vh-infra-wowza-${{parameters.env}}-1","vh-infra-wowza-${{parameters.env}}-2" ]
-              ${{ else }}:
-                vmNames: ["vh-infra-wowza-${{parameters.env}}-1"]
-              vmRgName:  "vh-infra-wowza-${{parameters.env}}"
-              env: ${{ parameters.env }}
+              vmNames: ["vh-infra-wowza-${{parameters.env}}-1","vh-infra-wowza-${{parameters.env}}-2" ]
+              vmRgName: "vh-infra-wowza-${{parameters.env}}"
+              env: ${{parameters.env}}
               env_long: ${{ variables.env_long }}
-          - ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'prod')) }}:
-            - template: az-ext-dynatrace-api.yaml
-              parameters:
-                subscription: ${{parameters.environmentServiceConnection}}
-                vmNames: ["vh-infra-wowza-${{parameters.env}}-1","vh-infra-wowza-${{parameters.env}}-2" ]
-                vmRgName: "vh-infra-wowza-${{parameters.env}}"
-                env: ${{parameters.env}}
-                env_long: ${{ variables.env_long }}
 
       - job: MonitoringTasks
         displayName: 'Monitoring Tasks ${{parameters.env}}'
@@ -184,31 +170,3 @@ stages:
               kvName: "vh-infra-core-${{ parameters.env }}"
               wowzaUsernameSecretName: "wowzaconfiguration--username"
               wowzaPasswordSecretName: "wowzaconfiguration--restPassword"
-    
-    - ${{ if eq(parameters.activityName, 'Video_Hearing_Core') }}:
-      - job: SqlAccess
-        displayName: SQL AD Access 
-        dependsOn: Terraform_Apply_${{ parameters.env }}
-        steps:
-          - template: sql-access.yaml
-            parameters:
-              azureSubscription: DTS-SHAREDSERVICES-${{ parameters.env }}-Video Hearings
-              sqlServerResourceGroup: vh-infra-core-${{ parameters.env }}
-              sqlServerName: vh-infra-core-${{ parameters.env }}
-              dbAccess:
-                - user: 'DTS SDS Developers'
-                  databaseNames: 
-                    - vhbookings
-                    - vhnotification
-                    - vhvideo
-                  roles:
-                    - db_datareader
-                    - ${{ if ne(lower(parameters.env), 'prod') }}:
-                      - db_datawriter
-                - user: mi-ingestion-adf-${{ lower(parameters.env)}}
-                  databaseNames:
-                    - vhbookings
-                    - vhnotification
-                    - vhvideo
-                  roles:
-                    - db_datareader

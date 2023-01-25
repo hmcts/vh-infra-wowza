@@ -49,17 +49,9 @@ variable "tags" {
   default = {}
 }
 
-
-# variable "schedule_actions"{
-#  description = "The time and action required for the Wowza VM automation"
-#  type = map(string)
-#}
-
 variable "private_dns_zone_group_name" {}
 
 variable "private_dns_zone_group" {}
-
-#variable "hearings_dns_zone" {}
 
 # Networking Client Details
 variable "network_client_id" {
@@ -107,7 +99,6 @@ variable "schedules" {
   default     = []
   description = "List of Schedules to trigger the VM turn on and/or off."
 }
-
 
 variable "route_table" {
   description = "Route Table routes"
