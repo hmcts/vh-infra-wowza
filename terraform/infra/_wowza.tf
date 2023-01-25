@@ -1,5 +1,5 @@
 module "wowza" {
-  source                = "../modules/wowza"
+  source                = "./wowza"
   network_client_id     = var.network_client_id
   network_client_secret = var.network_client_secret
   network_tenant_id     = var.network_tenant_id
