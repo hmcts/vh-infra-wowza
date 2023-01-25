@@ -40,3 +40,7 @@ terraform {
     }
   }
 }
+
+provider "azurerm" {
+  features {}
+}
