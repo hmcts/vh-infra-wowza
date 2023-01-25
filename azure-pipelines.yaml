@@ -59,7 +59,7 @@ stages:
 ################################################
 # Terraform Plan & Apply. ######################
 - ${{ each env in parameters.environment }}:
-  - ${{ if and( eq(env.name, 'Demo'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
+  - ${{ if and( eq(env.name, 'Stg'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
     - template: templates/terraform-plan-apply.yaml
       parameters:
         terraformVersion: ${{ variables.tfVersion }}
