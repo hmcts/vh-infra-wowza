@@ -20,6 +20,28 @@ variable "network_tenant_id" {
   type        = string
 }
 
+variable "environment" {
+  type = string
+}
+
+
+variable "builtFrom" {
+  type = string
+}
+
+variable "activity_name" {
+  type    = string
+  default = "VH"
+}
+
+variable "project" {
+  type = string
+}
+
+variable "product" {
+  type = string
+}
+
 terraform {
   required_version = ">=1.0.0"
 
