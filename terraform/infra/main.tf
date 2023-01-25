@@ -8,3 +8,7 @@ data "azurerm_log_analytics_workspace" "core" {
   name                = "vh-infra-core-${var.environment}"
   resource_group_name = "vh-infra-core-${var.environment}"
 }
+
+module "wowza" {
+  source = "../modules/wowza"
+}
