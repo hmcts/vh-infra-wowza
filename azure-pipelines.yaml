@@ -23,14 +23,10 @@ parameters:
 - name: environment
   type: object
   default:
-    - name: Demo
-      dependsOnEnv: ""
-    - name: Dev
-      dependsOnEnv: ""
     - name: Stg
-      dependsOnEnv: "Dev"
+      dependsOnEnv: ""
     - name: Prod
-      dependsOnEnv: "Stg"
+      dependsOnEnv: ""
 
 variables:
 - name: tfVersion
@@ -45,44 +41,44 @@ variables:
 stages:
 ################################################
 # Validate Infra Code. #########################
-# - stage: Validate_Terraform_Code
-#   displayName: 'Validate Terraform Code'
-#   jobs:
-#     - job: Validate_Terraform_Code
-#       displayName: Validate Terraform Code
-#       steps:
-#       - template: templates/terraform-validate.yaml
-#         parameters:
-#           tfversion: ${{ variables.tfversion }}
-#           workingDirectory: ${{ variables.tfDirectory }}
+- stage: Validate_Terraform_Code
+  displayName: 'Validate Terraform Code'
+  jobs:
+    - job: Validate_Terraform_Code
+      displayName: Validate Terraform Code
+      steps:
+      - template: templates/terraform-validate.yaml
+        parameters:
+          tfversion: ${{ variables.tfversion }}
+          workingDirectory: ${{ variables.tfDirectory }}
 
 ################################################
 # Terraform Plan & Apply. ######################
 - ${{ each env in parameters.environment }}:
-  - ${{ if and( eq(env.name, 'Stg'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
-    - template: templates/terraform-plan-apply.yaml
-      parameters:
-        terraformVersion: ${{ variables.tfVersion }}
-        env: ${{ env.name }}
-        location: ${{ variables.azureLocation }}
-        environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
-        product: wowza
-        activityName: Video_Hearing_Wowza
-        tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
-        tfStateStorageAccountName: vhinfracore${{ env.name }}tf
-        dependsOnEnv: ${{ env.dependsOnEnv }}
-        workingDirectory: ${{ variables.tfDirectory }}
+  # - ${{ if and( eq(env.name, 'Prod'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
+  - template: templates/terraform-plan-apply.yaml
+    parameters:
+      terraformVersion: ${{ variables.tfVersion }}
+      env: ${{ env.name }}
+      location: ${{ variables.azureLocation }}
+      environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+      product: wowza
+      activityName: Video_Hearing_Wowza
+      tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
+      tfStateStorageAccountName: vhinfracore${{ env.name }}tf
+      dependsOnEnv: ${{ env.dependsOnEnv }}
+      workingDirectory: ${{ variables.tfDirectory }}
 
-  - ${{ elseif eq(variables['Build.SourceBranchName'], 'master') }}:
-      - template: templates/terraform-plan-apply.yaml
-        parameters:
-          terraformVersion: ${{ variables.tfVersion }}
-          env: ${{ env.name }}
-          location: ${{ variables.azureLocation }}
-          environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
-          product: wowza
-          activityName: Video_Hearing_Wowza
-          tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
-          tfStateStorageAccountName: vhinfracore${{ env.name }}tf
-          dependsOnEnv: ${{ env.dependsOnEnv }}
-          workingDirectory: ${{ variables.tfDirectory }}
+  # - ${{ elseif eq(variables['Build.SourceBranchName'], 'master') }}:
+  #     - template: templates/terraform-plan-apply.yaml
+  #       parameters:
+  #         terraformVersion: ${{ variables.tfVersion }}
+  #         env: ${{ env.name }}
+  #         location: ${{ variables.azureLocation }}
+  #         environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+  #         product: wowza
+  #         activityName: Video_Hearing_Wowza
+  #         tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
+  #         tfStateStorageAccountName: vhinfracore${{ env.name }}tf
+  #         dependsOnEnv: ${{ env.dependsOnEnv }}
+  #         workingDirectory: ${{ variables.tfDirectory }}
