@@ -21,7 +21,7 @@ resource "azurerm_virtual_network" "wowza" {
 
   resource_group_name = azurerm_resource_group.wowza.name
   location            = azurerm_resource_group.wowza.location
-  tags                = var.tags
+  tags                = local.common_tags
 }
 
 resource "azurerm_subnet" "wowza" {
@@ -46,7 +46,7 @@ resource "azurerm_network_security_group" "wowza" {
   resource_group_name = azurerm_resource_group.wowza.name
   location            = azurerm_resource_group.wowza.location
 
-  tags = var.tags
+  tags = local.common_tags
 
   depends_on = [
     azurerm_linux_virtual_machine.wowza

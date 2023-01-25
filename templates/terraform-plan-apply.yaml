@@ -61,7 +61,7 @@ stages:
       - name: environment
         value: ${{ parameters.env }}
       - group: vh-tenant-creds
-      - template: ado-vars.yaml
+      - template: azure-devops-vars.yaml
         parameters:
           environment: ${{ parameters.env }}
         # If another project comes along and wants to use the same pipeline file then make this a variable in the UI
@@ -99,7 +99,7 @@ stages:
     - name: environment
       value: ${{ parameters.env }}
     - group: vh-tenant-creds
-    - template: ado-vars.yaml
+    - template: azure-devops-vars.yaml
       parameters:
         environment: ${{ parameters.env }}
       # If another project comes along and wants to use the same pipeline file then make this a variable in the UI

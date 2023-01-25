@@ -38,7 +38,7 @@ data "template_file" "cloudconfig" {
     domain                  = local.wowza_domain
     project                 = "VH"
     dynatrace_tenant        = var.dynatrace_tenant
-    dynatrace_token         = var.dynatrace_token
+    dynatrace_token         = data.azurerm_key_vault_secret.dynatrace_token.value
   }
 }
 

@@ -64,5 +64,5 @@ resource "azurerm_linux_virtual_machine" "wowza" {
       azurerm_user_assigned_identity.wowza_cert.id
     ]
   }
-  tags = var.tags
+  tags = local.common_tags
 }

@@ -24,5 +24,5 @@ resource "azurerm_network_watcher_flow_log" "nsg" {
     interval_in_minutes   = 10
   }
 
-  tags = var.tags
+  tags = local.common_tags
 }

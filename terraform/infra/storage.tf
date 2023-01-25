@@ -14,7 +14,7 @@ module "wowza_recordings" {
   env = var.environment
 
   storage_account_name = replace(lower(var.service_name), "-", "")
-  common_tags          = var.tags
+  common_tags          = local.common_tags
 
   default_action = "Allow"
 
@@ -50,13 +50,13 @@ resource "azurerm_private_endpoint" "wowza_storage" {
     subresource_names              = ["Blob"]
     is_manual_connection           = false
   }
-  tags = var.tags
+  tags = local.common_tags
 }
 
 resource "azurerm_private_dns_zone" "blob" {
   name                = "privatelink.blob.core.windows.net"
   resource_group_name = azurerm_resource_group.wowza.name
-  tags                = var.tags
+  tags                = local.common_tags
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "wowza" {
@@ -65,7 +65,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "wowza" {
   private_dns_zone_name = azurerm_private_dns_zone.blob.name
   virtual_network_id    = azurerm_virtual_network.wowza.id
   registration_enabled  = true
-  tags                  = var.tags
+  tags                  = local.common_tags
 }
 
 resource "azurerm_private_dns_a_record" "wowza_storage" {
@@ -74,7 +74,7 @@ resource "azurerm_private_dns_a_record" "wowza_storage" {
   resource_group_name = azurerm_resource_group.wowza.name
   ttl                 = 300
   records             = [azurerm_private_endpoint.wowza_storage.private_service_connection.0.private_ip_address]
-  tags                = var.tags
+  tags                = local.common_tags
 }
 
 

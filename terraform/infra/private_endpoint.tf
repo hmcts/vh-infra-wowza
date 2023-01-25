@@ -35,9 +35,9 @@ resource "azurerm_private_endpoint" "wowza_storage_endpoint_aks" {
 
   private_dns_zone_group {
     name                 = "vh-wowza-aks-storage-endpoint-${var.environment}-dnszonegroup"
-    private_dns_zone_ids = [var.private_dns_zone_group]
+    private_dns_zone_ids = [data.azurerm_private_dns_zone.core-infra-intsvc.id]
   }
-  tags = var.tags
+  tags = local.common_tags
 }
 
 
@@ -46,7 +46,7 @@ resource "azurerm_private_endpoint" "wowza_storage_endpoint_aks" {
 resource "azurerm_private_dns_a_record" "wowza_storage_endpoint_dns" {
   provider            = azurerm.private-endpoint-dns
   name                = "vh-wowza-storage-${var.environment}"
-  zone_name           = var.private_dns_zone_group_name
+  zone_name           = data.azurerm_private_dns_zone.core-infra-intsvc.name
   resource_group_name = "core-infra-intsvc-rg" #"vh-hearings-reform-hmcts-net-dns-zone"
   ttl                 = 300
   records             = [azurerm_private_endpoint.wowza_storage_endpoint_aks.private_service_connection[0].private_ip_address]

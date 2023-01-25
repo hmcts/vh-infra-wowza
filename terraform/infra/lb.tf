@@ -17,7 +17,7 @@ resource "azurerm_lb" "wowza" {
     private_ip_address            = var.wowza_lb_private_ip_address
   }
 
-  tags = var.tags
+  tags = local.common_tags
 }
 
 resource "azurerm_lb_backend_address_pool" "wowza" {

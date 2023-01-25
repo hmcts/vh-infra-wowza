@@ -11,7 +11,7 @@ resource "azurerm_network_interface" "wowza" {
     subnet_id                     = azurerm_subnet.wowza.id
     private_ip_address_allocation = "Dynamic"
   }
-  tags = var.tags
+  tags = local.common_tags
 }
 
 resource "azurerm_network_interface_security_group_association" "wowza" {

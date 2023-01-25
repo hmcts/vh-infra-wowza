@@ -1,7 +1,7 @@
 resource "azurerm_resource_group" "wowza" {
   name     = var.service_name
   location = var.location
-  tags     = var.tags
+  tags     = local.common_tags
 }
 
 data "azurerm_log_analytics_workspace" "core" {

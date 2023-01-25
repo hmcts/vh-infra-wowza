@@ -10,6 +10,23 @@ variable "service_name" {
   type = string
 }
 
+variable "builtFrom" {
+  type = string
+}
+
+variable "activity_name" {
+  type    = string
+  default = "VH"
+}
+
+variable "project" {
+  type = string
+}
+
+variable "product" {
+  type = string
+}
+
 variable "address_space" {
   type = string
 }
@@ -29,10 +46,6 @@ variable "os_disk_type" {
   default = "Premium_LRS"
 }
 
-variable "key_vault_id" {
-  type = string
-}
-
 variable "cloud_init_file" {
   description = "The location of the cloud init configuration file."
   type        = string
@@ -42,11 +55,6 @@ variable "cloud_init_file" {
 variable "wowza_instance_count" {
   type    = number
   default = 2
-}
-
-variable "tags" {
-  type    = map(string)
-  default = {}
 }
 
 variable "private_dns_zone_group_name" {}
@@ -66,25 +74,6 @@ variable "network_client_secret" {
 variable "network_tenant_id" {
   description = "Client Tenant ID of the GlobalNetworkPeering SP"
   type        = string
-}
-
-# Automation start/stop variables
-variable "runbook_name" {
-  description = "Name of runbook file to be used to schedule VM start / stop"
-  type        = string
-  default     = "wowza-vm-runbook.ps1"
-}
-
-variable "start_time" {
-  description = "The time that the Wowza VMs should restart"
-  type        = string
-  default     = "06:00:00"
-}
-
-variable "stop_time" {
-  description = "The time that the Wowza VMs should stop"
-  type        = string
-  default     = "22:00:00"
 }
 
 ## Automation Accounts

@@ -7,7 +7,7 @@ resource "azurerm_public_ip" "wowza" {
   location            = azurerm_resource_group.wowza.location
   allocation_method   = "Static"
   sku                 = "Standard"
-  tags                = var.tags
+  tags                = local.common_tags
   domain_name_label   = var.service_name
 }
 
@@ -23,7 +23,7 @@ resource "azurerm_lb" "wowza-public" {
     name                 = local.frontend_ip_configuration_name
     public_ip_address_id = azurerm_public_ip.wowza.id
   }
-  tags = var.tags
+  tags = local.common_tags
 }
 
 resource "azurerm_lb_backend_address_pool" "wowza-public" {

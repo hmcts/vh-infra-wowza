@@ -29,10 +29,10 @@ locals {
 
 resource "azurerm_key_vault_secret" "secret" {
   for_each        = local.secrets
-  key_vault_id    = var.key_vault_id
+  key_vault_id    = data.azurerm_key_vault.vh-infra-core.id
   name            = "${local.secret_prefix}--${each.key}"
   value           = each.value
-  tags            = var.tags
+  tags            = local.common_tags
   content_type    = ""
   expiration_date = "2032-12-31T00:00:00Z"
 }

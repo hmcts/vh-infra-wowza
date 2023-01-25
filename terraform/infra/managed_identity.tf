@@ -11,7 +11,7 @@ resource "azurerm_user_assigned_identity" "wowza_storage" {
   location            = azurerm_resource_group.wowza.location
 
   name = "wowza-storage-${var.environment}"
-  tags = var.tags
+  tags = local.common_tags
 }
 
 output "wowza-storage-msi" {
@@ -41,7 +41,7 @@ resource "azurerm_user_assigned_identity" "wowza-automation-account-mi" {
   location            = azurerm_resource_group.wowza.location
 
   name = "wowza-automation-mi-${var.environment}"
-  tags = var.tags
+  tags = local.common_tags
 }
 
 # Create a custom, limited role for our managed identity
@@ -88,7 +88,7 @@ resource "azurerm_user_assigned_identity" "wowza_cert" {
   location            = azurerm_resource_group.wowza.location
 
   name = "vh-wowza-cert-${var.environment}-mi"
-  tags = var.tags
+  tags = local.common_tags
 }
 data "azurerm_key_vault" "acmekv" {
   name                = "acmedtssds${var.environment}"

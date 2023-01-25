@@ -10,7 +10,7 @@ resource "azurerm_automation_account" "vh_infra_wowza" {
     identity_ids = [azurerm_user_assigned_identity.wowza-automation-account-mi.id]
   }
 
-  tags = var.tags
+  tags = local.common_tags
 }
 
 # module "vm_automation" {
@@ -20,7 +20,7 @@ resource "azurerm_automation_account" "vh_infra_wowza" {
 #   env                     = var.environment
 #   location                = var.location
 #   automation_account_name = azurerm_automation_account.vm-start-stop.name
-#   tags                    = var.tags
+#   tags                    = local.common_tags
 #   schedules               = var.schedules
 #   resource_group_name     = azurerm_resource_group.wowza.name
 #   vm_names = [
@@ -41,12 +41,12 @@ module "dynatrace_runbook" {
     {
       name        = "Dynatrace-Token"
       username    = "Dynatrace"
-      password    = var.dynatrace_token
+      password    = data.azurerm_key_vault_secret.dynatrace_token.value
       description = "Dynatrace API Token"
     }
   ]
 
-  tags = var.tags
+  tags = local.common_tags
 
   depends_on = [
     azurerm_automation_account.vh_infra_wowza
