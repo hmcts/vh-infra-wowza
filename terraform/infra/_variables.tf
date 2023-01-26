@@ -107,6 +107,6 @@ variable "aks_address_space" {
 }
 
 variable "platform_private_dns_zone_name" {
-  type = string
+  type        = string
   description = "name of private dns zone for {env}.platform.hmcts.net"
 }
