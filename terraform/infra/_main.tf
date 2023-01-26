@@ -31,3 +31,14 @@ data "azurerm_private_dns_zone" "core-infra-intsvc" {
   name                = "privatelink.blob.core.windows.net"
   resource_group_name = "core-infra-intsvc-rg"
 }
+
+resource "azurerm_resource_group" "wowza" {
+  name     = var.service_name
+  location = var.location
+  tags     = local.common_tags
+}
+
+data "azurerm_log_analytics_workspace" "core" {
+  name                = "vh-infra-core-${var.environment}"
+  resource_group_name = "vh-infra-core-${var.environment}"
+}

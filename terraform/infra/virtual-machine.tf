@@ -9,6 +9,22 @@ resource "tls_private_key" "vm" {
   rsa_bits  = 4096
 }
 
+resource "azurerm_network_interface" "wowza" {
+  count = var.wowza_instance_count
+
+  name = "${var.service_name}_${count.index + 1}"
+
+  resource_group_name = azurerm_resource_group.wowza.name
+  location            = azurerm_resource_group.wowza.location
+
+  ip_configuration {
+    name                          = "wowzaConfiguration"
+    subnet_id                     = azurerm_subnet.wowza.id
+    private_ip_address_allocation = "Dynamic"
+  }
+  tags = local.common_tags
+}
+
 resource "azurerm_linux_virtual_machine" "wowza" {
   count = var.wowza_instance_count
 
