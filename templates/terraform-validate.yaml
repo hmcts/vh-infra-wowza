@@ -1,0 +1,23 @@
+parameters:
+  - name: tfversion
+    type: string
+
+  - name: workingDirectory
+    type: string
+
+steps:
+  - task: TerraformInstaller@0
+    displayName: 'Install Terraform ${{ parameters.tfversion }}'
+    inputs:
+      terraformVersion: ${{ parameters.tfversion }}
+
+  - task: TerraformCLI@0
+    displayName: 'Terraform Init'
+    inputs:
+      command: 'init'
+      commandOptions: '-backend=false -input=false'
+      workingDirectory: ${{ parameters.workingDirectory }}
+
+  - template: templates/tests/terraform/allTests.yaml@templates
+    parameters:
+      terraformPath: ${{ parameters.workingDirectory }}
