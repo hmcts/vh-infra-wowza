@@ -21,7 +21,7 @@ resource "azurerm_virtual_network_peering" "uks_nonprod_hub_to_vnet" {
   virtual_network_name      = each.value
   remote_virtual_network_id = azurerm_virtual_network.wowza.id
   allow_forwarded_traffic   = true
-} 
+}
 
 locals {
   peering_prod_vnets        = var.environment == "prod" || var.environment == "stg" ? ["hmcts-hub-prod-int", "ukw-hub-prod-int"] : []
@@ -47,7 +47,7 @@ resource "azurerm_virtual_network_peering" "uks_prod_hub_to_vnet" {
   remote_virtual_network_id = azurerm_virtual_network.wowza.id
   allow_forwarded_traffic   = true
 }
- 
+
 locals {
   peering_vpn_vnets         = ["core-infra-vnet-mgmt"]
   peering_vpn_subscription  = "ed302caf-ec27-4c64-a05e-85731c3ce90e"
