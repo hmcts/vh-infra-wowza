@@ -1,6 +1,6 @@
 locals {
   cert_env     = var.environment == "prod" ? "" : replace("${var.environment}-", "stg", "staging")
-  wowza_domain = "vh-wowza.${local.private_dns_zone}"
+  wowza_domain = "vh-wowza.${var.platform_private_dns_zone_name}"
 }
 
 resource "random_password" "certPassword" {
@@ -20,8 +20,6 @@ resource "random_password" "streamPassword" {
   special          = true
   override_special = "_%*"
 }
-
-
 
 data "template_file" "cloudconfig" {
   template = file(var.cloud_init_file)

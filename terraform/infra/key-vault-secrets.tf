@@ -2,15 +2,12 @@ locals {
   secret_prefix = "wowzaconfiguration"
   secrets = {
     "azure-storage-directory"   = "/wowzadata/azurecopy",
-    "endpoint-streaming"        = "rtmps://${local.wowza_domain}:443/",
-    "endpoint"                  = "https://${local.wowza_domain}:443/",
-    "HostName"                  = "_defaultVHost_"
-    "managedidentityclientid"   = data.azurerm_user_assigned_identity.vh_mi.client_id,
-    "public-endpoint"           = "https://${local.wowza_domain}:443/",
-    "public-restendpoint--0"    = "https://${local.wowza_domain}:8090/",
-    "public-restendpoint--1"    = "https://${local.wowza_domain}:8091/",
+    "endpoint-rtmps"            = "rtmps://${local.wowza_domain}:443/",
+    "endpoint-https"            = "https://${local.wowza_domain}:443/",
     "restendpoint--0"           = "https://${local.wowza_domain}:8090/",
     "restendpoint--1"           = "https://${local.wowza_domain}:8091/",
+    "hostname"                  = "_defaultVHost_"
+    "managedidentityclientid"   = data.azurerm_user_assigned_identity.vh_mi.client_id,
     "restPassword"              = random_password.restPassword.result,
     "ServerName"                = "_defaultServer_"
     "ssh-private"               = tls_private_key.vm.private_key_openssh
@@ -35,9 +32,4 @@ resource "azurerm_key_vault_secret" "secret" {
   tags            = local.common_tags
   content_type    = ""
   expiration_date = "2032-12-31T00:00:00Z"
-}
-
-data "azurerm_user_assigned_identity" "vh_mi" {
-  name                = "vh-${var.environment}-mi"
-  resource_group_name = "managed-identities-${var.environment}-rg"
 }

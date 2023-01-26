@@ -29,6 +29,7 @@ resource "azurerm_monitor_metric_alert" "wowza_lb_alert" {
   scopes              = each.value.scope
   description         = "Wowza Load Balancer Health is Below 95%, Please Investigate ASAP as this may impact the service."
   tags                = local.common_tags
+
   criteria {
     metric_namespace = "Microsoft.Network/loadBalancers"
     metric_name      = "DipAvailability"

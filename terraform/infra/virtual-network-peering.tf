@@ -1,7 +1,16 @@
 locals {
   peering_nonprod_vnets        = var.environment != "prod" && var.environment != "stg" ? ["hmcts-hub-nonprodi"] : []
   peering_nonprod_subscription = "fb084706-583f-4c9a-bdab-949aac66ba5c"
+  peering_prod_vnets           = var.environment == "prod" || var.environment == "stg" ? ["hmcts-hub-prod-int", "ukw-hub-prod-int"] : []
+  peering_prod_subscription    = "0978315c-75fe-4ada-9d11-1eb5e0e0b214"
+  peering_vpn_vnets            = ["core-infra-vnet-mgmt"]
+  peering_vpn_subscription     = "ed302caf-ec27-4c64-a05e-85731c3ce90e"
+  peering_vpn_resourcegroup    = "rg-mgmt"
 }
+
+##########################################################
+# Peering Non-Prod. ######################################
+##########################################################
 
 resource "azurerm_virtual_network_peering" "vnet_to_uks_nonprod_hub" {
   provider                  = azurerm.peering_client
@@ -23,10 +32,9 @@ resource "azurerm_virtual_network_peering" "uks_nonprod_hub_to_vnet" {
   allow_forwarded_traffic   = true
 }
 
-locals {
-  peering_prod_vnets        = var.environment == "prod" || var.environment == "stg" ? ["hmcts-hub-prod-int", "ukw-hub-prod-int"] : []
-  peering_prod_subscription = "0978315c-75fe-4ada-9d11-1eb5e0e0b214"
-}
+##########################################################
+# Peering Prod. ##########################################
+##########################################################
 
 resource "azurerm_virtual_network_peering" "vnet_to_uks_prod_hub" {
   provider                  = azurerm.peering_client
@@ -48,11 +56,9 @@ resource "azurerm_virtual_network_peering" "uks_prod_hub_to_vnet" {
   allow_forwarded_traffic   = true
 }
 
-locals {
-  peering_vpn_vnets         = ["core-infra-vnet-mgmt"]
-  peering_vpn_subscription  = "ed302caf-ec27-4c64-a05e-85731c3ce90e"
-  peering_vpn_resourcegroup = "rg-mgmt"
-}
+##########################################################
+# Peering VPN. ###########################################
+##########################################################
 
 resource "azurerm_virtual_network_peering" "vnet_to_vpn_hub" {
   provider                  = azurerm.peering_client

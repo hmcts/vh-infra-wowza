@@ -1,6 +1,5 @@
 resource "azurerm_network_security_group" "wowza" {
-  name = var.service_name
-
+  name                = var.service_name
   resource_group_name = azurerm_resource_group.wowza.name
   location            = azurerm_resource_group.wowza.location
 
@@ -113,4 +112,30 @@ resource "azurerm_network_security_rule" "AllowDynatrace" {
   source_port_range           = "*"
   destination_address_prefix  = var.address_space
   destination_port_range      = "443"
+}
+
+resource "azurerm_network_watcher_flow_log" "nsg" {
+  name                 = "${var.service_name}-flow-logs"
+  network_watcher_name = "NetworkWatcher_${azurerm_resource_group.wowza.location}"
+  resource_group_name  = "NetworkWatcherRG"
+  location             = data.azurerm_log_analytics_workspace.core.location
+
+  network_security_group_id = azurerm_network_security_group.wowza.id
+  storage_account_id        = module.wowza_recordings.storageaccount_id
+  enabled                   = true
+
+  retention_policy {
+    enabled = true
+    days    = 7
+  }
+
+  traffic_analytics {
+    enabled               = true
+    workspace_id          = data.azurerm_log_analytics_workspace.core.workspace_id
+    workspace_region      = data.azurerm_log_analytics_workspace.core.location
+    workspace_resource_id = data.azurerm_log_analytics_workspace.core.id
+    interval_in_minutes   = 10
+  }
+
+  tags = local.common_tags
 }

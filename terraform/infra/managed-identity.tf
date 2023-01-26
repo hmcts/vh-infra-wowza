@@ -1,10 +1,6 @@
-
-#--------------------------------------------------------------
-# VH - MI Creation
-#--------------------------------------------------------------
-
-data "azurerm_subscription" "current" {
-}
+###############################################################
+# Wowza Storage MI. ###########################################
+###############################################################
 
 resource "azurerm_user_assigned_identity" "wowza_storage" {
   resource_group_name = azurerm_resource_group.wowza.name
@@ -12,10 +8,6 @@ resource "azurerm_user_assigned_identity" "wowza_storage" {
 
   name = "wowza-storage-${var.environment}"
   tags = local.common_tags
-}
-
-output "wowza-storage-msi" {
-  value = azurerm_user_assigned_identity.wowza_storage
 }
 
 resource "azurerm_role_assignment" "wowza_storage_access" {
@@ -30,25 +22,23 @@ resource "azurerm_role_assignment" "wowza_storage_vh_mi" {
   principal_id         = data.azurerm_user_assigned_identity.vh_mi.principal_id
 }
 
+###############################################################
+# Automation Account MI. ######################################
+###############################################################
 
-#-----------------------
-# VM Automation account
-#-----------------------
-
-# Create a user-assigned managed identity
 resource "azurerm_user_assigned_identity" "wowza-automation-account-mi" {
+  name                = "wowza-automation-mi-${var.environment}"
   resource_group_name = azurerm_resource_group.wowza.name
   location            = azurerm_resource_group.wowza.location
 
-  name = "wowza-automation-mi-${var.environment}"
   tags = local.common_tags
 }
 
-# Create a custom, limited role for our managed identity
 resource "azurerm_role_definition" "virtual-machine-control" {
   name        = "Virtual-Machine-Control-${var.environment}"
-  scope       = azurerm_resource_group.wowza.id #  our resource group
+  scope       = azurerm_resource_group.wowza.id
   description = "Custom Role for controlling virtual machines"
+
   permissions {
     actions = [
       "Microsoft.Compute/virtualMachines/read",
@@ -64,24 +54,23 @@ resource "azurerm_role_definition" "virtual-machine-control" {
 }
 
 resource "azurerm_role_assignment" "wowza-auto-acct-mi-role" {
-  scope = azurerm_resource_group.wowza.id ##### CHECK ME
-
-  # using our custom role
-  #role_definition_name = azurerm_role_definition.virtual-machine-control.name
+  scope              = azurerm_resource_group.wowza.id
   role_definition_id = azurerm_role_definition.virtual-machine-control.role_definition_resource_id
-  # principal_id is the principal_id of the user assigned system managed identity we just created
-  principal_id = azurerm_user_assigned_identity.wowza-automation-account-mi.principal_id
+  principal_id       = azurerm_user_assigned_identity.wowza-automation-account-mi.principal_id
 
-  # This depends_on must be here or the terraform destroy will fail
   depends_on = [
     azurerm_role_definition.virtual-machine-control
   ]
-
 }
 
-#-----------------------
-# VM Cert Access
-#-----------------------
+###############################################################
+# Key Vault Access. ###########################################
+###############################################################
+
+data "azurerm_key_vault" "acmekv" {
+  name                = "acmedtssds${var.environment}"
+  resource_group_name = "sds-platform-${var.environment}-rg"
+}
 
 resource "azurerm_user_assigned_identity" "wowza_cert" {
   resource_group_name = azurerm_resource_group.wowza.name
@@ -90,10 +79,7 @@ resource "azurerm_user_assigned_identity" "wowza_cert" {
   name = "vh-wowza-cert-${var.environment}-mi"
   tags = local.common_tags
 }
-data "azurerm_key_vault" "acmekv" {
-  name                = "acmedtssds${var.environment}"
-  resource_group_name = "sds-platform-${var.environment}-rg"
-}
+
 resource "azurerm_role_assignment" "kv_access" {
   scope                = data.azurerm_key_vault.acmekv.id
   role_definition_name = "Key Vault Secrets User"

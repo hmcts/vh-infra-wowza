@@ -1,6 +1,8 @@
-#--------------------------------------------------------------
-# VH - Key Vault Lookup
-#--------------------------------------------------------------
+data "azurerm_client_config" "current" {
+}
+
+data "azurerm_subscription" "current" {
+}
 
 data "azurerm_key_vault_secret" "dynatrace_token" {
   name         = "dynatrace-token"
@@ -17,28 +19,18 @@ data "azurerm_key_vault_certificate" "vh-wildcard" {
   key_vault_id = data.azurerm_key_vault.vh-infra-core.id
 }
 
-output "certificate_thumbprint" {
-  value = data.azurerm_key_vault_certificate.vh-wildcard.thumbprint
-}
-
-
-#--------------------------------------------------------------
-# VH - Wowza
-#--------------------------------------------------------------
-
 data "azurerm_private_dns_zone" "core-infra-intsvc" {
   provider            = azurerm.private-endpoint-dns
   name                = "privatelink.blob.core.windows.net"
   resource_group_name = "core-infra-intsvc-rg"
 }
 
-resource "azurerm_resource_group" "wowza" {
-  name     = var.service_name
-  location = var.location
-  tags     = local.common_tags
-}
-
 data "azurerm_log_analytics_workspace" "core" {
   name                = "vh-infra-core-${var.environment}"
   resource_group_name = "vh-infra-core-${var.environment}"
+}
+
+data "azurerm_user_assigned_identity" "vh_mi" {
+  name                = "vh-${var.environment}-mi"
+  resource_group_name = "managed-identities-${var.environment}-rg"
 }
