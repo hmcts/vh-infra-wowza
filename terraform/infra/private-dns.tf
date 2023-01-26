@@ -39,13 +39,15 @@ locals {
 }
 
 data "azurerm_private_dns_zone" "wowza" {
-  name                = var.platform_private_dns_zone_name
+  name                = local.private_dns_zone
   resource_group_name = local.private_dns_zone_rg
 
   provider = azurerm.private-endpoint-dns
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "vnet_link" {
+  provider = azurerm.private-endpoint-dns
+
   name                  = "${azurerm_virtual_network.wowza.name}-link"
   resource_group_name   = local.private_dns_zone_rg
   private_dns_zone_name = data.azurerm_private_dns_zone.wowza.name
@@ -53,8 +55,6 @@ resource "azurerm_private_dns_zone_virtual_network_link" "vnet_link" {
   registration_enabled  = false
 
   tags = local.common_tags
-
-  provider = azurerm.private-endpoint-dns
 }
 
 data "azurerm_private_dns_zone" "platform" {
