@@ -46,5 +46,3 @@ dynatrace_tenant = "yrk32651"
 wowza_lb_private_ip_address = "10.50.10.120"
 
 aks_address_space = "10.148.0.0/18"
-
-platform_private_dns_zone_name = "staging.platform.hmcts.net"

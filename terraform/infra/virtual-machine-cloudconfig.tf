@@ -1,6 +1,6 @@
 locals {
   cert_env     = var.environment == "prod" ? "" : replace("${var.environment}-", "stg", "staging")
-  wowza_domain = "vh-wowza.${var.platform_private_dns_zone_name}"
+  wowza_domain = "vh-wowza.${local.private_dns_zone}"
 }
 
 resource "random_password" "certPassword" {

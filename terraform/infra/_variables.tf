@@ -105,8 +105,3 @@ variable "aks_address_space" {
   type        = string
   description = "address range for aks clusters in the given environment"
 }
-
-variable "platform_private_dns_zone_name" {
-  type        = string
-  description = "name of private dns zone for {env}.platform.hmcts.net"
-}
