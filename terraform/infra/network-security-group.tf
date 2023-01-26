@@ -1,48 +1,5 @@
-data "azurerm_client_config" "current" {
-}
-
-locals {
-  dns_zone_name = var.environment == "prod" ? "platform.hmcts.net" : "sandbox.platform.hmcts.net"
-  ip_list       = [for vm in azurerm_linux_virtual_machine.wowza : vm.private_ip_address]
-  ip_csv        = join(",", local.ip_list)
-  aks_address = {
-    prod = "10.144.0.0/18"
-    stg  = "10.148.0.0/18"
-    dev  = "10.145.0.0/18"
-    test = "10.51.64.0/18"
-    sbox = "10.140.0.0/18"
-    ithc = "10.143.0.0/18"
-  }
-}
-
-resource "azurerm_virtual_network" "wowza" {
-  name          = var.service_name
-  address_space = [var.address_space]
-
-  resource_group_name = azurerm_resource_group.wowza.name
-  location            = azurerm_resource_group.wowza.location
-  tags                = local.common_tags
-}
-
-resource "azurerm_subnet" "wowza" {
-  name                 = "wowza"
-  resource_group_name  = azurerm_resource_group.wowza.name
-  virtual_network_name = azurerm_virtual_network.wowza.name
-  address_prefixes     = [var.address_space]
-
-  enforce_private_link_endpoint_network_policies = true
-  enforce_private_link_service_network_policies  = true
-}
-
-
-resource "azurerm_subnet_network_security_group_association" "wowza" {
-  subnet_id                 = azurerm_subnet.wowza.id
-  network_security_group_id = azurerm_network_security_group.wowza.id
-}
-
 resource "azurerm_network_security_group" "wowza" {
-  name = var.service_name
-
+  name                = var.service_name
   resource_group_name = azurerm_resource_group.wowza.name
   location            = azurerm_resource_group.wowza.location
 
@@ -51,6 +8,11 @@ resource "azurerm_network_security_group" "wowza" {
   depends_on = [
     azurerm_linux_virtual_machine.wowza
   ]
+}
+
+resource "azurerm_subnet_network_security_group_association" "wowza" {
+  subnet_id                 = azurerm_subnet.wowza.id
+  network_security_group_id = azurerm_network_security_group.wowza.id
 }
 
 resource "azurerm_network_security_rule" "DenyAllAzureLoadBalancerInbound" {
@@ -117,7 +79,7 @@ resource "azurerm_network_security_rule" "AllowAKSInbound" {
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
-  source_address_prefix       = lookup(local.aks_address, var.environment, "*")
+  source_address_prefix       = var.aks_address_space
   source_port_range           = "*"
   destination_address_prefix  = var.address_space
   destination_port_ranges     = ["443", "8087"]
@@ -150,4 +112,30 @@ resource "azurerm_network_security_rule" "AllowDynatrace" {
   source_port_range           = "*"
   destination_address_prefix  = var.address_space
   destination_port_range      = "443"
+}
+
+resource "azurerm_network_watcher_flow_log" "nsg" {
+  name                 = "${var.service_name}-flow-logs"
+  network_watcher_name = "NetworkWatcher_${azurerm_resource_group.wowza.location}"
+  resource_group_name  = "NetworkWatcherRG"
+  location             = data.azurerm_log_analytics_workspace.core.location
+
+  network_security_group_id = azurerm_network_security_group.wowza.id
+  storage_account_id        = module.wowza_recordings.storageaccount_id
+  enabled                   = true
+
+  retention_policy {
+    enabled = true
+    days    = 7
+  }
+
+  traffic_analytics {
+    enabled               = true
+    workspace_id          = data.azurerm_log_analytics_workspace.core.workspace_id
+    workspace_region      = data.azurerm_log_analytics_workspace.core.location
+    workspace_resource_id = data.azurerm_log_analytics_workspace.core.id
+    interval_in_minutes   = 10
+  }
+
+  tags = local.common_tags
 }

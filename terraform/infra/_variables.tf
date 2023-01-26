@@ -100,3 +100,8 @@ variable "wowza_lb_private_ip_address" {
   type        = string
   description = "static ip address given to wowza private lb"
 }
+
+variable "aks_address_space" {
+  type        = string
+  description = "address range for aks clusters in the given environment"
+}

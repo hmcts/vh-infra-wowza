@@ -4,6 +4,31 @@ locals {
   sku       = "linux-paid-4-8"
   version   = "latest"
 }
+
+##########################################################
+# NIC. ###################################################
+##########################################################
+
+resource "azurerm_network_interface" "wowza" {
+  count = var.wowza_instance_count
+
+  name                = "${var.service_name}_${count.index + 1}"
+  resource_group_name = azurerm_resource_group.wowza.name
+  location            = azurerm_resource_group.wowza.location
+
+  ip_configuration {
+    name                          = "wowzaConfiguration"
+    subnet_id                     = azurerm_subnet.wowza.id
+    private_ip_address_allocation = "Dynamic"
+  }
+
+  tags = local.common_tags
+}
+
+##########################################################
+# Virtual Machine. #######################################
+##########################################################
+
 resource "tls_private_key" "vm" {
   algorithm = "RSA"
   rsa_bits  = 4096
@@ -12,18 +37,13 @@ resource "tls_private_key" "vm" {
 resource "azurerm_linux_virtual_machine" "wowza" {
   count = var.wowza_instance_count
 
-  name = "${var.service_name}-${count.index + 1}"
-
-  depends_on = [
-    azurerm_private_dns_a_record.wowza_storage,
-    azurerm_private_dns_zone_virtual_network_link.wowza
-  ]
-
+  name                = "${var.service_name}-${count.index + 1}"
   resource_group_name = azurerm_resource_group.wowza.name
   location            = azurerm_resource_group.wowza.location
 
   size           = var.vm_size
   admin_username = var.admin_user
+
   network_interface_ids = [
     azurerm_network_interface.wowza[count.index].id,
   ]
@@ -64,5 +84,11 @@ resource "azurerm_linux_virtual_machine" "wowza" {
       azurerm_user_assigned_identity.wowza_cert.id
     ]
   }
+
   tags = local.common_tags
+
+  depends_on = [
+    azurerm_private_dns_a_record.wowza_storage,
+    azurerm_private_dns_zone_virtual_network_link.wowza
+  ]
 }

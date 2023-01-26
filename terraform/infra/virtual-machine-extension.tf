@@ -22,5 +22,4 @@ module "splunk-uf" {
   splunk_password = random_password.splunk_admin_password.result
 
   tags = local.common_tags
-
 }
