@@ -4,6 +4,10 @@ data "azurerm_client_config" "current" {
 data "azurerm_subscription" "current" {
 }
 
+data "azurerm_resource_group" "vh-infra-core" {
+  name = "vh-infra-core-${var.environment}"
+}
+
 data "azurerm_key_vault_secret" "dynatrace_token" {
   name         = "dynatrace-token"
   key_vault_id = data.azurerm_key_vault.vh-infra-core.id
