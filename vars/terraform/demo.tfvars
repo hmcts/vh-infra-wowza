@@ -39,3 +39,5 @@ route_table = [
 wowza_lb_private_ip_address = "10.254.0.232"
 
 aks_address_space = "10.51.64.0/18"
+
+wowza_instance_count = 1
