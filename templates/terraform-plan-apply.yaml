@@ -36,8 +36,7 @@ parameters:
 - name: tfStateStorageAccountName 
   type: string
 
-- name: dependsOnEnv 
-  type: string
+- name: dependsOnEnv
   default: ''
 
 - name: workingDirectory
