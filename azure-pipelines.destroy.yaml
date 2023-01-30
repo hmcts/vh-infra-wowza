@@ -17,8 +17,8 @@ parameters:
   type: string
   values:
   - 'ITHC'
-  - 'TEST'
-  - 'DEMO'
+  - 'Test'
+  - 'Demo'
 
 variables:
 - name: tfVersion
