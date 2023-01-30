@@ -43,6 +43,9 @@ parameters:
 - name: workingDirectory
   type: string
 
+- name: destroyInfra
+  type: bool
+  default: false
 
 stages:
 - stage: 'Terraform_Plan_${{ parameters.env }}'
@@ -88,6 +91,7 @@ stages:
           tfStateStorageAccountName: ${{ lower(parameters.tfStateStorageAccountName) }}
           workingDirectory: ${{ parameters.workingDirectory }}
           activity_name: ${{ parameters.activityName  }}
+          destroy: ${{ parameters.destroyInfra }}
 
 ################################################
 # Terraform Apply Dev. #########################
