@@ -158,7 +158,7 @@ steps:
       backendAzureRmContainerName: tfstate
       backendAzureRmKey: '${{ parameters.location }}/${{ parameters.project }}/${{ lower(parameters.environment) }}/wowza/terraform.tfstate'
 
-  - ${{ if eq(parameters.destroyInfra, 'false') }}:
+  - ${{ if eq(parameters.destroyInfra, false) }}:
     - task: TerraformCLI@0
       displayName: Terraform Plan
       inputs:
@@ -176,7 +176,7 @@ steps:
           -var-file $(System.DefaultWorkingDirectory)/vars/terraform/$(env).tfvars
           $(variableName)
 
-  - ${{ if eq(parameters.destroyInfra, 'true') }}:
+  - ${{ if eq(parameters.destroyInfra, true) }}:
     - task: TerraformCLI@0
       displayName: Terraform Plan Destroy
       inputs:
