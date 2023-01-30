@@ -14,11 +14,11 @@ pool:
 
 parameters:
 - name: environment
-  type: object
+  type: string
   values:
-  - ITHC
-  - Test
-  - Demo
+  - 'ITHC'
+  - 'TEST'
+  - 'DEMO'
 
 variables:
 - name: tfVersion
@@ -32,17 +32,16 @@ variables:
 ################################################
 # Terraform Plan & Destroy. ####################
 stages:
-- ${{ each env in parameters.environment }}:
   - template: templates/terraform-plan-apply.yaml
     parameters:
       terraformVersion: ${{ variables.tfVersion }}
-      env: ${{ env }}
+      env: ${{ parameters.environment }}
       location: ${{ variables.azureLocation }}
-      environmentServiceConnection: DTS-SHAREDSERVICES-${{ env }}-Video Hearings
+      environmentServiceConnection: DTS-SHAREDSERVICES-${{ parameters.environment }}-Video Hearings
       product: wowza
       activityName: Video_Hearing_Wowza
-      tfStateResourceGroup: vh-infra-core-${{ env }}-tf
-      tfStateStorageAccountName: vhinfracore${{ env }}tf
+      tfStateResourceGroup: vh-infra-core-${{ parameters.environment }}-tf
+      tfStateStorageAccountName: vhinfracore${{ parameters.environment }}tf
       dependsonEnv: []
       workingDirectory: ${{ variables.tfDirectory }}
       destroyInfra: true

@@ -37,7 +37,8 @@ parameters:
     type: string
 
   - name: destroyInfra
-    type: false
+    type: boolean
+    default: false
 
 steps:
   - template: check-state.yaml
