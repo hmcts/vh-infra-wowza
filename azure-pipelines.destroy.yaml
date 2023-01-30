@@ -42,6 +42,6 @@ stages:
       activityName: Video_Hearing_Wowza
       tfStateResourceGroup: vh-infra-core-${{ parameters.environment }}-tf
       tfStateStorageAccountName: vhinfracore${{ parameters.environment }}tf
-      dependsonEnv: '[]'
+      dependsonEnv: []
       workingDirectory: ${{ variables.tfDirectory }}
       destroyInfra: true

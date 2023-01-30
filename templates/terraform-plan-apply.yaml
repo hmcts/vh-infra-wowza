@@ -36,8 +36,7 @@ parameters:
 - name: tfStateStorageAccountName 
   type: string
 
-- name: dependsOnEnv 
-  type: string
+- name: dependsOnEnv
   default: ''
 
 - name: workingDirectory
@@ -52,6 +51,8 @@ stages:
   displayName: 'Terraform Plan ${{ parameters.env }}'
   ${{ if eq(parameters.dependsOnEnv, '') }}:
     dependsOn: Validate_Terraform_Code
+  ${{ elseif eq(parameters.dependsOnEnv, '[]') }}:
+    dependsOn: []
   ${{ else }}:
     dependsOn: 'Terraform_Apply_${{ parameters.dependsOnEnv }}'
   variables:
