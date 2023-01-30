@@ -91,7 +91,7 @@ stages:
           tfStateStorageAccountName: ${{ lower(parameters.tfStateStorageAccountName) }}
           workingDirectory: ${{ parameters.workingDirectory }}
           activity_name: ${{ parameters.activityName  }}
-          destroy: ${{ parameters.destroyInfra }}
+          destroyInfra: ${{ parameters.destroyInfra }}
 
 ################################################
 # Terraform Apply Dev. #########################
