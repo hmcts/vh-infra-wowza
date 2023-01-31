@@ -99,6 +99,20 @@ resource "azurerm_network_security_rule" "AllowAzureLoadBalancerProbes" {
   destination_port_ranges     = ["443", "8087", "22"]
 }
 
+resource "azurerm_network_security_rule" "AllowWowzaToBlobStorage" {
+  name                        = "AllowWowzaToBlobStorage"
+  resource_group_name         = azurerm_resource_group.wowza.name
+  network_security_group_name = azurerm_network_security_group.wowza.name
+  priority                    = 1060
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_address_prefix       = var.address_space
+  source_port_range           = "*"
+  destination_address_prefix  = var.address_space
+  destination_port_ranges     = ["443", "80"]
+}
+
 resource "azurerm_network_security_rule" "AllowDynatrace" {
   count                       = var.environment == "prod" ? 1 : 0
   name                        = "AllowDynatrace"
