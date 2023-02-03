@@ -90,9 +90,9 @@ resource "azurerm_monitor_action_group" "lb_action_group" {
     name                    = each.value.name
     automation_account_id   = azurerm_automation_account.vh_infra_wowza.id
     runbook_name            = module.dynatrace_runbook.runbook_name
-    webhook_resource_id     = azurerm_automation_webhook.webhook.id
+    webhook_resource_id     = azurerm_automation_webhook.webhook[each.key].id
     is_global_runbook       = true
-    service_uri             = azurerm_automation_webhook.webhook.uri
+    service_uri             = azurerm_automation_webhook.webhook[each.key].uri
     use_common_alert_schema = false
   }
 }
