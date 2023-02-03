@@ -68,7 +68,7 @@ resource "azurerm_automation_webhook" "webhook" {
   runbook_name            = module.dynatrace_runbook.runbook_name
 
   parameters = {
-    dynatracetenant  = var.dynatrace_tenant
+    dynatracetenant  = "yrk32651"
     credentialname   = "Dynatrace-Token"
     alertname        = "VH - SDS - ${each.value.name}"
     alertdescription = "Wowza Load Balancer Health is Below 95%, Please Investigate ASAP as this may impact the service."
