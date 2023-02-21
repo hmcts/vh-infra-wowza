@@ -1208,7 +1208,7 @@ write_files:
         if [[ $HOSTNAME == *"prod"* ]] || [[ $HOSTNAME == *"stg"* ]]; then
           echo "10 0 * * * /home/wowza/check-cert.sh" >> $cronTaskPath
           echo "10 0 * * * /home/wowza/check-file-size.sh" >> $cronTaskPath
-          echo "*/15 * * * * /home/wowza/check-blobMount.sh >> $cronTaskPath
+          echo "*/15 * * * * /home/wowza/check-blobMount.sh" >> $cronTaskPath
         fi
 
         # Set Up Cron Jobs for Wowza & Root.
