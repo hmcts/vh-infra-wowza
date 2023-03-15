@@ -16,6 +16,7 @@ locals {
     "storage-account-endpoint"  = module.wowza_recordings.storageaccount_primary_blob_endpoint,
     "storage-account"           = module.wowza_recordings.storageaccount_name,
     "storageaccountkey"         = module.wowza_recordings.storageaccount_primary_access_key,
+    "storage-connection-string" = module.wowza_recordings.storageaccount_primary_connection_string,
     "streamPassword"            = random_password.streamPassword.result,
     "username"                  = var.admin_user
     "wowza-storage-directory"   = "usr/local/WowzaStreamingEngine/content/"

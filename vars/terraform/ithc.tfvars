@@ -1,5 +1,7 @@
 location = "uksouth"
 
+address_space = "10.143.0.0/18" 
+
 service_name = "vh-infra-wowza-ithc"
 
 schedules = [
