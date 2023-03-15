@@ -1,6 +1,6 @@
 location = "uksouth"
 
-address_space = "10.100.197.224/28"
+address_space = "10.100.197.208/28"
 
 service_name = "vh-infra-wowza-ithc"
 
@@ -35,7 +35,7 @@ route_table = [
   }
 ]
 
-wowza_lb_private_ip_address = "10.100.197.235"
+wowza_lb_private_ip_address = "10.100.197.219"
 
 aks_address_space = "10.143.0.0/18"
 
