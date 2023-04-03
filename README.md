@@ -9,6 +9,8 @@ This projects follows the main environments for VH, as shown in the following:
 | Environment  | Use | Location | 
 | - | - | - | 
 | `DEV` | Used as the main environment for development | [vh-infra-wowza-dev](https://portal.azure.com/#@HMCTS.NET/resource/subscriptions/867a878b-cb68-4de5-9741-361ac9e178b6/resourceGroups/vh-infra-wowza-dev/overview) |
+| `DEMO` | Used as an environment for demo & test tasks | [vh-infra-wowza-demo](https://portal.azure.com/#@HMCTS.NET/resource/subscriptions/c68a4bed-4c3d-4956-af51-4ae164c1957c/resourceGroups/vh-infra-wowza-demo/overview) |
+| `ITHC` | Used as the main security test environment | [vh-infra-wowza-ithc](https://portal.azure.com/#@HMCTS.NET/resource/subscriptions/ba71a911-e0d6-4776-a1a6-079af1df7139/resourceGroups/vh-infra-wowza-ithc/overview) |
 | `STG` | Used as a pre-prod type environment and for end-to-end/load testing | [vh-infra-wowza-stg](https://portal.azure.com/#@HMCTS.NET/resource/subscriptions/74dacd4f-a248-45bb-a2f0-af700dc4cf68/resourceGroups/vh-infra-wowza-stg/overview) |
 | `PROD` | Used as production | [vh-infra-wowza-prod](https://portal.azure.com/#@HMCTS.NET/resource/subscriptions/5ca62022-6aa2-4cee-aaa7-e7536c8d566c/resourceGroups/vh-infra-wowza-prod/overview) |
 
