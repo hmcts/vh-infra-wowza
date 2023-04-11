@@ -4,7 +4,7 @@ This project deploys the infrastructure for the Wowza components used within VH.
 The infrastrucure mainly consists of load balancers routing traffic to Linux VMs running the Wowza software. There is also a storage account that stores the recordings. For more information about the Wowza solution please see [here](https://tools.hmcts.net/confluence/x/Nos7Xw)
 
 ## Environments
-This projects follows the main environments for VH, as shown in the following:
+This projects follows the main environments for VH, as shown in the following
 
 | Environment  | Use | Location | 
 | - | - | - | 
