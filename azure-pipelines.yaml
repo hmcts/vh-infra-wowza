@@ -29,6 +29,8 @@ parameters:
       dependsOnEnv: "Dev"
     - name: ITHC
       dependsOnEnv: "Dev"
+    - name: Test
+      dependsOnEnv: "Dev"
     - name: Stg
       dependsOnEnv: "Dev"
     - name: Prod
