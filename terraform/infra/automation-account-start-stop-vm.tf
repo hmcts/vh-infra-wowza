@@ -3,9 +3,10 @@
 #---------------------------------------------------
 module "vm_automation" {
   source = "git::https://github.com/hmcts/cnp-module-automation-runbook-start-stop-vm"
+    count  = var.environment == "prod" ? 0 : 1
 
   product                 = var.product
-  env                     = var.env
+  env                     = var.environment
   location                = azurerm_resource_group.wowza.location
   automation_account_name = azurerm_automation_account.vh_infra_wowza.name
   schedules               = var.schedules

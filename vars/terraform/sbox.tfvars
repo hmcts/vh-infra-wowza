@@ -2,27 +2,21 @@ location = "uksouth"
 service_name = "vh-infra-wowza-sbox"
 
 schedules = [
-   {
+  {
     name      = "vm-on",
-    frequency = "Day"
+    frequency = "Weekly"
     interval  = 1
     run_time  = "09:00:00"
     start_vm  = true
+    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
   },
   {
     name      = "vm-off",
-    frequency = "Day"
+    frequency = "Weekly"
     interval  = 1
-    run_time  = "18:00:00"
+    run_time  = "19:00:00"
     start_vm  = false
-  },
-  {
-    name      = "vm-off-weekly",
-    frequency = "Week"
-    interval  = 1
-    run_time  = "15:00:00"
-    start_vm  = false
-    week_days = ["Sunday"]
+    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
   }
 ]
 
