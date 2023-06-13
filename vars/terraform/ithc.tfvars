@@ -7,7 +7,7 @@ service_name = "vh-infra-wowza-ithc"
 schedules = [
   {
     name      = "vm-on",
-    frequency = "Week"
+    frequency = "Day"
     interval  = 1
     run_time  = "07:00:00"
     start_vm  = true
@@ -15,7 +15,7 @@ schedules = [
   },
   {
     name      = "vm-off",
-    frequency = "Week"
+    frequency = "Day"
     interval  = 1
     run_time  = "19:00:00"
     start_vm  = false

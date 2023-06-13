@@ -7,7 +7,7 @@ service_name = "vh-infra-wowza-dev"
 schedules = [
   {
     name      = "vm-on",
-    frequency = "Week"
+    frequency = "Day"
     interval  = 1
     run_time  = "07:00:00"
     start_vm  = true
@@ -15,11 +15,11 @@ schedules = [
   },
   {
     name      = "vm-off",
-    frequency = "Week"
+    frequency = "Day"
     interval  = 1
     run_time  = "02:00:00"
     start_vm  = false
-    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
+    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
   }
 ]
 
