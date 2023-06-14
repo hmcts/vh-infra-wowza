@@ -1186,6 +1186,9 @@ write_files:
 
             keytool -delete -alias 1 -keystore $jksPath -storepass $jksPass
             keytool -importkeystore -srckeystore $signedPfxPath -srcstoretype pkcs12 -destkeystore $jksPath -deststoretype JKS -deststorepass $jksPass -srcstorepass $jksPass
+            
+            # Restart Wowza to pick up new cert
+            sudo service WowzaStreamingEngine restart
         else
             echo "Certificate has NOT expired"
         fi
