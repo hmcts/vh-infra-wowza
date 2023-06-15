@@ -9,7 +9,7 @@ schedules = [
     name      = "vm-on",
     frequency = "Week"
     interval  = 1
-    run_time  = "07:00:00"
+    run_time  = "06:00:00"
     start_vm  = true
     week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
   },
@@ -19,7 +19,7 @@ schedules = [
     interval  = 1
     run_time  = "02:00:00"
     start_vm  = false
-    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
+    week_days = ["Tuesday","Wednesday","Thursday","Friday","Saturday"]
   }
 ]
 
