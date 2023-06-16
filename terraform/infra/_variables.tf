@@ -75,15 +75,22 @@ variable "network_tenant_id" {
 ## Automation Accounts
 variable "schedules" {
   type = list(object({
-    name      = string
-    frequency = string
-    interval  = number
-    run_time  = string
-    start_vm  = bool
+    name       = string
+    frequency  = string
+    interval   = number
+    run_time   = string
+    start_vm   = bool
+    week_days  = optional(list(string))
+    month_days = optional(list(number))
+    monthly_occurrence = optional(object({
+      day        = optional(string)
+      occurrence = optional(number)
+    }))
   }))
   default     = []
-  description = "List of Schedules to trigger the VM turn on and/or off."
+  description = "(Required) Start/Stop schedule for VM(s)."
 }
+
 
 variable "route_table" {
   description = "Route Table routes"
