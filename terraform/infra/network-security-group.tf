@@ -65,7 +65,7 @@ resource "azurerm_network_security_rule" "AllowPexip" {
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
-  source_address_prefixes     = ["35.242.170.203", "35.246.8.138", "34.89.88.216", "35.242.163.246", "34.89.25.191", "35.189.100.86", "35.234.131.131", "35.246.37.95", "34.89.37.194", "35.246.58.129"]
+  source_address_prefixes     = ["34.89.88.216", "34.89.25.191", "35.189.100.86", "35.242.170.203", "35.246.8.138", "35.242.163.246", "34.142.82.168", "34.89.72.13", "34.147.186.151", "34.147.143.2"]
   source_port_range           = "*"
   destination_address_prefix  = var.address_space
   destination_port_ranges     = ["443", "8087"]
