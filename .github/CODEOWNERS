@@ -1,4 +1,4 @@
-* @hmcts/vh @hmcts/vh-qa
+* @hmcts/vh
 /variables/ @hmcts/vh
 /charts/ @hmcts/vh
 /.github/ @hmcts/vh-devops
