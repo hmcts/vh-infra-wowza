@@ -158,7 +158,6 @@ stages:
                 vmNames: "vh-infra-wowza-${{parameters.env}}-1"
               vmRgName:  "vh-infra-wowza-${{parameters.env}}"
               env: ${{ parameters.env }}
-              env_long: ${{ variables.env_long }}
               kvName: "vh-infra-core-${{ parameters.env }}"
               currentBranch: ${{variables.currentBranch}}
           - template: az-ext-oms.yaml
