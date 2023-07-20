@@ -142,7 +142,25 @@ stages:
       - job: ApplyExtToEnv
         displayName: 'Extensions to ${{parameters.env}}'
         dependsOn: Terraform_Apply_${{ parameters.env }}
+        variables:
+          - name: currentBranch
+            ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+              value: $(System.PullRequest.SourceBranch)
+            ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+              value: $(Build.SourceBranch)
         steps:
+          - template: az-ext-splunk.yaml
+            parameters:
+              subscription: ${{parameters.environmentServiceConnection}}
+              ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'prod')) }}:
+                vmNames: ["vh-infra-wowza-${{parameters.env}}-1","vh-infra-wowza-${{parameters.env}}-2" ]
+              ${{ else }}:
+                vmNames: ["vh-infra-wowza-${{parameters.env}}-1"]
+              vmRgName:  "vh-infra-wowza-${{parameters.env}}"
+              env: ${{ parameters.env }}
+              env_long: ${{ variables.env_long }}
+              kvName: "vh-infra-core-${{ parameters.env }}"
+              currentBranch: ${{variables.currentBranch}}
           - template: az-ext-oms.yaml
             parameters:
               subscription: ${{parameters.environmentServiceConnection}}
