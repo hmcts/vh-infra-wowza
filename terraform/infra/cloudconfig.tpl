@@ -283,6 +283,7 @@ write_files:
                               <Port>8087</Port>
                               <!-- none, basic, digest, remotehttp, digestfile -->
                               <AuthenticationMethod>digestfile</AuthenticationMethod>
+                              <PasswordEncodingScheme>sha256</PasswordEncodingScheme>
                               <DiagnosticURLEnable>true</DiagnosticURLEnable>
                               <SSLConfig>
                                       <Enable>true</Enable>
@@ -992,13 +993,13 @@ write_files:
     content: |
       # Admin password file (format [username][space][password])
       #username password group|group
-      wowza ${restPassword} admin
+      wowza ${restPassword} admin|advUser sha256
   - owner: wowza:wowza
     path: /home/wowza/WowzaStreamingEngine/conf/publish.password
     content: |
       # Publish password file (format [username][space][password])
       #username password
-      wowza ${streamPassword}
+      wowza ${streamPassword} admin|advUser sha256
   - owner: wowza:wowza
     permissions: 0775
     path: /home/wowza/check-file-size.sh
