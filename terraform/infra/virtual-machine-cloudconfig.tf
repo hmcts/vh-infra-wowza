@@ -28,8 +28,8 @@ data "template_file" "cloudconfig" {
     storageAccountName      = module.wowza_recordings.storageaccount_name
     storageContainerName    = local.recordings_container_name
     msiClientId             = azurerm_user_assigned_identity.wowza_storage.client_id
-    restPassword            = md5("wowza:Wowza:${random_password.restPassword.result}")
-    streamPassword          = md5("wowza:Wowza:${random_password.streamPassword.result}")
+    restPassword            = sha256("wowza:Wowza:${random_password.restPassword.result}")
+    streamPassword          = sha256("wowza:Wowza:${random_password.streamPassword.result}")
     managedIdentityClientId = azurerm_user_assigned_identity.wowza_cert.client_id
     certName                = "wildcard-${local.cert_env}platform-hmcts-net"
     keyVaultName            = data.azurerm_key_vault.acmekv.name

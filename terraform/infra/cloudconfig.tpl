@@ -283,6 +283,7 @@ write_files:
                               <Port>8087</Port>
                               <!-- none, basic, digest, remotehttp, digestfile -->
                               <AuthenticationMethod>digestfile</AuthenticationMethod>
+                              <PasswordEncodingScheme>sha256</PasswordEncodingScheme>
                               <DiagnosticURLEnable>true</DiagnosticURLEnable>
                               <SSLConfig>
                                       <Enable>true</Enable>
@@ -992,13 +993,13 @@ write_files:
     content: |
       # Admin password file (format [username][space][password])
       #username password group|group
-      wowza ${restPassword} admin
+      wowza ${restPassword} admin|advUser sha256
   - owner: wowza:wowza
     path: /home/wowza/WowzaStreamingEngine/conf/publish.password
     content: |
       # Publish password file (format [username][space][password])
       #username password
-      wowza ${streamPassword}
+      wowza ${streamPassword} admin|advUser sha256
   - owner: wowza:wowza
     permissions: 0775
     path: /home/wowza/check-file-size.sh
@@ -1175,17 +1176,12 @@ write_files:
         if [[ $expiryDate -lt $today ]]; then
             echo "Certificate has expired"
             downloadedPfxPath="downloadedCert.pfx"
-            signedPfxPath="signedCert.pfx"
         
             rm -rf $downloadedPfxPath || true
             az keyvault secret download --file $downloadedPfxPath --vault-name $keyVaultName --encoding base64 --name $certName
-            
-            rm -rf $signedPfxPath || true
-            openssl pkcs12 -in $downloadedPfxPath -out tmpmycert.pem -passin pass: -passout pass:$jksPass -nodes
-            openssl pkcs12 -export -out $signedPfxPath -in tmpmycert.pem -passin pass:$jksPass -passout pass:$jksPass
 
-            keytool -delete -alias 1 -keystore $jksPath -storepass $jksPass
-            keytool -importkeystore -srckeystore $signedPfxPath -srcstoretype pkcs12 -destkeystore $jksPath -deststoretype JKS -deststorepass $jksPass -srcstorepass $jksPass
+            keytool -storepasswd -new $jksPass -keystore $downloadedPfxPath -storepass "" -storetype PKCS12
+            keytool -importkeystore -srckeystore $downloadedPfxPath -srcstoretype pkcs12 -destkeystore $jksPath -deststoretype JKS -deststorepass $jksPass -srcstorepass $jksPass
             
             # Restart Wowza to pick up new cert
             sudo service WowzaStreamingEngine restart
