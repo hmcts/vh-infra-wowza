@@ -38,7 +38,7 @@ steps:
         Write-Host infraKvName
         Write-Host $infraKvName
 
-        $splunk_password=az keyvault secret show --id https://$infraKvName.vault.azure.net/secrets/splunk-password  --query "value" -o tsv
+        $splunk_password=az keyvault secret show --id https://$infraKvName.vault.azure.net/secrets/wowzaconfiguration--Splunk-password  --query "value" -o tsv
 
         $scriptUrl = "https://raw.githubusercontent.com/hmcts/vh-infra-wowza/${{ parameters.currentBranch }}/scripts/install-splunk-forwarder-service.sh"
         Write-Host "Getting script from:"
