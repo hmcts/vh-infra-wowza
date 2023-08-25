@@ -21,7 +21,7 @@ locals {
     "username"                  = var.admin_user
     "wowza-storage-directory"   = "usr/local/WowzaStreamingEngine/content/"
     "Splunk-admin"              = ""
-    "Splunk-password"           = ""
+    "Splunk-password"           = random_password.splunk_admin_password
   }
 }
 
@@ -33,4 +33,9 @@ resource "azurerm_key_vault_secret" "secret" {
   tags            = local.common_tags
   content_type    = ""
   expiration_date = "2032-12-31T00:00:00Z"
+}
+
+resource "random_password" "splunk_admin_password" {
+  length           = 32
+  special          = false
 }
