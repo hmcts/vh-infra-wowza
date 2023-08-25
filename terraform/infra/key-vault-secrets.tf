@@ -21,7 +21,7 @@ locals {
     "username"                  = var.admin_user
     "wowza-storage-directory"   = "usr/local/WowzaStreamingEngine/content/"
     "Splunk-admin"              = ""
-    "Splunk-password"           = random_password.splunk_admin_password
+    "Splunk-password"           = random_password.splunk_admin_password.value
   }
 }
 
