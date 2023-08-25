@@ -36,6 +36,6 @@ resource "azurerm_key_vault_secret" "secret" {
 }
 
 resource "random_password" "splunk_admin_password" {
-  length           = 32
-  special          = false
+  length  = 32
+  special = false
 }
