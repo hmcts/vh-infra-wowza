@@ -1,7 +1,7 @@
 locals {
   peering_nonprod_vnets        = var.environment != "prod" && var.environment != "stg" ? ["hmcts-hub-nonprodi"] : []
   peering_nonprod_subscription = "fb084706-583f-4c9a-bdab-949aac66ba5c"
-  peering_prod_vnets           = var.environment == "prod" || var.environment == "stg" ? ["hmcts-hub-prod-int", "ukw-hub-prod-int"] : []
+  peering_prod_vnets           = var.environment == "prod" || var.environment == "stg" ? ["hmcts-hub-prod-int"] : []
   peering_prod_subscription    = "0978315c-75fe-4ada-9d11-1eb5e0e0b214"
   peering_vpn_vnets            = ["core-infra-vnet-mgmt"]
   peering_vpn_subscription     = "ed302caf-ec27-4c64-a05e-85731c3ce90e"
