@@ -112,3 +112,8 @@ variable "aks_address_space" {
   type        = string
   description = "address range for aks clusters in the given environment"
 }
+
+variable "dcd_cnp_subscription" {
+  type    = string
+  default = ""
+}

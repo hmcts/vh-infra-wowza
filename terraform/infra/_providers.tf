@@ -88,3 +88,9 @@ provider "azurerm" {
   client_secret   = var.network_client_secret
   tenant_id       = var.network_tenant_id
 }
+
+provider "azurerm" {
+  features {}
+  alias           = "DCD-CNP"
+  subscription_id = var.dcd_cnp_subscription # "1c4f0704-a29e-403d-b719-b90c34ef14c9" # DCD-CNP-DEV
+}
