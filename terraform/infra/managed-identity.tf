@@ -27,7 +27,7 @@ resource "azurerm_role_assignment" "wowza_storage_rpa_mi" {
 
   scope                = module.wowza_recordings.storageaccount_id
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = data.azurerm_user_assigned_identity.rpa_mi.principal_id
+  principal_id         = data.azurerm_user_assigned_identity.rpa_mi[0].principal_id
 }
 
 resource "azurerm_role_definition" "blob-tag-writer" {
@@ -55,8 +55,8 @@ resource "azurerm_role_assignment" "wowza-sa-tag-role" {
   count = var.environment == "demo" ? 1 : 0
 
   scope              = module.wowza_recordings.storageaccount_id
-  role_definition_id = azurerm_role_definition.blob-tag-writer.role_definition_resource_id
-  principal_id       = data.azurerm_user_assigned_identity.rpa_mi.principal_id
+  role_definition_id = azurerm_role_definition.blob-tag-writer[0].role_definition_resource_id
+  principal_id       = data.azurerm_user_assigned_identity.rpa_mi[0].principal_id
 
   depends_on = [
     azurerm_role_definition.blob-tag-writer
