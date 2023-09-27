@@ -38,3 +38,8 @@ data "azurerm_user_assigned_identity" "vh_mi" {
   name                = "vh-${var.environment}-mi"
   resource_group_name = "managed-identities-${var.environment}-rg"
 }
+
+data "azurerm_user_assigned_identity" "rpa_mi" {
+  name                = "rpa-${var.environment}-mi"
+  resource_group_name = "managed-identities-${var.environment}-rg"
+}
