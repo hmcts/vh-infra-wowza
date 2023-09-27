@@ -114,6 +114,6 @@ variable "aks_address_space" {
 }
 
 variable "dcd_cnp_subscription" {
-  type = string
+  type    = string
   default = ""
 }
