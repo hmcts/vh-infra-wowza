@@ -22,7 +22,7 @@ resource "azurerm_role_assignment" "wowza_storage_vh_mi" {
   principal_id         = data.azurerm_user_assigned_identity.vh_mi.principal_id
 }
 
-resource "azurerm_role_assignment" "wowza_storage_vh_mi" {
+resource "azurerm_role_assignment" "wowza_storage_rpa_mi" {
   scope                = module.wowza_recordings.storageaccount_id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = data.azurerm_user_assigned_identity.rpa_mi.principal_id
