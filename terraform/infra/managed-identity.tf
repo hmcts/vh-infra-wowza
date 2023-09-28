@@ -42,7 +42,7 @@ resource "azurerm_role_definition" "blob-tag-writer" {
       "Microsoft.Storage/storageAccounts/blobServices/containers/read"
     ]
     not_actions = []
-    dataActions = [
+    data_actions = [
       "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read",
       "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/write",
       "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/read"
