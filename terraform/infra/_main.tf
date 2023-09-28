@@ -42,7 +42,7 @@ data "azurerm_user_assigned_identity" "vh_mi" {
 data "azurerm_user_assigned_identity" "rpa_mi" {
   count = var.environment == "demo" ? 1 : 0
 
-  provider = "dcd-cnp"
+  provider = azurerm.dcd-cnp
 
   name                = "rpa-${var.environment}-mi"
   resource_group_name = "managed-identities-${var.environment}-rg"
