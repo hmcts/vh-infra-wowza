@@ -30,38 +30,38 @@ resource "azurerm_role_assignment" "wowza_storage_rpa_mi" {
   principal_id         = data.azurerm_user_assigned_identity.rpa_mi[0].principal_id
 }
 
-resource "azurerm_role_definition" "blob-tag-writer" {
-  count = var.environment == "demo" ? 1 : 0
+# resource "azurerm_role_definition" "blob-tag-writer" {
+#   count = var.environment == "demo" ? 1 : 0
 
-  name        = "VH-BLOB-Tag-Writer-${var.environment}"
-  scope       = module.wowza_recordings.storageaccount_id
-  description = "Custom Role for managing tags in Wowza storage"
+#   name        = "VH-BLOB-Tag-Writer-${var.environment}"
+#   scope       = module.wowza_recordings.storageaccount_id
+#   description = "Custom Role for managing tags in Wowza storage"
 
-  permissions {
-    actions = [
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/write",
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/read",
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/filter/action",
-    ]
-    not_actions = []
-  }
+#   permissions {
+#     actions = [
+#       "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/write",
+#       "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/read",
+#       "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/filter/action",
+#     ]
+#     not_actions = []
+#   }
 
-  assignable_scopes = [
-    module.wowza_recordings.storageaccount_id,
-  ]
-}
+#   assignable_scopes = [
+#     module.wowza_recordings.storageaccount_id,
+#   ]
+# }
 
-resource "azurerm_role_assignment" "wowza-sa-tag-role" {
-  count = var.environment == "demo" ? 1 : 0
+# resource "azurerm_role_assignment" "wowza-sa-tag-role" {
+#   count = var.environment == "demo" ? 1 : 0
 
-  scope              = module.wowza_recordings.storageaccount_id
-  role_definition_id = azurerm_role_definition.blob-tag-writer[0].role_definition_resource_id
-  principal_id       = data.azurerm_user_assigned_identity.rpa_mi[0].principal_id
+#   scope              = module.wowza_recordings.storageaccount_id
+#   role_definition_id = azurerm_role_definition.blob-tag-writer[0].role_definition_resource_id
+#   principal_id       = data.azurerm_user_assigned_identity.rpa_mi[0].principal_id
 
-  depends_on = [
-    azurerm_role_definition.blob-tag-writer
-  ]
-}
+#   depends_on = [
+#     azurerm_role_definition.blob-tag-writer
+#   ]
+# }
 
 ###############################################################
 # Automation Account MI. ######################################
