@@ -40,8 +40,6 @@ data "azurerm_user_assigned_identity" "vh_mi" {
 }
 
 data "azurerm_user_assigned_identity" "rpa_mi_demo" {
-  count = var.environment == "demo" ? 1 : 0
-
   provider = azurerm.dcd-cnp-demo
 
   name                = "rpa-demo-mi"
@@ -49,8 +47,6 @@ data "azurerm_user_assigned_identity" "rpa_mi_demo" {
 }
 
 data "azurerm_user_assigned_identity" "rpa_mi_prod" {
-  count = var.environment == "prod" ? 1 : 0
-
   provider = azurerm.dcd-cnp-prod
 
   name                = "rpa-prod-mi"
