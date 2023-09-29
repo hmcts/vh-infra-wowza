@@ -23,7 +23,7 @@ resource "azurerm_role_assignment" "wowza_storage_vh_mi" {
 }
 
 resource "azurerm_role_assignment" "wowza_storage_rpa_mi" {
-  count = var.environment == "demo" ? 1 : 0
+  count = var.environment == "demo" || var.environment == "prod" ? 1 : 0
 
   scope                = module.wowza_recordings.storageaccount_id
   role_definition_name = "Storage Blob Data Contributor"
@@ -31,7 +31,7 @@ resource "azurerm_role_assignment" "wowza_storage_rpa_mi" {
 }
 
 resource "azurerm_role_definition" "blob-tag-writer" {
-  count = var.environment == "demo" ? 1 : 0
+  count = var.environment == "demo" || var.environment == "prod" ? 1 : 0
 
   name        = "VH-BLOB-Tag-Writer-${var.environment}"
   scope       = module.wowza_recordings.storageaccount_id
@@ -39,11 +39,14 @@ resource "azurerm_role_definition" "blob-tag-writer" {
 
   permissions {
     actions = [
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/write",
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/read",
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/filter/action",
+      "Microsoft.Storage/storageAccounts/blobServices/containers/read"
     ]
     not_actions = []
+    data_actions = [
+      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read",
+      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/write",
+      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/read"
+    ]
   }
 
   assignable_scopes = [
@@ -52,7 +55,7 @@ resource "azurerm_role_definition" "blob-tag-writer" {
 }
 
 resource "azurerm_role_assignment" "wowza-sa-tag-role" {
-  count = var.environment == "demo" ? 1 : 0
+  count = var.environment == "demo" || var.environment == "prod" ? 1 : 0
 
   scope              = module.wowza_recordings.storageaccount_id
   role_definition_id = azurerm_role_definition.blob-tag-writer[0].role_definition_resource_id

@@ -76,7 +76,7 @@ stages:
         dependsOnEnv: ${{ env.dependsOnEnv }}
         workingDirectory: ${{ variables.tfDirectory }}
 
-  - ${{ elseif eq(variables['Build.SourceBranchName'], 'master') }}:
+  - ${{ else }}:
       - template: templates/terraform-plan-apply.yaml
         parameters:
           terraformVersion: ${{ variables.tfVersion }}
