@@ -38,5 +38,3 @@ dynatrace_tenant = "ebe20728"
 wowza_lb_private_ip_address = "10.50.11.24"
 
 aks_address_space = "10.144.0.0/18"
-
-dcd_cnp_subscription = "8999dec3-0104-4a27-94ee-6588559729d1"

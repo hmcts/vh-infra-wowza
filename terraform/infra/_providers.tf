@@ -91,6 +91,12 @@ provider "azurerm" {
 
 provider "azurerm" {
   features {}
-  alias           = "dcd-cnp"
-  subscription_id = var.dcd_cnp_subscription # dcd-cnp-DEV
+  alias           = "dcd-cnp-prod"
+  subscription_id = "8999dec3-0104-4a27-94ee-6588559729d1" # dcd-cnp-DEV
+}
+
+provider "azurerm" {
+  features {}
+  alias           = "dcd-cnp-demo"
+  subscription_id = "1c4f0704-a29e-403d-b719-b90c34ef14c9" # dcd-cnp-DEV
 }
