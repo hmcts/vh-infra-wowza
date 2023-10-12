@@ -6,14 +6,6 @@ service_name = "vh-infra-wowza-ithc"
 
 schedules = [
   {
-    name      = "vm-on",
-    frequency = "Week"
-    interval  = 1
-    run_time  = "06:00:00"
-    start_vm  = true
-    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
-  },
-  {
     name      = "vm-off",
     frequency = "Week"
     interval  = 1
@@ -49,3 +41,5 @@ wowza_lb_private_ip_address = "10.100.197.219"
 aks_address_space = "10.143.0.0/18"
 
 wowza_instance_count = 2
+
+dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
