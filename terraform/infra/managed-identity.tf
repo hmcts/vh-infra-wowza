@@ -69,7 +69,7 @@ resource "azurerm_role_assignment" "wowza-sa-tag-role-demo" {
 
   scope              = module.wowza_recordings.storageaccount_id
   role_definition_id = azurerm_role_definition.blob-tag-writer[0].role_definition_resource_id
-  principal_id       = data.azurerm_user_assigned_identity.dcd-cnp-demo.principal_id
+  principal_id       = data.azurerm_user_assigned_identity.rpa_mi_demo.principal_id
 
   depends_on = [
     azurerm_role_definition.blob-tag-writer
@@ -81,7 +81,7 @@ resource "azurerm_role_assignment" "wowza-sa-tag-role-prod" {
 
   scope              = module.wowza_recordings.storageaccount_id
   role_definition_id = azurerm_role_definition.blob-tag-writer[0].role_definition_resource_id
-  principal_id       = data.azurerm_user_assigned_identity.dcd-cnp-prod.principal_id
+  principal_id       = data.azurerm_user_assigned_identity.rpa_mi_prod.principal_id
 
   depends_on = [
     azurerm_role_definition.blob-tag-writer
