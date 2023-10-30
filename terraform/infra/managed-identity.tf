@@ -22,6 +22,32 @@ resource "azurerm_role_assignment" "wowza_storage_vh_mi" {
   principal_id         = data.azurerm_user_assigned_identity.vh_mi.principal_id
 }
 
+## RPA Access (HRS -> Wowza Storage)
+
+resource "azurerm_role_definition" "blob-tag-writer" {
+  count = var.environment == "demo" || var.environment == "prod" ? 1 : 0
+
+  name        = "VH-BLOB-Tag-Writer-${var.environment}"
+  scope       = module.wowza_recordings.storageaccount_id
+  description = "Custom Role for managing tags in Wowza storage"
+
+  permissions {
+    actions = [
+      "Microsoft.Storage/storageAccounts/blobServices/containers/read" 
+    ]
+    not_actions = []
+    data_actions = [
+      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read",
+      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/write",
+      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/read"
+    ]
+  }
+
+  assignable_scopes = [
+    module.wowza_recordings.storageaccount_id,
+  ]
+}
+
 resource "azurerm_role_assignment" "wowza_storage_rpa_mi_demo" {
   count = var.environment == "demo" ? 1 : 0
 
@@ -36,29 +62,6 @@ resource "azurerm_role_assignment" "wowza_storage_rpa_mi_prod" {
   scope                = module.wowza_recordings.storageaccount_id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = data.azurerm_user_assigned_identity.rpa_mi_prod.principal_id
-}
-resource "azurerm_role_definition" "blob-tag-writer" {
-  count = var.environment == "demo" || var.environment == "prod" ? 1 : 0
-
-  name        = "VH-BLOB-Tag-Writer-${var.environment}"
-  scope       = module.wowza_recordings.storageaccount_id
-  description = "Custom Role for managing tags in Wowza storage"
-
-  permissions {
-    actions = [
-      "Microsoft.Storage/storageAccounts/blobServices/containers/read"
-    ]
-    not_actions = []
-    data_actions = [
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read",
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/write",
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/read"
-    ]
-  }
-
-  assignable_scopes = [
-    module.wowza_recordings.storageaccount_id,
-  ]
 }
 
 resource "azurerm_role_assignment" "wowza-sa-tag-role-demo" {

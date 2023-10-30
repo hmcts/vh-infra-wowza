@@ -3,16 +3,6 @@ provider "azurerm" {
 }
 
 provider "azurerm" {
-  alias = "dns"
-  features {}
-  tenant_id     = var.dns_tenant_id
-  client_id     = var.dns_client_id
-  client_secret = var.dns_client_secret
-
-  subscription_id = var.dns_subscription_id
-}
-
-provider "azurerm" {
   features {}
   alias                      = "private-endpoint-dns"
   skip_provider_registration = "true"
@@ -92,7 +82,7 @@ provider "azurerm" {
 provider "azurerm" {
   features {}
   alias           = "dcd-cnp-prod"
-  subscription_id = "8999dec3-0104-4a27-94ee-6588559729d1" # dcd-cnp-DEV
+  subscription_id = "8999dec3-0104-4a27-94ee-6588559729d1" # dcd-cnp-PROD
 }
 
 provider "azurerm" {
