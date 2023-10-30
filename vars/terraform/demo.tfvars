@@ -35,5 +35,3 @@ wowza_lb_private_ip_address = "10.254.0.232"
 aks_address_space = "10.51.64.0/18"
 
 wowza_instance_count = 2
-
-dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
