@@ -117,3 +117,8 @@ variable "dcd_cnp_subscription" {
   type    = string
   default = ""
 }
+
+variable "sa_default_action" {
+  type    = string
+  default = "Allow"
+}
