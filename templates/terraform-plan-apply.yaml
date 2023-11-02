@@ -83,7 +83,7 @@ stages:
         parameters:
           subscriptionName: ${{parameters.environmentServiceConnection}}
           resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
-          storageAccountName: "vhinfrawowza${{variables.environment}}"
+          storageAccountName: "vhinfrawowza${{ lower(variables.environment) }}"
           action: Allow
 
       - template: terraform-plan.yaml
@@ -134,7 +134,7 @@ stages:
               parameters:
                 subscriptionName: ${{parameters.environmentServiceConnection}}
                 resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
-                storageAccountName: "vhinfrawowza${{variables.environment}}"
+                storageAccountName: "vhinfrawowza${{ lower(variables.environment) }}"
                 action: Allow
                 
             - template: terraform-apply.yaml
