@@ -81,7 +81,7 @@ stages:
               
       - template: templates\Azure\Storage\firewall-update.yaml@templates
         parameters:
-          subscriptionName: ${{variables.subscriptionName}}
+          subscriptionName: ${{parameters.environmentServiceConnection}}
           resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
           storageAccountName: "vhinfrawowza${{variables.env}}"
           action: Allow
@@ -132,7 +132,7 @@ stages:
             steps:
             - template: templates\Azure\Storage\firewall-update.yaml@templates
               parameters:
-                subscriptionName: ${{variables.subscriptionName}}
+                subscriptionName: ${{parameters.environmentServiceConnection}}
                 resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
                 storageAccountName: "vhinfrawowza${{variables.env}}"
                 action: Allow
