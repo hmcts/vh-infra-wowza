@@ -13,27 +13,38 @@ resource "azurerm_monitor_diagnostic_setting" "storage_account" {
   }
 }
 
+resource "azurerm_monitor_diagnostic_setting" "storage_account_blob" {
+  name                       = "vh-sa-${var.environment}-diag-set-blob"
+  target_resource_id         = "${module.wowza_recordings.storageaccount_id}/blobServices/default"
+  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.core.id
+
+  enabled_log {
+    category = "StorageRead"
+
+  }
+  enabled_log {
+    category = "StorageWrite"
+  }
+  enabled_log {
+    category = "StorageDelete"
+  }
+  metric {
+    category = "Transaction"
+  }
+}
+
 resource "azurerm_monitor_diagnostic_setting" "nsg" {
   name                       = "vh-nsg-${var.environment}-diag-set"
   target_resource_id         = azurerm_network_security_group.wowza.id
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.core.id
 
-  log {
+  enabled_log {
     category = "NetworkSecurityGroupEvent"
-    enabled  = true
-    retention_policy {
-      days    = 0
-      enabled = false
-    }
   }
 
-  log {
+  enabled_log {
     category = "NetworkSecurityGroupRuleCounter"
-    enabled  = true
-    retention_policy {
-      days    = 0
-      enabled = false
-    }
+
   }
 }
 
@@ -47,10 +58,6 @@ resource "azurerm_monitor_diagnostic_setting" "nics" {
   metric {
     category = "AllMetrics"
     enabled  = true
-    retention_policy {
-      days    = 0
-      enabled = false
-    }
   }
 }
 
@@ -60,31 +67,15 @@ resource "azurerm_monitor_diagnostic_setting" "load_balancer" {
   target_resource_id         = azurerm_lb.wowza.id
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.core.id
 
-  log {
+  enabled_log {
     category = "LoadBalancerAlertEvent"
-    enabled  = true
-
-    retention_policy {
-      enabled = false
-    }
   }
-
-  log {
+  enabled_log {
     category = "LoadBalancerProbeHealthStatus"
-    enabled  = true
-
-    retention_policy {
-      enabled = false
-    }
   }
-
   metric {
     category = "AllMetrics"
     enabled  = true
-
-    retention_policy {
-      enabled = false
-    }
   }
 }
 
@@ -93,30 +84,14 @@ resource "azurerm_monitor_diagnostic_setting" "load_balancer_public" {
   target_resource_id         = azurerm_lb.wowza-public.id
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.core.id
 
-  log {
+  enabled_log {
     category = "LoadBalancerAlertEvent"
-    enabled  = true
-
-    retention_policy {
-      enabled = false
-    }
   }
-
-  log {
+  enabled_log {
     category = "LoadBalancerProbeHealthStatus"
-    enabled  = true
-
-    retention_policy {
-      enabled = false
-    }
   }
-
   metric {
     category = "AllMetrics"
     enabled  = true
-
-    retention_policy {
-      enabled = false
-    }
   }
 }
