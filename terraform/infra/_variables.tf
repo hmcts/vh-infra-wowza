@@ -128,3 +128,9 @@ variable "delete_after_days_since_creation_greater_than" {
   default     = 90
   description = "Number of days to keep an ingest file for before deleting it. Default 90 days"
 }
+
+variable "storage_policy_enabled" {
+  type        = bool
+  default     = false
+  description = "Status of the storage account lifecycle policy. Default 'false'"
+}

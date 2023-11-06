@@ -44,7 +44,7 @@ resource "azurerm_storage_management_policy" "example" {
 
   rule {
     name    = "HRS_Ingest"
-    enabled = true
+    enabled = var.storage_policy_enabled
     filters {
       blob_types = ["blockBlob"]
       match_blob_index_tag {
