@@ -37,6 +37,30 @@ module "wowza_recordings" {
   containers = local.containers
 }
 
+# policy created outside of the SA module as the module does not allow for index tags filter
+# TODO: add functionallity to module
+resource "azurerm_storage_management_policy" "example" {
+  storage_account_id = module.wowza_recordings.storageaccount_id
+
+  rule {
+    name    = "HRS_Ingest"
+    enabled = true
+    filters {
+      blob_types   = ["blockBlob"]
+      match_blob_index_tag {
+        name      = "processed"
+        operation = "=="
+        value     = "true"
+      }
+    }
+    actions {
+      base_blob {
+        delete_after_days_since_creation_greater_than = var.delete_after_days_since_creation_greater_than
+      }
+    }
+  }
+}
+
 resource "azurerm_private_endpoint" "wowza_storage" {
   name = "${module.wowza_recordings.storageaccount_name}-storage-endpoint"
 
