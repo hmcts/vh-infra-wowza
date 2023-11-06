@@ -11,7 +11,7 @@ schedules = [
     interval  = 1
     run_time  = "19:00:00"
     start_vm  = false
-    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
+    week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
   }
 ]
 
@@ -35,3 +35,6 @@ wowza_lb_private_ip_address = "10.254.0.232"
 aks_address_space = "10.51.64.0/18"
 
 wowza_instance_count = 2
+
+delete_after_days_since_creation_greater_than = 10
+storage_policy_enabled = true
