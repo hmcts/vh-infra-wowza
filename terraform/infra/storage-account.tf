@@ -52,6 +52,7 @@ resource "azurerm_storage_management_policy" "example" {
         operation = "=="
         value     = "true"
       }
+      prefix_match = [local.recordings_container_name]
     }
     actions {
       base_blob {
