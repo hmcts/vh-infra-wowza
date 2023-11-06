@@ -6,19 +6,10 @@ resource "azurerm_monitor_diagnostic_setting" "storage_account" {
   metric {
     category = "Capacity"
     enabled  = true
-
-    retention_policy {
-      enabled = false
-    }
   }
   metric {
-
     category = "Transaction"
     enabled  = true
-
-    retention_policy {
-      enabled = false
-    }
   }
 }
 
