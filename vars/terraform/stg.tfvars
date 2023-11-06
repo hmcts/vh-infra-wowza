@@ -47,4 +47,6 @@ dynatrace_tenant = "yrk32651"
 
 wowza_lb_private_ip_address = "10.50.10.120"
 
+dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
+
 aks_address_space = "10.148.0.0/18"

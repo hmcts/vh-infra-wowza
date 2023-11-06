@@ -50,4 +50,6 @@ aks_address_space = "10.141.0.0/18"
 
 wowza_instance_count = 2
 
+dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
+
 sa_default_action = "Deny"
