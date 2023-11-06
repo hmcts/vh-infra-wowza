@@ -124,7 +124,7 @@ variable "sa_default_action" {
 }
 
 variable "delete_after_days_since_creation_greater_than" {
-  type = number
-  default = 90
+  type        = number
+  default     = 90
   description = "Number of days to keep an ingest file for before deleting it. Default 90 days"
 }

@@ -46,7 +46,7 @@ resource "azurerm_storage_management_policy" "example" {
     name    = "HRS_Ingest"
     enabled = true
     filters {
-      blob_types   = ["blockBlob"]
+      blob_types = ["blockBlob"]
       match_blob_index_tag {
         name      = "processed"
         operation = "=="
