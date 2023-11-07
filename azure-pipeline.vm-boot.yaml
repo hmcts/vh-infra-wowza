@@ -29,7 +29,8 @@ jobs:
   - powershell: |
       $buildName = "$(Build.BuildNumber) - ${{ parameters.environment }} [${{ parameters.vms }}]"
       write-host $buildName
-      write-host ##vso[build.updatebuildnumber]$buildName
+      write-host "##vso[build.updatebuildnumber]$buildName"
+    displayName: Update Build Name
   - task: AzureCLI@2
     displayName: Spin up VMs
     inputs:
