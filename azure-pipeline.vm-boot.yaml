@@ -35,7 +35,7 @@ jobs:
       scriptLocation: inlineScript
       inlineScript: |
         $env = "${{ parameters.environment }}"
-        $vms = az vm list --resource-group vh-infra-wowza-$env -d --query "[?starts_with(name,'vh-infra-wowza-')].{Name:name, ID:id, State:powerState}"
+        $vms = (az vm list --resource-group vh-infra-wowza-ithc -d --query "[?starts_with(name,'vh-infra-wowza-')].{Name:name }" | ConvertFrom-Json).Name -Join ','
         Write-Host "##vso[task.setvariable variable=vms;isOutput=true]$vms"
 - job:
   dependsOn: getvms
