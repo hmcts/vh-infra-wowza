@@ -50,3 +50,5 @@ wowza_lb_private_ip_address = "10.23.255.216"
 aks_address_space = "10.141.0.0/18"
 
 wowza_instance_count = 2
+
+sa_default_action = "Deny"
