@@ -27,7 +27,7 @@ jobs:
 - job:
   steps:
   - powershell: |
-      ##vso[build.updatebuildnumber]$(Build.BuildNumber) - ${{ parameters.environment }} [${{ parameters.vms }}]
+      write-host ##vso[build.updatebuildnumber]$(Build.BuildNumber) - ${{ parameters.environment }} [${{ parameters.vms }}]
   - task: AzureCLI@2
     displayName: Spin up VMs
     inputs:
