@@ -1,0 +1,38 @@
+trigger: none
+
+pr: none
+
+parameters:
+- name: environment
+  type: string
+  values:
+  - 'ITHC'
+  - 'TEST'
+  - 'STG'
+  - 'SBOX'
+  - 'DEMO'
+
+- name: vms
+  displayName: 'How many VMs to spin up?'
+  type: number
+  default: 1
+  values:
+  - 1
+  - 2
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job:
+  steps:
+  - task: AzureCLI@2
+    displayName: Spin up VMs
+    inputs:
+      azureSubscription: DTS-SHAREDSERVICES-${{ parameters.environment }}-Video Hearings
+      scriptType: pscore
+      scriptLocation: inlineScript
+      inlineScript: |
+        write-host ${{ parameters.environment }}
+        write-host ${{ parameters.vms }}
+  
