@@ -32,5 +32,5 @@ jobs:
       azureSubscription: 'DTS-SHAREDSERVICES-${{ parameters.environment }}-Video Hearings'
       scriptType: 'pscore'
       scriptLocation: 'scriptPath'
-      scriptPath: '/scripts/set-vmStatus.ps1'
+      scriptPath: 'scripts\set-vmStatus.ps1'
       arguments: '-env ${{ parameters.environment }} -vm_number ${{ parameters.vms }}'
