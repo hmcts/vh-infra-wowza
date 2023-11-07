@@ -4,6 +4,7 @@ pr: none
 
 parameters:
 - name: environment
+  displayName: WWowza Environment
   type: string
   values:
   - 'ITHC'
@@ -13,10 +14,10 @@ parameters:
   - 'DEMO'
 
 - name: vms
-  displayName: 'How many VMs to spin up?'
+  displayName: 'Number of Wowza VMs that should be running?'
   type: number
-  default: 1
   values:
+  - 0
   - 1
   - 2
 
