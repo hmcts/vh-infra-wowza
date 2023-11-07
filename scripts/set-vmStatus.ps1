@@ -6,7 +6,7 @@ param (
 
 # Set build name
 $running_vms = (az vm list --resource-group vh-infra-wowza-ithc -d --query "[?starts_with(name,'vh-infra-wowza-') && contains(['VM running','VM starting'],powerState)].{Name:name, ID:id, State:powerState}" | ConvertFrom-Json).Count
-$buildName = "$buildNmuber - $env} [$running_vms -> $vm_number]"
+$buildName = "$buildNmuber - $env [$running_vms->$vm_number]"
 write-host "##vso[build.updatebuildnumber]$buildName"
 
 $vms = az vm list --resource-group vh-infra-wowza-$env -d --query "[?starts_with(name,'vh-infra-wowza-')].{Name:name, ID:id, State:powerState}" | ConvertFrom-Json

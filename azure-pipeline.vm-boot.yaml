@@ -25,7 +25,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 jobs:
-- job:
+- job: Set Wowza VMs
   steps:
   - task: AzureCLI@2
     displayName: Spin up VMs
