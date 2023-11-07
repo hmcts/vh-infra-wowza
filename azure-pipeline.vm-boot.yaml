@@ -24,25 +24,11 @@ pool:
   vmImage: 'ubuntu-latest'
 
 jobs:
-- job: getvms
+- job:
   steps:
   - task: AzureCLI@2
-    displayName: Get VMs
-    name: getvms
+    displayName: Spin up VMs
     inputs:
       azureSubscription: DTS-SHAREDSERVICES-${{ parameters.environment }}-Video Hearings
       scriptType: pscore
       scriptLocation: inlineScript
-      inlineScript: |
-        $env = "${{ parameters.environment }}"
-        $vms = (az vm list --resource-group vh-infra-wowza-ithc -d --query "[?starts_with(name,'vh-infra-wowza-')].{Name:name }" | ConvertFrom-Json).Name -Join ','
-        Write-Host "##vso[task.setvariable variable=vms;isOutput=true]$vms"
-- job:
-  dependsOn: getvms
-  variables: 
-    vms: $[ dependencies.getvms.outputs['getvms.vms'] ]
-  steps:
-  - powershell: | 
-      $(vms)
-
-  
