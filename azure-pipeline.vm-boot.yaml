@@ -34,7 +34,7 @@ jobs:
       scriptType: pscore
       scriptLocation: inlineScript
       inlineScript: |
-        $env = "${{ parameters.environment }}""
+        $env = "${{ parameters.environment }}"
         $vms = az vm list --resource-group vh-infra-wowza-$env -d --query "[?starts_with(name,'vh-infra-wowza-')].{Name:name, ID:id, State:powerState}"
         Write-Host "##vso[task.setvariable variable=vms;isOutput=true]$vms"
 - job:
