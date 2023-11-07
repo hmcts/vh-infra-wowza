@@ -27,11 +27,6 @@ pool:
 jobs:
 - job:
   steps:
-  - powershell: |
-      $buildName = "$(Build.BuildNumber) - ${{ parameters.environment }} [${{ parameters.vms }}]"
-      write-host $buildName
-      write-host "##vso[build.updatebuildnumber]$buildName"
-    displayName: Update Build Name
   - task: AzureCLI@2
     displayName: Spin up VMs
     inputs:
@@ -39,4 +34,4 @@ jobs:
       scriptType: 'pscore'
       scriptLocation: 'scriptPath'
       scriptPath: 'scripts/set-vmStatus.ps1'
-      arguments: '-env ${{ parameters.environment }} -vm_number ${{ parameters.vms }}'
+      arguments: '-env ${{ parameters.environment }} -vm_number ${{ parameters.vms }} -buildNumber $(Build.BuildNumber)'
