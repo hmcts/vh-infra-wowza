@@ -1,0 +1,38 @@
+trigger: none
+
+pr: none
+
+parameters:
+- name: environment
+  displayName: WWowza Environment
+  type: string
+  values:
+  - 'ITHC'
+  - 'TEST'
+  - 'STG'
+  - 'SBOX'
+  - 'DEMO'
+
+- name: vms
+  displayName: 'Number of Wowza VMs that should be running?'
+  type: number
+  values:
+  - 0
+  - 1
+  - 2
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: SetWowzaVMs
+  displayName: Set Wowza VMs
+  steps:
+  - task: AzureCLI@2
+    displayName: Spin up VMs
+    inputs:
+      azureSubscription: 'DTS-SHAREDSERVICES-${{ parameters.environment }}-Video Hearings'
+      scriptType: 'pscore'
+      scriptLocation: 'scriptPath'
+      scriptPath: 'scripts/set-vmStatus.ps1'
+      arguments: '-env ${{ parameters.environment }} -vm_number ${{ parameters.vms }} -buildNumber $(Build.BuildNumber)'
