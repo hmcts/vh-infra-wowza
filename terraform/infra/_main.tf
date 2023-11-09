@@ -39,11 +39,16 @@ data "azurerm_user_assigned_identity" "vh_mi" {
   resource_group_name = "managed-identities-${var.environment}-rg"
 }
 
-data "azurerm_user_assigned_identity" "rpa_mi" {
-  count = var.environment == "demo" ? 1 : 0
+data "azurerm_user_assigned_identity" "rpa_mi_demo" {
+  provider = azurerm.dcd-cnp-demo
 
-  provider = azurerm.dcd-cnp
+  name                = "rpa-demo-mi"
+  resource_group_name = "managed-identities-demo-rg"
+}
 
-  name                = "rpa-${var.environment}-mi"
-  resource_group_name = "managed-identities-${var.environment}-rg"
+data "azurerm_user_assigned_identity" "rpa_mi_prod" {
+  provider = azurerm.dcd-cnp-prod
+
+  name                = "rpa-prod-mi"
+  resource_group_name = "managed-identities-prod-rg"
 }
