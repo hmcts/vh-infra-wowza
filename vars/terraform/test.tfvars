@@ -35,6 +35,7 @@ route_table = [
     next_hop_in_ip_address = null
   }
 ]
+dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
 
 wowza_lb_private_ip_address = "10.23.255.216"
 
@@ -47,3 +48,4 @@ os_disk_size = "512"
 os_disk_type = "StandardSSD_LRS"
 
 sa_default_action = "Deny"
+
