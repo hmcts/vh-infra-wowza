@@ -5,11 +5,9 @@ resource "azurerm_monitor_diagnostic_setting" "storage_account" {
 
   metric {
     category = "Capacity"
-    enabled  = true
   }
   metric {
     category = "Transaction"
-    enabled  = true
   }
 }
 
@@ -30,6 +28,9 @@ resource "azurerm_monitor_diagnostic_setting" "storage_account_blob" {
   }
   metric {
     category = "Transaction"
+  }
+  metric {
+    category = "Capacity"
   }
 }
 
