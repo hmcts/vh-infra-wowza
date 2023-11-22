@@ -46,6 +46,10 @@ variable "os_disk_type" {
   default = "Premium_LRS"
 }
 
+variable "os_disk_size" {
+  type    = number
+  default = 1024
+}
 variable "cloud_init_file" {
   description = "The location of the cloud init configuration file."
   type        = string

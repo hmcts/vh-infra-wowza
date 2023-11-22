@@ -42,4 +42,8 @@ aks_address_space = "10.143.0.0/18"
 
 wowza_instance_count = 2
 
+# OS disk - E20
+os_disk_size = "512"
+os_disk_type = "StandardSSD_LRS"
+
 dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
