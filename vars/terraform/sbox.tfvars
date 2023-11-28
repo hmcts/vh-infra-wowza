@@ -26,3 +26,7 @@ route_table = [
     next_hop_in_ip_address = null
   }
 ]
+
+# OS disk - E20
+os_disk_size = "512"
+os_disk_type = "StandardSSD_LRS"

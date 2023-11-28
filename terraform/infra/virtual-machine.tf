@@ -57,7 +57,7 @@ resource "azurerm_linux_virtual_machine" "wowza" {
     name                 = "${var.service_name}-${count.index + 1}-OsDisk"
     caching              = "ReadWrite"
     storage_account_type = var.os_disk_type
-    disk_size_gb         = 1024
+    disk_size_gb         = var.os_disk_size
   }
 
   provision_vm_agent = true

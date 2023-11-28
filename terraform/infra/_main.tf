@@ -18,10 +18,10 @@ data "azurerm_key_vault" "vh-infra-core" {
   resource_group_name = data.azurerm_resource_group.vh-infra-core.name
 }
 
-data "azurerm_key_vault_certificate" "vh-wildcard" {
-  name         = "wildcard-hearings-reform-hmcts-net"
-  key_vault_id = data.azurerm_key_vault.vh-infra-core.id
-}
+# data "azurerm_key_vault_certificate" "vh-wildcard" {
+#   name         = "wildcard-hearings-reform-hmcts-net"
+#   key_vault_id = data.azurerm_key_vault.vh-infra-core.id
+# }
 
 data "azurerm_private_dns_zone" "core-infra-intsvc" {
   provider            = azurerm.private-endpoint-dns

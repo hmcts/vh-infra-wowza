@@ -30,9 +30,6 @@ module "wowza_recordings" {
   enable_data_protection = true
   enable_change_feed     = true
 
-  team_name    = "VH"
-  team_contact = "#vh-devops"
-
   tables     = local.tables
   containers = local.containers
 }
