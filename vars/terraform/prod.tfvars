@@ -3,6 +3,7 @@ location = "uksouth"
 address_space = "10.50.11.16/28"
 
 service_name = "vh-infra-wowza-prod"
+retention_period = 14
 
 schedules = [
   {
