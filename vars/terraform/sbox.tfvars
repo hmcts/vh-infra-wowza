@@ -1,5 +1,6 @@
 location = "uksouth"
 service_name = "vh-infra-wowza-sbox"
+retention_period = 7
 
 schedules = [
   {

@@ -29,6 +29,7 @@ module "wowza_recordings" {
 
   enable_data_protection = true
   enable_change_feed     = true
+  retention_period       = var.retention_period
 
   tables     = local.tables
   containers = local.containers
