@@ -135,7 +135,7 @@ variable "delete_after_days_since_creation_greater_than" {
 
 variable "storage_policy_enabled" {
   type        = bool
-  default     = true  #Changed for HRS integration
+  default     = true #Changed for HRS integration
   description = "Status of the storage account lifecycle policy. Default 'false'"
 }
 
