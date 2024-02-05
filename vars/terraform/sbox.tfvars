@@ -1,5 +1,5 @@
-location = "uksouth"
-service_name = "vh-infra-wowza-sbox"
+location         = "uksouth"
+service_name     = "vh-infra-wowza-sbox"
 retention_period = 7
 
 schedules = [
@@ -9,7 +9,7 @@ schedules = [
     interval  = 1
     run_time  = "19:00:00"
     start_vm  = false
-    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
+    week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
   }
 ]
 
