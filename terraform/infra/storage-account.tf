@@ -3,8 +3,12 @@ locals {
   containers = [{
     name        = local.recordings_container_name
     access_type = "private"
+    },
+    {
+      name        = local.recordings_container_name_backup
+      access_type = "private"
   }]
-  recordings_container_name = "recordings"
+  recordings_container_name_backup = "recordings-backup"
 }
 
 #tfsec:ignore:azure-storage-default-action-deny
