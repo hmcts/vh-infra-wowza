@@ -7,7 +7,7 @@ schedules:
   displayName: Weekly Pipeline Schedule
   branches:
     include:
-    - VIH-10617-VM-Boot-Cron
+    - master
   always: true
 
 parameters:
