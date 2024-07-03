@@ -127,6 +127,12 @@ variable "sa_default_action" {
   default = "Allow"
 }
 
+variable "sa_subnets" {
+  type        = list(string)
+  description = "(Optional) List of subnet ID's which will have access to this storage account."
+  default     = []
+}
+
 variable "delete_after_days_since_creation_greater_than" {
   type        = number
   default     = 90
@@ -144,3 +150,4 @@ variable "retention_period" {
   default     = 365
   description = "(Optional) Specifies the number of days that the blob should be retained, between 1 and 365 days. Defaults to 365"
 }
+
