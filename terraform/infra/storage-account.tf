@@ -11,23 +11,23 @@ locals {
 module "wowza_recordings" {
   source = "git::https://github.com/hmcts/cnp-module-storage-account?ref=master"
 
-  env = var.environment
-  storage_account_name = replace(lower(var.service_name), "-", "")
-  common_tags          = local.common_tags
-  default_action = var.sa_default_action
-  sa_subnets = var.sa_subnets
-  resource_group_name = azurerm_resource_group.wowza.name
-  location            = azurerm_resource_group.wowza.location
+  env                             = var.environment
+  storage_account_name            = replace(lower(var.service_name), "-", "")
+  common_tags                     = local.common_tags
+  default_action                  = var.sa_default_action
+  sa_subnets                      = var.sa_subnets
+  resource_group_name             = azurerm_resource_group.wowza.name
+  location                        = azurerm_resource_group.wowza.location
   access_tier                     = "Cool"
   account_kind                    = "StorageV2"
   account_tier                    = "Standard"
   account_replication_type        = "RAGRS"
   allow_nested_items_to_be_public = "true"
-  enable_data_protection = true
-  enable_change_feed     = true
-  retention_period       = var.retention_period
-  tables     = local.tables
-  containers = local.containers
+  enable_data_protection          = true
+  enable_change_feed              = true
+  retention_period                = var.retention_period
+  tables                          = local.tables
+  containers                      = local.containers
 }
 
 # policy created outside of the SA module as the module does not allow for index tags filter
