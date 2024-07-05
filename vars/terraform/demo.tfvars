@@ -33,4 +33,6 @@ aks_address_space                             = "10.51.64.0/18"
 wowza_instance_count                          = 2
 delete_after_days_since_creation_greater_than = 10
 storage_policy_enabled                        = true
-sa_subnets                                    = ["/subscriptions/c68a4bed-4c3d-4956-af51-4ae164c1957c/resourceGroups/vh-infra-wowza-demo/providers/Microsoft.Network/virtualNetworks/vh-infra-wowza-demo/subnets/wowza"]
+sa_subnets  = []
+
+#sa_subnets                                    = ["/subscriptions/c68a4bed-4c3d-4956-af51-4ae164c1957c/resourceGroups/vh-infra-wowza-demo/providers/Microsoft.Network/virtualNetworks/vh-infra-wowza-demo/subnets/wowza"]
