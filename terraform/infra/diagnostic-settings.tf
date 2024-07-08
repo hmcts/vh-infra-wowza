@@ -69,11 +69,9 @@ resource "azurerm_monitor_diagnostic_setting" "load_balancer" {
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.core.id
 
   enabled_log {
-    category = "LoadBalancerAlertEvent"
+    category = "LoadBalancerHealthEvent"
   }
-  enabled_log {
-    category = "LoadBalancerProbeHealthStatus"
-  }
+
   metric {
     category = "AllMetrics"
     enabled  = true
@@ -86,10 +84,7 @@ resource "azurerm_monitor_diagnostic_setting" "load_balancer_public" {
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.core.id
 
   enabled_log {
-    category = "LoadBalancerAlertEvent"
-  }
-  enabled_log {
-    category = "LoadBalancerProbeHealthStatus"
+    category = "LoadBalancerHealthEvent"
   }
   metric {
     category = "AllMetrics"

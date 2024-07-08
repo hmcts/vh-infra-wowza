@@ -7,11 +7,11 @@ resource "azurerm_virtual_network" "wowza" {
 }
 
 resource "azurerm_subnet" "wowza" {
-  name                 = "wowza"
-  resource_group_name  = azurerm_resource_group.wowza.name
-  virtual_network_name = azurerm_virtual_network.wowza.name
-  address_prefixes     = [var.address_space]
-
+  name                                          = "wowza"
+  resource_group_name                           = azurerm_resource_group.wowza.name
+  virtual_network_name                          = azurerm_virtual_network.wowza.name
+  address_prefixes                              = [var.address_space]
   private_endpoint_network_policies_enabled     = true
   private_link_service_network_policies_enabled = true
+  service_endpoints                             = var.service_endpoints
 }
