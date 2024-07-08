@@ -133,6 +133,11 @@ variable "sa_subnets" {
   default     = []
 }
 
+variable "service_endpoints" {
+  type        = list(string)
+  description = "(Optional) List of service_endpoints."
+  default     = []
+}
 variable "delete_after_days_since_creation_greater_than" {
   type        = number
   default     = 90
