@@ -1201,12 +1201,12 @@ write_files:
         logFolder='/home/wowza/logs'
         mkdir -p $logFolder
         echo "*/5 * * * * /home/wowza/mount.sh $1 $2 $3 >> $logFolder/wowza_mount.log 2>&1" >> $cronTaskPathRoot
-        echo "0 0 * * * /home/wowza/renew-cert.sh >> $logFolder/renew-cert.log" >> $cronTaskPathRoot    
+        echo "10 8 * * * /home/wowza/renew-cert.sh >> $logFolder/renew-cert.log" >> $cronTaskPathRoot    
 
         # Cron For Certs. Filesizes and BlobMounts
         if [[ $HOSTNAME == *"prod"* ]] || [[ $HOSTNAME == *"stg"* ]]; then
-          echo "10 0 * * * /home/wowza/check-cert.sh" >> $cronTaskPath
-          echo "10 0 * * * /home/wowza/check-file-size.sh" >> $cronTaskPath
+          echo "10 8 * * * /home/wowza/check-cert.sh" >> $cronTaskPath
+          echo "10 8 * * * /home/wowza/check-file-size.sh" >> $cronTaskPath
           echo "*/15 * * * * /home/wowza/check-blobMount.sh" >> $cronTaskPath
         fi
 
