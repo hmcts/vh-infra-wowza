@@ -71,9 +71,6 @@ resource "azurerm_monitor_diagnostic_setting" "load_balancer" {
   enabled_log {
     category = "LoadBalancerAlertEvent"
   }
-  enabled_log {
-    category = "LoadBalancerProbeHealthStatus"
-  }
   metric {
     category = "AllMetrics"
     enabled  = true
@@ -87,9 +84,6 @@ resource "azurerm_monitor_diagnostic_setting" "load_balancer_public" {
 
   enabled_log {
     category = "LoadBalancerAlertEvent"
-  }
-  enabled_log {
-    category = "LoadBalancerProbeHealthStatus"
   }
   metric {
     category = "AllMetrics"
