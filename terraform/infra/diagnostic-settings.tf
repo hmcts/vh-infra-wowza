@@ -68,9 +68,13 @@ resource "azurerm_monitor_diagnostic_setting" "load_balancer" {
   target_resource_id         = azurerm_lb.wowza.id
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.core.id
 
-  enabled_log {
-    category = "LoadBalancerAlertEvent"
-  }
+  //Unsupported
+  # enabled_log {
+  #   category = "LoadBalancerAlertEvent"
+  # }
+  # enabled_log {
+  #   category = "LoadBalancerProbeHealthStatus"
+  # }
   metric {
     category = "AllMetrics"
     enabled  = true
@@ -82,9 +86,13 @@ resource "azurerm_monitor_diagnostic_setting" "load_balancer_public" {
   target_resource_id         = azurerm_lb.wowza-public.id
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.core.id
 
-  enabled_log {
-    category = "LoadBalancerAlertEvent"
-  }
+  //Unsupported
+  # enabled_log {
+  #   category = "LoadBalancerAlertEvent"
+  # }
+  # enabled_log {
+  #   category = "LoadBalancerProbeHealthStatus"
+  # }
   metric {
     category = "AllMetrics"
     enabled  = true
