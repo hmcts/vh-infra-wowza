@@ -2,7 +2,6 @@ resource "azurerm_route_table" "wowza" {
   name                          = var.service_name
   location                      = azurerm_resource_group.wowza.location
   resource_group_name           = azurerm_resource_group.wowza.name
-  bgp_route_propagation_enabled = true
   tags                          = local.common_tags
 
   dynamic "route" {
