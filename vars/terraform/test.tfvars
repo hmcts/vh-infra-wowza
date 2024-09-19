@@ -5,6 +5,14 @@ address_space = "10.23.255.208/28"
 service_name = "vh-infra-wowza-test"
 
 schedules = [
+   {
+    name      = "vm-on",
+    frequency = "Week"
+    interval  = 1
+    run_time  = "08:00:00"
+    start_vm  = true
+    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
+  },
   {
     name      = "vm-off",
     frequency = "Week"
@@ -46,9 +54,3 @@ dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
 wowza_lb_private_ip_address = "10.23.255.216"
 
 aks_address_space = "10.141.0.0/18"
-
-wowza_instance_count = 2
-
-
-sa_default_action = "Deny"
-

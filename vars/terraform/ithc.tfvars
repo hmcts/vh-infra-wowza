@@ -40,8 +40,6 @@ wowza_lb_private_ip_address = "10.100.197.219"
 
 aks_address_space = "10.143.0.0/18"
 
-wowza_instance_count = 2
-
 # OS disk - E20
 os_disk_size = "512"
 os_disk_type = "StandardSSD_LRS"
