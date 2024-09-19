@@ -54,9 +54,3 @@ dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
 wowza_lb_private_ip_address = "10.23.255.216"
 
 aks_address_space = "10.141.0.0/18"
-
-wowza_instance_count = 2
-
-
-sa_default_action = "Deny"
-
