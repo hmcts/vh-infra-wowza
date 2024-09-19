@@ -2,7 +2,6 @@ locals {
   publisher = "wowza"
   offer     = "wowzastreamingengine"
   sku       = "linux-paid-4-8"
-  version   = "4.8.28"
 }
 
 ##########################################################
@@ -68,7 +67,7 @@ resource "azurerm_linux_virtual_machine" "wowza" {
     publisher = local.publisher
     offer     = local.offer
     sku       = local.sku
-    version   = local.version
+    version   = var.vm_image_version
   }
 
   plan {

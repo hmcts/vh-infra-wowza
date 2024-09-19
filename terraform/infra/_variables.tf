@@ -36,6 +36,11 @@ variable "vm_size" {
   default = "Standard_D4ds_v5"
 }
 
+variable "vm_image_version" {
+  type    = string
+  default = "4.8.28"
+}
+
 variable "admin_user" {
   type    = string
   default = "wowza"
