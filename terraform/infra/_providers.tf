@@ -1,19 +1,20 @@
 provider "azurerm" {
   features {}
+  skip_provider_registration = true
 }
 
 provider "azurerm" {
   features {}
   alias                      = "private-endpoint-dns"
-  skip_provider_registration = "true"
   subscription_id            = "1baf5470-1c3e-40d3-a6f7-74bfbce4b348"
+  skip_provider_registration = true
 }
 
 provider "azurerm" {
   features {}
   alias                      = "hearings-dns"
-  skip_provider_registration = "true"
   subscription_id            = "4bb049c8-33f3-4860-91b4-9ee45375cc18"
+  skip_provider_registration = true
 }
 
 provider "azurerm" { ## TODO: delete after first run. needs to be left in to remove tf state reference
@@ -23,6 +24,7 @@ provider "azurerm" { ## TODO: delete after first run. needs to be left in to rem
   client_id       = var.network_client_id
   client_secret   = var.network_client_secret
   tenant_id       = var.network_tenant_id
+  skip_provider_registration = true
 }
 
 provider "azurerm" {
@@ -32,6 +34,7 @@ provider "azurerm" {
   client_id       = var.network_client_id
   client_secret   = var.network_client_secret
   tenant_id       = var.network_tenant_id
+  skip_provider_registration = true
 }
 
 provider "azurerm" {
@@ -41,6 +44,7 @@ provider "azurerm" {
   client_id       = var.network_client_id
   client_secret   = var.network_client_secret
   tenant_id       = var.network_tenant_id
+  skip_provider_registration = true
 }
 
 provider "azurerm" {
@@ -50,6 +54,7 @@ provider "azurerm" {
   client_id       = var.network_client_id
   client_secret   = var.network_client_secret
   tenant_id       = var.network_tenant_id
+  skip_provider_registration = true
 }
 
 provider "azurerm" {
@@ -59,6 +64,7 @@ provider "azurerm" {
   client_id       = var.network_client_id
   client_secret   = var.network_client_secret
   tenant_id       = var.network_tenant_id
+  skip_provider_registration = true
 }
 
 provider "azurerm" {
@@ -68,6 +74,7 @@ provider "azurerm" {
   client_id       = var.network_client_id
   client_secret   = var.network_client_secret
   tenant_id       = var.network_tenant_id
+  skip_provider_registration = true
 }
 
 provider "azurerm" {
@@ -77,16 +84,19 @@ provider "azurerm" {
   client_id       = var.network_client_id
   client_secret   = var.network_client_secret
   tenant_id       = var.network_tenant_id
+  skip_provider_registration = true
 }
 
 provider "azurerm" {
   features {}
   alias           = "dcd-cnp-prod"
   subscription_id = "8999dec3-0104-4a27-94ee-6588559729d1" # dcd-cnp-PROD
+  skip_provider_registration = true
 }
 
 provider "azurerm" {
   features {}
   alias           = "dcd-cnp-demo"
   subscription_id = "1c4f0704-a29e-403d-b719-b90c34ef14c9" # dcd-cnp-DEV
+  skip_provider_registration = true
 }
