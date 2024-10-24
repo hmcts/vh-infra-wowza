@@ -127,11 +127,6 @@ variable "dcd_cnp_subscription" {
   default = ""
 }
 
-variable "sa_default_action" {
-  type    = string
-  default = "Allow"
-}
-
 variable "delete_after_days_since_creation_greater_than" {
   type        = number
   default     = 90

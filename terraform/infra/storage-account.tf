@@ -16,8 +16,6 @@ module "wowza_recordings" {
   storage_account_name = replace(lower(var.service_name), "-", "")
   common_tags          = local.common_tags
 
-  default_action = var.sa_default_action
-
   resource_group_name = azurerm_resource_group.wowza.name
   location            = azurerm_resource_group.wowza.location
 
