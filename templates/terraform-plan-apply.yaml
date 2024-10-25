@@ -47,66 +47,66 @@ parameters:
   default: false
 
 stages:
-# - stage: 'Terraform_Plan_${{ parameters.env }}'
-#   displayName: 'Terraform Plan ${{ parameters.env }}'
-#   ${{ if eq(parameters.dependsOnEnv, '') }}:
-#     dependsOn: Validate_Terraform_Code
-#   ${{ elseif eq(parameters.dependsOnEnv, '[]') }}:
-#     dependsOn: []
-#   ${{ else }}:
-#     dependsOn: 'Terraform_Apply_${{ parameters.dependsOnEnv }}'
-#   variables:
-#     - template: ../vars/pipeline/common.yaml
-#     - template: ../vars/pipeline/${{ lower(parameters.env) }}.yaml
-#   jobs: 
-#     - job: 'Terraform_Plan_${{ parameters.env }}'
-#       displayName: 'Terraform Plan ${{ parameters.env }}'
-#       variables:
-#       - name: environment
-#         value: ${{ parameters.env }}
-#       - group: vh-tenant-creds
-#       - template: azure-devops-vars.yaml
-#         parameters:
-#           environment: ${{ parameters.env }}
-#         # If another project comes along and wants to use the same pipeline file then make this a variable in the UI
-#         # but it might be better to template the pipeline more and have a different pipeline file
-#         # so that someone doesn't pick the wrong var in the dropdown
-#         # same comment as above ^^
-#       steps:
-#       - template: templates\Azure\Common\unlock-resource-group.yml@templates
-#         parameters:
-#           subscriptionName: ${{parameters.environmentServiceConnection}}
-#           resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
-#           lockName: "${{variables.environment}}-lock"
+- stage: 'Terraform_Plan_${{ parameters.env }}'
+  displayName: 'Terraform Plan ${{ parameters.env }}'
+  ${{ if eq(parameters.dependsOnEnv, '') }}:
+    dependsOn: Validate_Terraform_Code
+  ${{ elseif eq(parameters.dependsOnEnv, '[]') }}:
+    dependsOn: []
+  ${{ else }}:
+    dependsOn: 'Terraform_Apply_${{ parameters.dependsOnEnv }}'
+  variables:
+    - template: ../vars/pipeline/common.yaml
+    - template: ../vars/pipeline/${{ lower(parameters.env) }}.yaml
+  jobs: 
+    - job: 'Terraform_Plan_${{ parameters.env }}'
+      displayName: 'Terraform Plan ${{ parameters.env }}'
+      variables:
+      - name: environment
+        value: ${{ parameters.env }}
+      - group: vh-tenant-creds
+      - template: azure-devops-vars.yaml
+        parameters:
+          environment: ${{ parameters.env }}
+        # If another project comes along and wants to use the same pipeline file then make this a variable in the UI
+        # but it might be better to template the pipeline more and have a different pipeline file
+        # so that someone doesn't pick the wrong var in the dropdown
+        # same comment as above ^^
+      steps:
+      - template: templates\Azure\Common\unlock-resource-group.yml@templates
+        parameters:
+          subscriptionName: ${{parameters.environmentServiceConnection}}
+          resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
+          lockName: "${{variables.environment}}-lock"
               
-#       - template: templates\Azure\Storage\firewall-update.yaml@templates
-#         parameters:
-#           subscriptionName: ${{parameters.environmentServiceConnection}}
-#           resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
-#           storageAccountName: "vhinfrawowza${{ lower(variables.environment) }}"
-#           action: Allow
+      - template: templates\Azure\Storage\firewall-update.yaml@templates
+        parameters:
+          subscriptionName: ${{parameters.environmentServiceConnection}}
+          resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
+          storageAccountName: "vhinfrawowza${{ lower(variables.environment) }}"
+          action: Allow
 
-#       - template: terraform-plan.yaml
-#         parameters:
-#           environment: ${{ variables.environment }}
-#           location: ${{ parameters.location }}
-#           project: ${{ parameters.project }}
-#           product: ${{ parameters.product }}
-#           builtFrom: $(Build.Repository.Name)
-#           tfversion: ${{ parameters.terraformVersion }}
-#           serviceConnection: ${{ parameters.environmentServiceConnection }}
-#           tfStateResourceGroup: ${{ lower(parameters.tfStateResourceGroup) }}
-#           tfStateStorageAccountName: ${{ lower(parameters.tfStateStorageAccountName) }}
-#           workingDirectory: ${{ parameters.workingDirectory }}
-#           activity_name: ${{ parameters.activityName  }}
-#           destroyInfra: ${{ parameters.destroyInfra }}
+      - template: terraform-plan.yaml
+        parameters:
+          environment: ${{ variables.environment }}
+          location: ${{ parameters.location }}
+          project: ${{ parameters.project }}
+          product: ${{ parameters.product }}
+          builtFrom: $(Build.Repository.Name)
+          tfversion: ${{ parameters.terraformVersion }}
+          serviceConnection: ${{ parameters.environmentServiceConnection }}
+          tfStateResourceGroup: ${{ lower(parameters.tfStateResourceGroup) }}
+          tfStateStorageAccountName: ${{ lower(parameters.tfStateStorageAccountName) }}
+          workingDirectory: ${{ parameters.workingDirectory }}
+          activity_name: ${{ parameters.activityName  }}
+          destroyInfra: ${{ parameters.destroyInfra }}
 
 ################################################
 # Terraform Apply Dev. #########################
 
 - stage: 'Terraform_Apply_${{ parameters.env }}'
   displayName: 'Terraform Apply ${{ parameters.env }}'
-  # dependsOn: 'Terraform_Plan_${{ parameters.env }}'
+  dependsOn: 'Terraform_Plan_${{ parameters.env }}'
   variables:
     - name: environment
       value: ${{ parameters.env }}
@@ -137,25 +137,25 @@ stages:
                 storageAccountName: "vhinfrawowza${{ lower(variables.environment) }}"
                 action: Allow
                 
-            # - template: terraform-apply.yaml
-            #   parameters:
-            #     environment: ${{ parameters.env }}
-            #     location: ${{ parameters.location }}
-            #     project: ${{ parameters.project }}
-            #     product: ${{ parameters.product }}
-            #     builtFrom: $(Build.Repository.Name)
-            #     tfversion: ${{ parameters.terraformVersion }}
-            #     serviceConnection: ${{ parameters.environmentServiceConnection }}
-            #     tfStateResourceGroup: ${{ lower(parameters.tfStateResourceGroup) }}
-            #     tfStateStorageAccountName: ${{ lower(parameters.tfStateStorageAccountName) }}
-            #     activity_name: ${{ parameters.activityName  }}
-            #     ${{ if eq(parameters.activityName, 'Video_Hearing_Core') }}:
-            #       additional_tf_var: $(ado_vars_to_tf.ado_vars)
+            - template: terraform-apply.yaml
+              parameters:
+                environment: ${{ parameters.env }}
+                location: ${{ parameters.location }}
+                project: ${{ parameters.project }}
+                product: ${{ parameters.product }}
+                builtFrom: $(Build.Repository.Name)
+                tfversion: ${{ parameters.terraformVersion }}
+                serviceConnection: ${{ parameters.environmentServiceConnection }}
+                tfStateResourceGroup: ${{ lower(parameters.tfStateResourceGroup) }}
+                tfStateStorageAccountName: ${{ lower(parameters.tfStateStorageAccountName) }}
+                activity_name: ${{ parameters.activityName  }}
+                ${{ if eq(parameters.activityName, 'Video_Hearing_Core') }}:
+                  additional_tf_var: $(ado_vars_to_tf.ado_vars)
                   
     - ${{ if eq(parameters.destroyInfra, false )}}:
       - job: ApplyExtToEnv
         displayName: 'Extensions to ${{parameters.env}}'
-        # dependsOn: Terraform_Apply_${{ parameters.env }}
+        dependsOn: Terraform_Apply_${{ parameters.env }}
         variables:
           - name: currentBranch
             ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
@@ -163,33 +163,28 @@ stages:
             ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
               value: $(Build.SourceBranch)
         steps:
-          - bash: |
-              echo Environment is: ${{parameters.env}}
-            displayName: 'Display Env'
-            name: displayEnv
-
-          # - template: az-ext-splunk.yaml
-          #   parameters:
-          #     subscription: ${{parameters.environmentServiceConnection}}
-          #     ${{ if eq(parameters.env, 'dev') }}:
-          #       vmNames: "vh-infra-wowza-${{parameters.env}}-1"
-          #     ${{ else }}:
-          #       vmNames: "vh-infra-wowza-${{parameters.env}}-1,vh-infra-wowza-${{parameters.env}}-2"
-          #     vmRgName:  "vh-infra-wowza-${{parameters.env}}"
-          #     env: ${{ parameters.env }}
-          #     kvName: "vh-infra-core-${{ parameters.env }}"
-          #     currentBranch: ${{variables.currentBranch}}
-          # - template: az-ext-oms.yaml
-          #   parameters:
-          #     subscription: ${{parameters.environmentServiceConnection}}
-          #     ${{ if eq(parameters.env, 'dev') }}:
-          #       vmNames: ["vh-infra-wowza-${{parameters.env}}-1"]
-          #     ${{ else }}:
-          #       vmNames: ["vh-infra-wowza-${{parameters.env}}-1","vh-infra-wowza-${{parameters.env}}-2"]
-          #     vmRgName:  "vh-infra-wowza-${{parameters.env}}"
-          #     env: ${{ parameters.env }}
-          #     env_long: ${{ variables.env_long }}
-          - ${{ if eq(parameters.env, 'Test') }}:
+          - template: az-ext-splunk.yaml
+            parameters:
+              subscription: ${{parameters.environmentServiceConnection}}
+              ${{ if eq(parameters.env, 'dev') }}:
+                vmNames: "vh-infra-wowza-${{parameters.env}}-1"
+              ${{ else }}:
+                vmNames: "vh-infra-wowza-${{parameters.env}}-1,vh-infra-wowza-${{parameters.env}}-2"
+              vmRgName:  "vh-infra-wowza-${{parameters.env}}"
+              env: ${{ parameters.env }}
+              kvName: "vh-infra-core-${{ parameters.env }}"
+              currentBranch: ${{variables.currentBranch}}
+          - template: az-ext-oms.yaml
+            parameters:
+              subscription: ${{parameters.environmentServiceConnection}}
+              ${{ if eq(parameters.env, 'dev') }}:
+                vmNames: ["vh-infra-wowza-${{parameters.env}}-1"]
+              ${{ else }}:
+                vmNames: ["vh-infra-wowza-${{parameters.env}}-1","vh-infra-wowza-${{parameters.env}}-2"]
+              vmRgName:  "vh-infra-wowza-${{parameters.env}}"
+              env: ${{ parameters.env }}
+              env_long: ${{ variables.env_long }}
+          - ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'test'), eq(parameters.env, 'prod')) }}:
             - template: az-ext-dynatrace-api.yaml
               parameters:
                 subscription: ${{parameters.environmentServiceConnection}}
@@ -201,17 +196,17 @@ stages:
                 env: ${{parameters.env}}
                 env_long: ${{ variables.env_long }}
 
-      # - job: MonitoringTasks
-      #   displayName: 'Monitoring Tasks ${{parameters.env}}'
-      #   dependsOn: Terraform_Apply_${{ parameters.env }}
-      #   steps:
-      #     - template: az-dynatrace-credentials.yaml
-      #       parameters:
-      #         subscription: ${{parameters.environmentServiceConnection}}
-      #         env: ${{ parameters.env }}
-      #         dynatraceTenantId: ${{ variables.dynatrace_tenant_id }}
-      #         infraCoreKvName: ${{ variables.central_infra_kv }}
-      #         dynatraceApiTokenSecretName: ${{ variables.dynatrace_api_token_secret_name }}
-      #         kvName: "vh-infra-core-${{ parameters.env }}"
-      #         wowzaUsernameSecretName: "wowzaconfiguration--username"
-      #         wowzaPasswordSecretName: "wowzaconfiguration--restPassword"
+      - job: MonitoringTasks
+        displayName: 'Monitoring Tasks ${{parameters.env}}'
+        dependsOn: Terraform_Apply_${{ parameters.env }}
+        steps:
+          - template: az-dynatrace-credentials.yaml
+            parameters:
+              subscription: ${{parameters.environmentServiceConnection}}
+              env: ${{ parameters.env }}
+              dynatraceTenantId: ${{ variables.dynatrace_tenant_id }}
+              infraCoreKvName: ${{ variables.central_infra_kv }}
+              dynatraceApiTokenSecretName: ${{ variables.dynatrace_api_token_secret_name }}
+              kvName: "vh-infra-core-${{ parameters.env }}"
+              wowzaUsernameSecretName: "wowzaconfiguration--username"
+              wowzaPasswordSecretName: "wowzaconfiguration--restPassword"
