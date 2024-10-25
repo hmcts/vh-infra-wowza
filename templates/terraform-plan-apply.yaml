@@ -163,10 +163,10 @@ stages:
             ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
               value: $(Build.SourceBranch)
         steps:
-            - bash: |
-                echo Environment is: ${{parameters.env}}
-              displayName: 'Display Env'
-              name: displayEnv
+          - bash: |
+              echo Environment is: ${{parameters.env}}
+            displayName: 'Display Env'
+            name: displayEnv
 
           # - template: az-ext-splunk.yaml
           #   parameters:
