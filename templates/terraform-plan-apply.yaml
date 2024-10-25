@@ -200,7 +200,7 @@ stages:
         displayName: 'Monitoring Tasks ${{parameters.env}}'
         dependsOn: Terraform_Apply_${{ parameters.env }}
         steps:
-          - ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'test'), eq(parameters.env, 'prod')) }}:
+          - ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'prod')) }}:
             - template: az-dynatrace-credentials.yaml
               parameters:
                 subscription: ${{parameters.environmentServiceConnection}}
