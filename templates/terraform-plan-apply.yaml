@@ -106,7 +106,7 @@ stages:
 
 - stage: 'Terraform_Apply_${{ parameters.env }}'
   displayName: 'Terraform Apply ${{ parameters.env }}'
-  dependsOn: 'Terraform_Plan_${{ parameters.env }}'
+  # dependsOn: 'Terraform_Plan_${{ parameters.env }}'
   variables:
     - name: environment
       value: ${{ parameters.env }}
@@ -155,7 +155,7 @@ stages:
     - ${{ if eq(parameters.destroyInfra, false )}}:
       - job: ApplyExtToEnv
         displayName: 'Extensions to ${{parameters.env}}'
-        dependsOn: Terraform_Apply_${{ parameters.env }}
+        # dependsOn: Terraform_Apply_${{ parameters.env }}
         variables:
           - name: currentBranch
             ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
