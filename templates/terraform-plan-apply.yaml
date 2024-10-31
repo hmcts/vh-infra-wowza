@@ -166,10 +166,10 @@ stages:
           - template: az-ext-splunk.yaml
             parameters:
               subscription: ${{parameters.environmentServiceConnection}}
-              ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'prod')) }}:
-                vmNames: "vh-infra-wowza-${{parameters.env}}-1,vh-infra-wowza-${{parameters.env}}-2"
-              ${{ else }}:
+              ${{ if eq(parameters.env, 'dev') }}:
                 vmNames: "vh-infra-wowza-${{parameters.env}}-1"
+              ${{ else }}:
+                vmNames: "vh-infra-wowza-${{parameters.env}}-1,vh-infra-wowza-${{parameters.env}}-2"
               vmRgName:  "vh-infra-wowza-${{parameters.env}}"
               env: ${{ parameters.env }}
               kvName: "vh-infra-core-${{ parameters.env }}"
@@ -177,10 +177,10 @@ stages:
           - template: az-ext-oms.yaml
             parameters:
               subscription: ${{parameters.environmentServiceConnection}}
-              ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'prod')) }}:
-                vmNames: ["vh-infra-wowza-${{parameters.env}}-1","vh-infra-wowza-${{parameters.env}}-2" ]
-              ${{ else }}:
+              ${{ if eq(parameters.env, 'dev') }}:
                 vmNames: ["vh-infra-wowza-${{parameters.env}}-1"]
+              ${{ else }}:
+                vmNames: ["vh-infra-wowza-${{parameters.env}}-1","vh-infra-wowza-${{parameters.env}}-2"]
               vmRgName:  "vh-infra-wowza-${{parameters.env}}"
               env: ${{ parameters.env }}
               env_long: ${{ variables.env_long }}
@@ -188,7 +188,10 @@ stages:
             - template: az-ext-dynatrace-api.yaml
               parameters:
                 subscription: ${{parameters.environmentServiceConnection}}
-                vmNames: ["vh-infra-wowza-${{parameters.env}}-1","vh-infra-wowza-${{parameters.env}}-2" ]
+                ${{ if eq(parameters.env, 'dev') }}:
+                  vmNames: ["vh-infra-wowza-${{parameters.env}}-1"]
+                ${{ else }}:
+                  vmNames: ["vh-infra-wowza-${{parameters.env}}-1","vh-infra-wowza-${{parameters.env}}-2"]
                 vmRgName: "vh-infra-wowza-${{parameters.env}}"
                 env: ${{parameters.env}}
                 env_long: ${{ variables.env_long }}
@@ -197,13 +200,14 @@ stages:
         displayName: 'Monitoring Tasks ${{parameters.env}}'
         dependsOn: Terraform_Apply_${{ parameters.env }}
         steps:
-          - template: az-dynatrace-credentials.yaml
-            parameters:
-              subscription: ${{parameters.environmentServiceConnection}}
-              env: ${{ parameters.env }}
-              dynatraceTenantId: ${{ variables.dynatrace_tenant_id }}
-              infraCoreKvName: ${{ variables.central_infra_kv }}
-              dynatraceApiTokenSecretName: ${{ variables.dynatrace_api_token_secret_name }}
-              kvName: "vh-infra-core-${{ parameters.env }}"
-              wowzaUsernameSecretName: "wowzaconfiguration--username"
-              wowzaPasswordSecretName: "wowzaconfiguration--restPassword"
+          - ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'prod')) }}:
+            - template: az-dynatrace-credentials.yaml
+              parameters:
+                subscription: ${{parameters.environmentServiceConnection}}
+                env: ${{ parameters.env }}
+                dynatraceTenantId: ${{ variables.dynatrace_tenant_id }}
+                infraCoreKvName: ${{ variables.central_infra_kv }}
+                dynatraceApiTokenSecretName: ${{ variables.dynatrace_api_token_secret_name }}
+                kvName: "vh-infra-core-${{ parameters.env }}"
+                wowzaUsernameSecretName: "wowzaconfiguration--username"
+                wowzaPasswordSecretName: "wowzaconfiguration--restPassword"

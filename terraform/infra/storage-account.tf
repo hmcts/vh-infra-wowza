@@ -9,14 +9,12 @@ locals {
 
 #tfsec:ignore:azure-storage-default-action-deny
 module "wowza_recordings" {
-  source = "git::https://github.com/hmcts/cnp-module-storage-account?ref=master"
+  source = "git::https://github.com/hmcts/cnp-module-storage-account?ref=4.x"
 
   env = var.environment
 
   storage_account_name = replace(lower(var.service_name), "-", "")
   common_tags          = local.common_tags
-
-  default_action = var.sa_default_action
 
   resource_group_name = azurerm_resource_group.wowza.name
   location            = azurerm_resource_group.wowza.location
