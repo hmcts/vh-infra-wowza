@@ -10,7 +10,7 @@ parameters:
     type: string
   - name: env_long
     type: string
-  - name: dynatraceToken
+  - name: dynatraceInstallerToken
     type: string  
 
 steps:
@@ -39,7 +39,7 @@ steps:
         
         Write-Host "Get Dynatrace env token from $infraKvName / $infraSecretName "
         # $dynatrace_token=az keyvault secret show --id https://$infraKvName.vault.azure.net/secrets/$infraSecretName  --query "value" -o tsv
-        $dynatrace_token="${{ parameters.dynatraceToken }}"
+        $dynatrace_token="${{ parameters.dynatraceInstallerToken }}"
 
         $settings = [PSCustomObject]@{
           tenantId           = $dynatrace_tenant_id

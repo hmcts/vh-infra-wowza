@@ -195,7 +195,7 @@ stages:
                 vmRgName: "vh-infra-wowza-${{parameters.env}}"
                 env: ${{parameters.env}}
                 env_long: ${{ variables.env_long }}
-                dynatraceToken: $(dynatrace-token)
+                dynatraceInstallerToken: $(dynatrace-installer-token)
 
       - job: MonitoringTasks
         displayName: 'Monitoring Tasks ${{parameters.env}}'
