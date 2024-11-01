@@ -31,7 +31,7 @@ steps:
         Write-Host infraKvName
         Write-Host $infraKvName
         Write-Host Cleared
-        $infraSecretName = "$env:E"
+        $infraSecretName = "$env:DYNATRACE_TOKEN_SECRET_NAME"
         Write-Host infraSecretName
         Write-Host $infraSecretName
         
