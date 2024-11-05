@@ -184,7 +184,7 @@ stages:
               vmRgName:  "vh-infra-wowza-${{parameters.env}}"
               env: ${{ parameters.env }}
               env_long: ${{ variables.env_long }}
-          - ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'prod')) }}:
+          - ${{ if or(eq(parameters.env, 'stg'), eq(parameters.env, 'test'), eq(parameters.env, 'prod')) }}:
             - template: az-ext-dynatrace-api.yaml
               parameters:
                 subscription: ${{parameters.environmentServiceConnection}}
