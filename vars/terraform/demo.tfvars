@@ -23,6 +23,9 @@ schedules = [
   }
 ]
 
+vm_names = ["vh-infra-wowza-demo-1"]
+
+
 route_table = [
   {
     name                   = "ss_demo_aks"
