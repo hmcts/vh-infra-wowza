@@ -1,6 +1,10 @@
 #---------------------------------------------------
 # Start/Stop VM runbook (via module)
 #---------------------------------------------------
+locals {
+  vm_names = try(var.vm_names, [azurerm_linux_virtual_machine.wowza[*].name])
+}
+
 module "vm_automation" {
   source = "git::https://github.com/hmcts/cnp-module-automation-runbook-start-stop-vm"
   count  = var.environment == "prod" ? 0 : 1
@@ -11,7 +15,7 @@ module "vm_automation" {
   automation_account_name = azurerm_automation_account.vh_infra_wowza.name
   schedules               = var.schedules
   resource_group_name     = azurerm_resource_group.wowza.name
-  vm_names                = var.vm_names
+  vm_names                = local.vm_names
   mi_principal_id         = azurerm_user_assigned_identity.wowza-automation-account-mi.principal_id
 
   tags = module.ctags.common_tags
