@@ -2,7 +2,7 @@
 # Start/Stop VM runbook (via module)
 #---------------------------------------------------
 locals {
-  vm_names = [try(var.vm_names, azurerm_linux_virtual_machine.wowza[*].name)]
+  vm_names = try(var.vm_names, azurerm_linux_virtual_machine.wowza[*].name)
 }
 
 module "vm_automation" {
