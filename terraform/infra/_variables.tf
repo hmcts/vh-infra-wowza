@@ -103,7 +103,7 @@ variable "schedules" {
 variable "vm_names" {
   description = "VMs to include in the automation runbook"
   type    = list(string)
-  default = azurerm_linux_virtual_machine.wowza[*].name
+  default = [azurerm_linux_virtual_machine.wowza[*].name]
 }
 
 variable "route_table" {
