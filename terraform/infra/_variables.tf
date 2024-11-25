@@ -100,6 +100,11 @@ variable "schedules" {
   description = "(Required) Start/Stop schedule for VM(s)."
 }
 
+variable "vm_names" {
+  description = "VMs to include in the automation runbook"
+  type        = list(string)
+  default     = null
+}
 
 variable "route_table" {
   description = "Route Table routes"
