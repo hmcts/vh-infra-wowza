@@ -103,7 +103,7 @@ variable "schedules" {
 variable "vm_names" {
   description = "VMs to include in the automation runbook"
   type        = list(string)
-  default     = []
+  # default     = []
 }
 
 variable "route_table" {
