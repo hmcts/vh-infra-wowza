@@ -52,9 +52,3 @@ data "azurerm_user_assigned_identity" "rpa_mi_prod" {
   name                = "rpa-prod-mi"
   resource_group_name = "managed-identities-prod-rg"
 }
-
-
-import {
-  to = module.wowza_recordings.azurerm_storage_container.container["recordings"]
-  id = "/subscriptions/867a878b-cb68-4de5-9741-361ac9e178b6/resourceGroups/vh-infra-wowza-dev/providers/Microsoft.Storage/storageAccounts/vhinfrawowzadev/blobServices/default/containers/recordings"
-}
