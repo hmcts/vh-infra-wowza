@@ -5,6 +5,9 @@ locals {
     access_type = "private"
   }]
   recordings_container_name = "recordings"
+  sa_subnets = [
+    data.azurerm_subnet.cft-demo-vnet-aks-01.id
+  ]
 }
 
 
@@ -32,6 +35,8 @@ module "wowza_recordings" {
 
   tables     = local.tables
   containers = local.containers
+
+  sa_subnets = local.sa_subnets
 }
 
 # policy created outside of the SA module as the module does not allow for index tags filter
