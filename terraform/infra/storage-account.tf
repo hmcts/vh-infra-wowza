@@ -7,6 +7,11 @@ locals {
   recordings_container_name = "recordings"
 }
 
+import {
+  to = module.wowza_recordings.azurerm_storage_container.container["recordings"]
+  id = "/subscriptions/867a878b-cb68-4de5-9741-361ac9e178b6/resourceGroups/vh-infra-wowza-dev/providers/Microsoft.Storage/storageAccounts/vhinfrawowzadev/blobServices/default/containers/recordings"
+}
+
 #tfsec:ignore:azure-storage-default-action-deny
 module "wowza_recordings" {
   source = "git::https://github.com/hmcts/cnp-module-storage-account?ref=VIH-11207-use_updated_container_resource"
