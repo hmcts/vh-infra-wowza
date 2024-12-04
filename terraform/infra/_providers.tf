@@ -1,6 +1,10 @@
 provider "azurerm" {
   storage_use_azuread = true
-  features {}
+  features {
+    storage {
+        data_plane_available = false 
+    }
+  }
 }
 
 provider "azurerm" {
