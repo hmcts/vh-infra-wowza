@@ -79,12 +79,13 @@ stages:
           resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
           lockName: "${{variables.environment}}-lock"
               
-      # - template: templates\Azure\Storage\firewall-update.yaml@templates
-      #   parameters:
-      #     subscriptionName: ${{parameters.environmentServiceConnection}}
-      #     resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
-      #     storageAccountName: "vhinfrawowza${{ lower(variables.environment) }}"
-      #     action: Allow
+      - template: templates\Azure\Storage\firewall-update.yaml@templates
+        parameters:
+          subscriptionName: ${{parameters.environmentServiceConnection}}
+          resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
+          storageAccountName: "vhinfrawowza${{ lower(variables.environment) }}"
+          action: Allow
+          alwaysRun: true
 
       - template: terraform-plan.yaml
         parameters:
