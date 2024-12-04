@@ -9,7 +9,7 @@ locals {
 
 #tfsec:ignore:azure-storage-default-action-deny
 module "wowza_recordings" {
-  source = "git::https://github.com/hmcts/cnp-module-storage-account?ref=4.x"
+  source = "git::https://github.com/hmcts/cnp-module-storage-account?ref=VIH-11207-use_updated_container_resource"
 
   env = var.environment
 
