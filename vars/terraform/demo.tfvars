@@ -23,7 +23,7 @@ schedules = [
   }
 ]
 
-vm_names = ["vh-infra-wowza-demo-1"]
+vm_names = ["vh-infra-wowza-demo-1","vh-infra-wowza-demo-2"]
 
 route_table = [
   {
