@@ -54,3 +54,8 @@ dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
 wowza_lb_private_ip_address = "10.23.255.216"
 
 aks_address_space = "10.141.0.0/18"
+
+storage_allowed_subnets = [
+  "/subscriptions/8a07fdcd-6abd-48b3-ad88-ff737a4b9e3c/resourceGroups/cft-perftest-network-rg/providers/Microsoft.Network/virtualNetworks/cft-perftest-vnet/subnets/aks-00",
+  "/subscriptions/8a07fdcd-6abd-48b3-ad88-ff737a4b9e3c/resourceGroups/cft-perftest-network-rg/providers/Microsoft.Network/virtualNetworks/cft-perftest-vnet/subnets/aks-01"
+]

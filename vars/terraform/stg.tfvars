@@ -55,3 +55,8 @@ os_disk_size = "512"
 os_disk_type = "StandardSSD_LRS"
 
 aks_address_space = "10.148.0.0/18"
+
+storage_allowed_subnets = [
+  "/subscriptions/96c274ce-846d-4e48-89a7-d528432298a7/resourceGroups/cft-aat-network-rg/providers/Microsoft.Network/virtualNetworks/cft-aat-vnet/subnets/aks-00",
+  "/subscriptions/96c274ce-846d-4e48-89a7-d528432298a7/resourceGroups/cft-aat-network-rg/providers/Microsoft.Network/virtualNetworks/cft-aat-vnet/subnets/aks-01"
+]

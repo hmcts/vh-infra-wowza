@@ -45,3 +45,8 @@ os_disk_size = "512"
 os_disk_type = "StandardSSD_LRS"
 
 dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
+
+storage_allowed_subnets = [
+  "/subscriptions/62864d44-5da9-4ae9-89e7-0cf33942fa09/resourceGroups/cft-ithc-network-rg/providers/Microsoft.Network/virtualNetworks/cft-ithc-vnet/subnets/aks-00",
+  "/subscriptions/62864d44-5da9-4ae9-89e7-0cf33942fa09/resourceGroups/cft-ithc-network-rg/providers/Microsoft.Network/virtualNetworks/cft-ithc-vnet/subnets/aks-01"
+]

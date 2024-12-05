@@ -55,3 +55,7 @@ wowza_instance_count = 1
 os_disk_size = "512"
 os_disk_type = "StandardSSD_LRS"
 
+storage_allowed_subnets = [
+  "/subscriptions/8b6ea922-0862-443e-af15-6056e1c9b9a4/resourceGroups/cft-preview-network-rg/providers/Microsoft.Network/virtualNetworks/cft-preview-vnet/subnets/aks-00",
+  "/subscriptions/8b6ea922-0862-443e-af15-6056e1c9b9a4/resourceGroups/cft-preview-network-rg/providers/Microsoft.Network/virtualNetworks/cft-preview-vnet/subnets/aks-01"
+]
