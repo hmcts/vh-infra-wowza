@@ -5,10 +5,6 @@ locals {
     access_type = "private"
   }]
   recordings_container_name = "recordings"
-  sa_subnets = [
-    "/subscriptions/d025fece-ce99-4df2-b7a9-b649d3ff2060/resourceGroups/cft-demo-network-rg/providers/Microsoft.Network/virtualNetworks/cft-demo-vnet/subnets/aks-00",
-    "/subscriptions/d025fece-ce99-4df2-b7a9-b649d3ff2060/resourceGroups/cft-demo-network-rg/providers/Microsoft.Network/virtualNetworks/cft-demo-vnet/subnets/aks-01"
-  ]
 }
 
 
@@ -37,7 +33,7 @@ module "wowza_recordings" {
   tables     = local.tables
   containers = local.containers
 
-  sa_subnets = local.sa_subnets
+  sa_subnets = var.storage_allowed_subnets
 }
 
 # policy created outside of the SA module as the module does not allow for index tags filter
