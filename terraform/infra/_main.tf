@@ -53,9 +53,9 @@ data "azurerm_user_assigned_identity" "rpa_mi_prod" {
   resource_group_name = "managed-identities-prod-rg"
 }
 
-data "azurerm_subnet" "cft-demo-vnet-aks-01" {
-  provider             = azurerm.dcd-cftapps-demo
-  name                 = "aks-01"
-  virtual_network_name = "cft-demo-vnet"
-  resource_group_name  = "cft-demo-network-rg"
-}
+# data "azurerm_subnet" "cft-demo-vnet-aks-01" {
+#   provider             = azurerm.dcd-cftapps-demo
+#   name                 = "aks-01"
+#   virtual_network_name = "cft-demo-vnet"
+#   resource_group_name  = "cft-demo-network-rg"
+# }
