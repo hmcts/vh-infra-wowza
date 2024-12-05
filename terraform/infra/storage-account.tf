@@ -6,7 +6,8 @@ locals {
   }]
   recordings_container_name = "recordings"
   sa_subnets = [
-    data.azurerm_subnet.cft-demo-vnet-aks-01.id
+    "/subscriptions/d025fece-ce99-4df2-b7a9-b649d3ff2060/resourceGroups/cft-demo-network-rg/providers/Microsoft.Network/virtualNetworks/cft-demo-vnet/subnets/aks-00",
+    "/subscriptions/d025fece-ce99-4df2-b7a9-b649d3ff2060/resourceGroups/cft-demo-network-rg/providers/Microsoft.Network/virtualNetworks/cft-demo-vnet/subnets/aks-01"
   ]
 }
 
