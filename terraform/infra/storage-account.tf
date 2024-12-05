@@ -4,10 +4,6 @@ locals {
     {
       name        = local.recordings_container_name
       access_type = "private"
-    },
-    {
-      name        = "sktest"
-      access_type = "private"
     }
   ]
   recordings_container_name = "recordings"
