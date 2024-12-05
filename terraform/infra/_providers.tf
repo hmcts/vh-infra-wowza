@@ -93,9 +93,3 @@ provider "azurerm" {
   alias           = "dcd-cnp-demo"
   subscription_id = "1c4f0704-a29e-403d-b719-b90c34ef14c9" # dcd-cnp-DEV
 }
-
-# provider "azurerm" {
-#   features {}
-#   alias           = "dcd-cftapps-demo"
-#   subscription_id = "d025fece-ce99-4df2-b7a9-b649d3ff2060" # DCD-CFTAPPS-DEMO
-# }
