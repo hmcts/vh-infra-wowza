@@ -40,3 +40,8 @@ wowza_lb_private_ip_address = "10.50.11.24"
 aks_address_space = "10.144.0.0/18"
 
 vm_image_version = "4.8.28"
+
+storage_allowed_subnets = [
+  "/subscriptions/8cbc6f36-7c56-4963-9d36-739db5d00b27/resourceGroups/cft-prod-network-rg/providers/Microsoft.Network/virtualNetworks/cft-prod-vnet/subnets/aks-00",
+  "/subscriptions/8cbc6f36-7c56-4963-9d36-739db5d00b27/resourceGroups/cft-prod-network-rg/providers/Microsoft.Network/virtualNetworks/cft-prod-vnet/subnets/aks-01"
+]
