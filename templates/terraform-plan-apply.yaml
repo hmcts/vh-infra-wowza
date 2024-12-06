@@ -85,7 +85,6 @@ stages:
           resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
           storageAccountName: "vhinfrawowza${{ lower(variables.environment) }}"
           action: Allow
-          alwaysRun: true
 
       - template: terraform-plan.yaml
         parameters:
