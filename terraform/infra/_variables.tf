@@ -149,3 +149,9 @@ variable "retention_period" {
   default     = 365
   description = "(Optional) Specifies the number of days that the blob should be retained, between 1 and 365 days. Defaults to 365"
 }
+
+variable "storage_allowed_subnets" {
+  description = "Resource IDs of subnets to allow through storage firewall"
+  type        = list(string)
+  default     = null
+}

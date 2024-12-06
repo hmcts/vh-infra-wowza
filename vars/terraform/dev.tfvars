@@ -2,7 +2,7 @@ location = "uksouth"
 
 address_space = "10.100.198.64/28"
 
-service_name = "vh-infra-wowza-dev"
+service_name     = "vh-infra-wowza-dev"
 retention_period = 14
 
 schedules = [
@@ -12,7 +12,7 @@ schedules = [
     interval  = 1
     run_time  = "08:00:00"
     start_vm  = true
-    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
+    week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
   },
   {
     name      = "vm-off",
@@ -20,7 +20,7 @@ schedules = [
     interval  = 1
     run_time  = "19:00:00"
     start_vm  = false
-    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
+    week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
   }
 ]
 
@@ -44,7 +44,7 @@ route_table = [
     next_hop_in_ip_address = null
   }
 ]
-dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
+dcd_cnp_subscription        = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
 wowza_lb_private_ip_address = "10.100.198.71"
 
 aks_address_space = "10.145.0.0/18"
@@ -55,3 +55,7 @@ wowza_instance_count = 1
 os_disk_size = "512"
 os_disk_type = "StandardSSD_LRS"
 
+storage_allowed_subnets = [
+  "/subscriptions/8b6ea922-0862-443e-af15-6056e1c9b9a4/resourceGroups/cft-preview-network-rg/providers/Microsoft.Network/virtualNetworks/cft-preview-vnet/subnets/aks-00",
+  "/subscriptions/8b6ea922-0862-443e-af15-6056e1c9b9a4/resourceGroups/cft-preview-network-rg/providers/Microsoft.Network/virtualNetworks/cft-preview-vnet/subnets/aks-01"
+]

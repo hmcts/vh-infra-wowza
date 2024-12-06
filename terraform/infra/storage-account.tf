@@ -1,11 +1,14 @@
 locals {
   tables = []
-  containers = [{
-    name        = local.recordings_container_name
-    access_type = "private"
-  }]
+  containers = [
+    {
+      name        = local.recordings_container_name
+      access_type = "private"
+    }
+  ]
   recordings_container_name = "recordings"
 }
+
 
 #tfsec:ignore:azure-storage-default-action-deny
 module "wowza_recordings" {
@@ -31,6 +34,8 @@ module "wowza_recordings" {
 
   tables     = local.tables
   containers = local.containers
+
+  sa_subnets = var.storage_allowed_subnets
 }
 
 # policy created outside of the SA module as the module does not allow for index tags filter

@@ -1,5 +1,5 @@
-location = "uksouth"
-service_name = "vh-infra-wowza-sbox"
+location         = "uksouth"
+service_name     = "vh-infra-wowza-sbox"
 retention_period = 7
 
 schedules = [
@@ -9,7 +9,7 @@ schedules = [
     interval  = 1
     run_time  = "19:00:00"
     start_vm  = false
-    week_days = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
+    week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
   }
 ]
 
@@ -31,3 +31,8 @@ route_table = [
 # OS disk - E20
 os_disk_size = "512"
 os_disk_type = "StandardSSD_LRS"
+
+storage_allowed_subnets = [
+  "/subscriptions/b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb/resourceGroups/cft-sbox-network-rg/providers/Microsoft.Network/virtualNetworks/cft-sbox-vnet/subnets/aks-00",
+  "/subscriptions/b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb/resourceGroups/cft-sbox-network-rg/providers/Microsoft.Network/virtualNetworks/cft-sbox-vnet/subnets/aks-01"
+]
