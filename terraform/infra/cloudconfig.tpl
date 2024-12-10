@@ -1165,8 +1165,7 @@ write_files:
         jksPass="${certPassword}"
 
         export PATH=$PATH:/usr/local/WowzaStreamingEngine/java/bin
-
-        expiryDate=$(keytool -list -v -keystore $jksPath -storepass $jksPass | grep until | head -1 | sed 's/.*until: //')
+        expiryDate=$(keytool -list -v -keystore $jksPath -storepass $jksPass -alias $alias | grep until | head -1 | sed 's/.*until: //')
 
         echo "Certificate Expires $expiryDate"
         expiryDate="$(date -d "$expiryDate - 14 days" +%Y%m%d)"
@@ -1179,7 +1178,15 @@ write_files:
         
             rm -rf $downloadedPfxPath || true
             az keyvault secret download --file $downloadedPfxPath --vault-name $keyVaultName --encoding base64 --name $certName
+            aliasOld=$(keytool -list -keystore $jksPath -storepass $jksPass -v | grep -oP 'Alias name: \K(.+)' | tail -n 1)
+            echo "Old cert alias is $aliasOld"
 
+            aliasNew=$(keytool -list -keystore "$downloadedPfxPath" -storepass "$jksPass" -v | grep -oP 'Alias name: \K(.+)' | tail -n 1)
+            echo "New cert alias is $aliasNew"
+
+            echo "Deleting expired cert from keystore..."
+            keytool -delete -alias $aliasOld -keystore $jksPath -storepass $jksPass
+            echo "Importing renewed cert into keystore..."
             keytool -storepasswd -new $jksPass -keystore $downloadedPfxPath -storepass "" -storetype PKCS12
             keytool -importkeystore -srckeystore $downloadedPfxPath -srcstoretype pkcs12 -destkeystore $jksPath -deststoretype JKS -deststorepass $jksPass -srcstorepass $jksPass
             
