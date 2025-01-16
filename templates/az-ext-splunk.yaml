@@ -19,7 +19,7 @@ steps:
   - template: templates\Azure\KeyVault\firewall-exception-add.yaml@templates
     parameters:
       subscription: ${{ parameters.subscription }}
-      keyVaultName: ${{ parameters.kvName }}
+      keyVaultName: ${{ lower(parameters.kvName) }}
 
   - task: AzureCLI@2
     displayName: Get Settings for Splunk Extension
@@ -34,7 +34,7 @@ steps:
         $env = "${{ parameters.env }}"
         $env_long = "$env:ENV_LONG"
 
-        $infraKvName = "${{ parameters.kvName }}"
+        $infraKvName = "${{ lower(parameters.kvName) }}"
         Write-Host infraKvName
         Write-Host $infraKvName
 
@@ -88,6 +88,6 @@ steps:
   - template: templates\Azure\KeyVault\firewall-exception-remove.yaml@templates
     parameters:
       subscription: ${{ parameters.subscription }}
-      keyVaultName: ${{ parameters.kvName }}
+      keyVaultName: ${{ lower(parameters.kvName) }}
 
 
