@@ -36,6 +36,7 @@ module "wowza_recordings" {
   containers = local.containers
 
   sa_subnets = var.storage_allowed_subnets
+  default_action = var.default_action
 }
 
 # policy created outside of the SA module as the module does not allow for index tags filter
