@@ -155,3 +155,8 @@ variable "storage_allowed_subnets" {
   type        = list(string)
   default     = null
 }
+
+variable "default_action" {
+  description = "(Optional) Network rules default action"
+  default     = "Deny"
+}
