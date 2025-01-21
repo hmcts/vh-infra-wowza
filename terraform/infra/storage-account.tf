@@ -36,6 +36,7 @@ module "wowza_recordings" {
   containers = local.containers
 
   sa_subnets     = var.storage_allowed_subnets
+  ip_rules       = var.storage_ip_rules
   default_action = var.default_action
 }
 

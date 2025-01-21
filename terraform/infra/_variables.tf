@@ -156,6 +156,12 @@ variable "storage_allowed_subnets" {
   default     = null
 }
 
+variable "ip_rules" {
+  type        = list(string)
+  description = "(Optional) List of public IP addresses which will have access to storage account."
+  default     = []
+}
+
 variable "default_action" {
   description = "(Optional) Network rules default action"
   default     = "Deny"

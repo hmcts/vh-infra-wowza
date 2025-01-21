@@ -47,4 +47,13 @@ storage_allowed_subnets = [
   "/subscriptions/5ca62022-6aa2-4cee-aaa7-e7536c8d566c/resourceGroups/ss-prod-network-rg/providers/Microsoft.Network/virtualNetworks/ss-prod-vnet/subnets/aks-00",
   "/subscriptions/5ca62022-6aa2-4cee-aaa7-e7536c8d566c/resourceGroups/ss-prod-network-rg/providers/Microsoft.Network/virtualNetworks/ss-prod-vnet/subnets/aks-01"
 ]
+
+storage_allowed_ips = [
+  "128.77.75.64/26", #GlobalProtect VPN egress range
+  "51.149.249.0/29", #AnyConnect VPN egress range
+  "51.149.249.32/29", #AnyConnect VPN egress range
+  "194.33.249.0/29", #AnyConnect VPN egress backup range
+  "194.33.248.0/29" #AnyConnect VPN egress backup range
+]
+
 default_action = "Allow"
