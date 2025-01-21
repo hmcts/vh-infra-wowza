@@ -156,7 +156,7 @@ variable "storage_allowed_subnets" {
   default     = null
 }
 
-variable "ip_rules" {
+variable "storage_allowed_ips" {
   type        = list(string)
   description = "(Optional) List of public IP addresses which will have access to storage account."
   default     = []
