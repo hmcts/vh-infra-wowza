@@ -52,3 +52,11 @@ storage_allowed_subnets = [
   "/subscriptions/ba71a911-e0d6-4776-a1a6-079af1df7139/resourceGroups/ss-ithc-network-rg/providers/Microsoft.Network/virtualNetworks/ss-ithc-vnet/subnets/aks-00",
   "/subscriptions/ba71a911-e0d6-4776-a1a6-079af1df7139/resourceGroups/ss-ithc-network-rg/providers/Microsoft.Network/virtualNetworks/ss-ithc-vnet/subnets/aks-01"
 ]
+
+storage_allowed_ips = [
+  "128.77.75.64/26", #GlobalProtect VPN egress range
+  "51.149.249.0/29", #AnyConnect VPN egress range
+  "51.149.249.32/29", #AnyConnect VPN egress range
+  "194.33.249.0/29", #AnyConnect VPN egress backup range
+  "194.33.248.0/29" #AnyConnect VPN egress backup range
+]
