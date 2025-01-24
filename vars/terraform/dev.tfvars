@@ -63,11 +63,10 @@ storage_allowed_subnets = [
   "/subscriptions/74dacd4f-a248-45bb-a2f0-af700dc4cf68/resourceGroups/vh-infra-ado-stg-rg/providers/Microsoft.Network/virtualNetworks/vh-infra-ado-stg-vnet/subnets/vh-infra-ado-stg-snet"
 ]
 
-allowed_ips = [
+storage_allowed_ips = [
   "128.77.75.64/26", #GlobalProtect VPN egress range
   "51.149.249.0/29", #AnyConnect VPN egress range
   "51.149.249.32/29", #AnyConnect VPN egress range
   "194.33.249.0/29", #AnyConnect VPN egress backup range
-  "194.33.248.0/29", #AnyConnect VPN egress backup range
-  "10.99.72.4"      #F5 VPN egress
+  "194.33.248.0/29" #AnyConnect VPN egress backup range
 ]

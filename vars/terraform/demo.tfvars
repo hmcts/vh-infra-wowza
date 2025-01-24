@@ -54,11 +54,10 @@ storage_allowed_subnets = [
   "/subscriptions/c68a4bed-4c3d-4956-af51-4ae164c1957c/resourceGroups/ss-demo-network-rg/providers/Microsoft.Network/virtualNetworks/ss-demo-vnet/subnets/aks-01"
 ]
 
-allowed_ips = [
+storage_allowed_ips = [
   "128.77.75.64/26", #GlobalProtect VPN egress range
   "51.149.249.0/29", #AnyConnect VPN egress range
   "51.149.249.32/29", #AnyConnect VPN egress range
   "194.33.249.0/29", #AnyConnect VPN egress backup range
-  "194.33.248.0/29", #AnyConnect VPN egress backup range
-  "10.99.72.4"      #F5 VPN egress
+  "194.33.248.0/29" #AnyConnect VPN egress backup range
 ]
