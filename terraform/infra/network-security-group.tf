@@ -157,7 +157,6 @@ resource "azurerm_network_security_rule" "AllowDynatrace" {
 }
 
 resource "azurerm_network_security_rule" "AllowGlobalConnectVPNSSH" {
-  count                       = var.environment == "prod" ? 1 : 0
   name                        = "Allow_GlobalConnect_VPN_SSH"
   resource_group_name         = azurerm_resource_group.wowza.name
   network_security_group_name = azurerm_network_security_group.wowza.name
@@ -172,7 +171,6 @@ resource "azurerm_network_security_rule" "AllowGlobalConnectVPNSSH" {
 }
 
 resource "azurerm_network_security_rule" "AllowAnyConnectVPNSSH" {
-  count                       = var.environment == "prod" ? 1 : 0
   name                        = "Allow_AnyConnect_VPN_SSH"
   resource_group_name         = azurerm_resource_group.wowza.name
   network_security_group_name = azurerm_network_security_group.wowza.name
@@ -192,7 +190,6 @@ resource "azurerm_network_security_rule" "AllowAnyConnectVPNSSH" {
 }
 
 resource "azurerm_network_security_rule" "AllowF5VPNSSH" {
-  count                       = var.environment == "prod" ? 1 : 0
   name                        = "Allow_F5_VPN_SSH"
   resource_group_name         = azurerm_resource_group.wowza.name
   network_security_group_name = azurerm_network_security_group.wowza.name
