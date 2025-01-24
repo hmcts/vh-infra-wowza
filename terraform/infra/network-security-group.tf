@@ -156,7 +156,7 @@ resource "azurerm_network_security_rule" "AllowDynatrace" {
   destination_port_range      = "443"
 }
 
-resource "azurerm_network_security_rule" "AllowGlobalConnectVPN" {
+resource "azurerm_network_security_rule" "AllowGlobalConnectVPNSSH" {
   count                       = var.environment == "prod" ? 1 : 0
   name                        = "Allow_GlobalConnect_VPN_SSH"
   resource_group_name         = azurerm_resource_group.wowza.name
@@ -165,7 +165,7 @@ resource "azurerm_network_security_rule" "AllowGlobalConnectVPN" {
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
-  source_address_prefixes     = ["128.77.75.64/26"]
+  source_address_prefix     = "128.77.75.64/26"
   source_port_range           = "*"
   destination_address_prefix  = var.address_space
   destination_port_range      = "22"
@@ -180,10 +180,15 @@ resource "azurerm_network_security_rule" "AllowAnyConnectVPNSSH" {
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
-  source_address_prefixes     = ["51.149.249.0/29", "51.149.249.32/29", "194.33.249.0/29", "194.33.248.0/29"]
-  source_port_range           = "*"
-  destination_address_prefix  = var.address_space
-  destination_port_range      = "22"
+  source_address_prefixes = [
+    "51.149.249.0/29",
+    "51.149.249.32/29",
+    "194.33.249.0/29",
+    "194.33.248.0/29"
+  ]
+  source_port_range          = "*"
+  destination_address_prefix = var.address_space
+  destination_port_range     = "22"
 }
 
 resource "azurerm_network_security_rule" "AllowF5VPNSSH" {
@@ -195,7 +200,7 @@ resource "azurerm_network_security_rule" "AllowF5VPNSSH" {
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
-  source_address_prefixes     = ["10.99.72.4/32"]
+  source_address_prefix     = "10.99.72.4/32"
   source_port_range           = "*"
   destination_address_prefix  = var.address_space
   destination_port_range      = "22"
