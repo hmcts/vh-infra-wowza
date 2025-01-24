@@ -59,6 +59,6 @@ allowed_ips = [
   "51.149.249.0/29", #AnyConnect VPN egress range
   "51.149.249.32/29", #AnyConnect VPN egress range
   "194.33.249.0/29", #AnyConnect VPN egress backup range
-  "194.33.248.0/29" #AnyConnect VPN egress backup range
+  "194.33.248.0/29", #AnyConnect VPN egress backup range
   "10.99.72.4"      #F5 VPN egress
 ]
