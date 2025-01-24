@@ -156,6 +156,21 @@ resource "azurerm_network_security_rule" "AllowDynatrace" {
   destination_port_range      = "443"
 }
 
+resource "azurerm_network_security_rule" "AllowVPNSSH" {
+  count                       = var.environment == "prod" ? 1 : 0
+  name                        = "Allow_VPN_SSH"
+  resource_group_name         = azurerm_resource_group.wowza.name
+  network_security_group_name = azurerm_network_security_group.wowza.name
+  priority                    = 1070
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_address_prefixes     = var.allowed_ips
+  source_port_range           = "*"
+  destination_address_prefix  = var.address_space
+  destination_port_range      = "22"
+}
+
 resource "azurerm_network_watcher_flow_log" "nsg" {
   name                 = "${var.service_name}-flow-logs"
   network_watcher_name = "NetworkWatcher_${azurerm_resource_group.wowza.location}"

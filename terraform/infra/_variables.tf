@@ -160,3 +160,9 @@ variable "default_action" {
   description = "(Optional) Network rules default action"
   default     = "Deny"
 }
+
+variable "allowed_ips" {
+  type        = list(string)
+  description = "(Optional) List of public IP addresses which will have access to required resources."
+  default     = []
+}
