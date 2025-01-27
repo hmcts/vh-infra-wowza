@@ -55,5 +55,3 @@ storage_allowed_ips = [
   "194.33.249.0/29",  #AnyConnect VPN egress backup range
   "194.33.248.0/29"   #AnyConnect VPN egress backup range
 ]
-
-default_action = "Allow"
