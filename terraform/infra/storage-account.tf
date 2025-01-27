@@ -1,22 +1,23 @@
 locals {
   tables = []
-  containers = [{
-    name        = local.recordings_container_name
-    access_type = "private"
-  }]
+  containers = [
+    {
+      name        = local.recordings_container_name
+      access_type = "private"
+    }
+  ]
   recordings_container_name = "recordings"
 }
 
+
 #tfsec:ignore:azure-storage-default-action-deny
 module "wowza_recordings" {
-  source = "git::https://github.com/hmcts/cnp-module-storage-account?ref=master"
+  source = "git::https://github.com/hmcts/cnp-module-storage-account?ref=4.x"
 
   env = var.environment
 
   storage_account_name = replace(lower(var.service_name), "-", "")
   common_tags          = local.common_tags
-
-  default_action = var.sa_default_action
 
   resource_group_name = azurerm_resource_group.wowza.name
   location            = azurerm_resource_group.wowza.location
@@ -33,6 +34,10 @@ module "wowza_recordings" {
 
   tables     = local.tables
   containers = local.containers
+
+  sa_subnets     = var.storage_allowed_subnets
+  ip_rules       = var.storage_allowed_ips
+  default_action = var.default_action
 }
 
 # policy created outside of the SA module as the module does not allow for index tags filter

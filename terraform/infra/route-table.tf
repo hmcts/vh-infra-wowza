@@ -1,9 +1,8 @@
 resource "azurerm_route_table" "wowza" {
-  name                          = var.service_name
-  location                      = azurerm_resource_group.wowza.location
-  resource_group_name           = azurerm_resource_group.wowza.name
-  disable_bgp_route_propagation = false
-  tags                          = local.common_tags
+  name                = var.service_name
+  location            = azurerm_resource_group.wowza.location
+  resource_group_name = azurerm_resource_group.wowza.name
+  tags                = local.common_tags
 
   dynamic "route" {
     for_each = var.route_table

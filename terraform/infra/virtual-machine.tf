@@ -2,7 +2,6 @@ locals {
   publisher = "wowza"
   offer     = "wowzastreamingengine"
   sku       = "linux-paid-4-8"
-  version   = "4.8.25"
 }
 
 ##########################################################
@@ -12,9 +11,10 @@ locals {
 resource "azurerm_network_interface" "wowza" {
   count = var.wowza_instance_count
 
-  name                = "${var.service_name}_${count.index + 1}"
-  resource_group_name = azurerm_resource_group.wowza.name
-  location            = azurerm_resource_group.wowza.location
+  name                  = "${var.service_name}_${count.index + 1}"
+  resource_group_name   = azurerm_resource_group.wowza.name
+  location              = azurerm_resource_group.wowza.location
+  ip_forwarding_enabled = false
 
   ip_configuration {
     name                          = "wowzaConfiguration"
@@ -62,13 +62,15 @@ resource "azurerm_linux_virtual_machine" "wowza" {
 
   provision_vm_agent = true
 
+  vm_agent_platform_updates_enabled = false
+
   custom_data = data.template_cloudinit_config.wowza_setup.rendered
 
   source_image_reference {
     publisher = local.publisher
     offer     = local.offer
     sku       = local.sku
-    version   = local.version
+    version   = var.vm_image_version
   }
 
   plan {

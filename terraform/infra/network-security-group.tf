@@ -65,10 +65,38 @@ resource "azurerm_network_security_rule" "AllowPexip" {
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
-  source_address_prefixes     = ["35.246.58.208", "34.147.202.145", "34.142.32.202", "35.189.123.50", "35.242.186.8", "34.105.207.180", "35.234.141.208", "34.89.25.191", "35.189.100.86", "35.234.145.227", "34.89.88.69", "34.147.159.73", "35.234.145.196", "35.242.170.203", "35.246.8.138", "34.89.88.216", "35.242.163.246", "34.89.118.38", "34.89.63.94"]
-  source_port_range           = "*"
-  destination_address_prefix  = var.address_space
-  destination_port_ranges     = ["443", "8087"]
+  source_address_prefixes = [
+    "35.246.58.208",
+    "34.147.202.145",
+    "34.142.32.202",
+    "35.189.123.50",
+    "35.242.186.8",
+    "34.105.207.180",
+    "35.234.141.208",
+    "34.89.25.191",
+    "35.189.100.86",
+    "35.234.145.227",
+    "34.89.88.69",
+    "34.147.159.73",
+    "35.234.145.196",
+    "35.242.170.203",
+    "35.246.8.138",
+    "34.89.88.216",
+    "35.242.163.246",
+    "34.89.118.38",
+    "34.89.63.94",
+    "35.214.109.205",
+    "35.214.109.94",
+    "35.214.13.62",
+    "35.214.26.11",
+    "35.214.49.2",
+    "35.214.75.176",
+    "35.214.93.136",
+    "35.214.94.191"
+  ]
+  source_port_range          = "*"
+  destination_address_prefix = var.address_space
+  destination_port_ranges    = ["443", "8087"]
 }
 
 resource "azurerm_network_security_rule" "AllowAKSInbound" {
@@ -126,6 +154,53 @@ resource "azurerm_network_security_rule" "AllowDynatrace" {
   source_port_range           = "*"
   destination_address_prefix  = var.address_space
   destination_port_range      = "443"
+}
+
+resource "azurerm_network_security_rule" "AllowGlobalConnectVPNSSH" {
+  name                        = "Allow_GlobalConnect_VPN_SSH"
+  resource_group_name         = azurerm_resource_group.wowza.name
+  network_security_group_name = azurerm_network_security_group.wowza.name
+  priority                    = 1070
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_address_prefix       = "128.77.75.64/26"
+  source_port_range           = "*"
+  destination_address_prefix  = var.address_space
+  destination_port_range      = "22"
+}
+
+resource "azurerm_network_security_rule" "AllowAnyConnectVPNSSH" {
+  name                        = "Allow_AnyConnect_VPN_SSH"
+  resource_group_name         = azurerm_resource_group.wowza.name
+  network_security_group_name = azurerm_network_security_group.wowza.name
+  priority                    = 1080
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_address_prefixes = [
+    "51.149.249.0/29",
+    "51.149.249.32/29",
+    "194.33.249.0/29",
+    "194.33.248.0/29"
+  ]
+  source_port_range          = "*"
+  destination_address_prefix = var.address_space
+  destination_port_range     = "22"
+}
+
+resource "azurerm_network_security_rule" "AllowF5VPNSSH" {
+  name                        = "Allow_F5_VPN_SSH"
+  resource_group_name         = azurerm_resource_group.wowza.name
+  network_security_group_name = azurerm_network_security_group.wowza.name
+  priority                    = 1090
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_address_prefix       = "10.99.72.4/32"
+  source_port_range           = "*"
+  destination_address_prefix  = var.address_space
+  destination_port_range      = "22"
 }
 
 resource "azurerm_network_watcher_flow_log" "nsg" {

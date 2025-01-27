@@ -36,6 +36,11 @@ variable "vm_size" {
   default = "Standard_D4ds_v5"
 }
 
+variable "vm_image_version" {
+  type    = string
+  default = "4.8.28"
+}
+
 variable "admin_user" {
   type    = string
   default = "wowza"
@@ -95,6 +100,11 @@ variable "schedules" {
   description = "(Required) Start/Stop schedule for VM(s)."
 }
 
+variable "vm_names" {
+  description = "VMs to include in the automation runbook"
+  type        = list(string)
+  default     = null
+}
 
 variable "route_table" {
   description = "Route Table routes"
@@ -122,11 +132,6 @@ variable "dcd_cnp_subscription" {
   default = ""
 }
 
-variable "sa_default_action" {
-  type    = string
-  default = "Allow"
-}
-
 variable "delete_after_days_since_creation_greater_than" {
   type        = number
   default     = 90
@@ -143,4 +148,21 @@ variable "retention_period" {
   type        = number
   default     = 365
   description = "(Optional) Specifies the number of days that the blob should be retained, between 1 and 365 days. Defaults to 365"
+}
+
+variable "storage_allowed_subnets" {
+  description = "Resource IDs of subnets to allow through storage firewall"
+  type        = list(string)
+  default     = null
+}
+
+variable "storage_allowed_ips" {
+  type        = list(string)
+  description = "(Optional) List of public IP addresses which will have access to storage account."
+  default     = []
+}
+
+variable "default_action" {
+  description = "(Optional) Network rules default action"
+  default     = "Deny"
 }
