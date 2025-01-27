@@ -45,7 +45,6 @@ wowza_lb_private_ip_address = "10.254.0.232"
 aks_address_space = "10.51.64.0/18"
 
 delete_after_days_since_creation_greater_than = 10
-storage_policy_enabled                        = true
 
 storage_allowed_subnets = [
   "/subscriptions/d025fece-ce99-4df2-b7a9-b649d3ff2060/resourceGroups/cft-demo-network-rg/providers/Microsoft.Network/virtualNetworks/cft-demo-vnet/subnets/aks-00",
