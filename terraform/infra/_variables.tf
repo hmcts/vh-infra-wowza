@@ -140,8 +140,8 @@ variable "delete_after_days_since_creation_greater_than" {
 
 variable "storage_policy_enabled" {
   type        = bool
-  default     = false
-  description = "Status of the storage account lifecycle policy. Default 'false'"
+  default     = true
+  description = "Status of the storage account lifecycle policy. Default 'true'"
 }
 
 variable "retention_period" {
@@ -154,6 +154,12 @@ variable "storage_allowed_subnets" {
   description = "Resource IDs of subnets to allow through storage firewall"
   type        = list(string)
   default     = null
+}
+
+variable "storage_allowed_ips" {
+  type        = list(string)
+  description = "(Optional) List of public IP addresses which will have access to storage account."
+  default     = []
 }
 
 variable "default_action" {
