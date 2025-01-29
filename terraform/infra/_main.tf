@@ -66,5 +66,5 @@ data "azuread_group" "dts_cvp_contributors" {
 }
 
 output "cvp_group_id" {
-  value = data.azuread_group.dts_cvp_contributors.object_id 
+  value = data.azuread_group.dts_cvp_contributors.object_id
 }
