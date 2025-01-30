@@ -82,3 +82,13 @@ resource "azurerm_private_endpoint" "wowza_storage" {
   tags = local.common_tags
 }
 
+###############################################################
+# Wowza Storage Group Access ##################################
+###############################################################
+
+resource "azurerm_role_assignment" "dts_vh_storage_blob_data_contributors_prod_access" {
+  count                = var.environment == "prod" ? 1 : 0
+  scope                = module.wowza_recordings.storageaccount_id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = data.azuread_group.dts_vh_storage_blob_data_contributors_prod.object_id
+}
