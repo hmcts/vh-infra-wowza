@@ -54,7 +54,7 @@ data "azurerm_user_assigned_identity" "rpa_mi_prod" {
 }
 
 data "azuread_group" "dts_vh_contributors_prod" {
-  display_name = "DTS VH Contributor (env:production)"
+  display_name = "DTS VH Contributor (env:prod)"
 }
 
 data "azuread_group" "dts_vh_storage_blob_data_contributors_prod" {
