@@ -34,7 +34,6 @@ parameters:
     - name: Stg
       dependsOnEnv: "Dev"
     - name: Prod
-      dependsOnEnv: "Stg"
 
 variables:
 - name: tfVersion
@@ -65,6 +64,8 @@ stages:
   - ${{ if and( eq(env.name, 'Dev'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
     - template: templates/terraform-plan-apply.yaml
       parameters:
+        ${{ if and(ne(env, 'Prod') , contains(lower(variables['Build.SourceBranch']), lower(variables.release_branch_prefix))) }}:
+          runStage: 'false'
         terraformVersion: ${{ variables.tfVersion }}
         env: ${{ env.name }}
         location: ${{ variables.azureLocation }}
@@ -79,6 +80,8 @@ stages:
   - ${{ else }}:
       - template: templates/terraform-plan-apply.yaml
         parameters:
+          ${{ if and(ne(env, 'Prod') , contains(lower(variables['Build.SourceBranch']), lower(variables.release_branch_prefix))) }}:
+            runStage: 'false'
           terraformVersion: ${{ variables.tfVersion }}
           env: ${{ env.name }}
           location: ${{ variables.azureLocation }}
