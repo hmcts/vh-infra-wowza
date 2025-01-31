@@ -52,3 +52,19 @@ data "azurerm_user_assigned_identity" "rpa_mi_prod" {
   name                = "rpa-prod-mi"
   resource_group_name = "managed-identities-prod-rg"
 }
+
+data "azuread_group" "dts_vh_contributors_prod" {
+  display_name = "DTS VH Contributor (env:prod)"
+}
+
+data "azuread_group" "dts_vh_storage_blob_data_contributors_prod" {
+  display_name = "DTS VH Wowza Storage Blob Data Reader (env:prod)"
+}
+
+output "dts_vh_contributors_prod_objectid" {
+  value = data.azuread_group.dts_vh_contributors_prod.object_id
+}
+
+output "dts_vh_storage_blob_data_contributors_prod_objectid" {
+  value = data.azuread_group.dts_vh_storage_blob_data_contributors_prod.object_id
+}
