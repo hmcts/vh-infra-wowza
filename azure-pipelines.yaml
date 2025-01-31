@@ -81,7 +81,7 @@ stages:
   - ${{ else }}:
       - template: templates/terraform-plan-apply.yaml
         ${{ if and(ne(env, 'prod') , contains(lower(variables['Build.SourceBranch']), lower(variables.release_branch_prefix))) }}:
-            runStage: 'false'
+              runStage: 'false'
         parameters:
           terraformVersion: ${{ variables.tfVersion }}
           env: ${{ env.name }}
