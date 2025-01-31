@@ -64,8 +64,6 @@ stages:
 - ${{ each env in parameters.environment }}:
   - ${{ if and( eq(env.name, 'Dev'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
     - template: templates/terraform-plan-apply.yaml
-      ${{ if and(ne(env, 'prod') , contains(lower(variables['Build.SourceBranch']), lower(variables.release_branch_prefix))) }}:
-            runStage: 'false'
       parameters:
         terraformVersion: ${{ variables.tfVersion }}
         env: ${{ env.name }}
@@ -78,10 +76,8 @@ stages:
         dependsOnEnv: ${{ env.dependsOnEnv }}
         workingDirectory: ${{ variables.tfDirectory }}
 
-  - ${{ else }}:
+  - ${{ if and(ne(env.name, 'Prod'), eq(contains(lower(variables['Build.SourceBranch']), lower(variables.release_branch_prefix)), False)) }}:
       - template: templates/terraform-plan-apply.yaml
-        ${{ if and(ne(env, 'prod') , contains(lower(variables['Build.SourceBranch']), lower(variables.release_branch_prefix))) }}:
-              runStage: 'false'
         parameters:
           terraformVersion: ${{ variables.tfVersion }}
           env: ${{ env.name }}
@@ -93,3 +89,17 @@ stages:
           tfStateStorageAccountName: vhinfracore${{ env.name }}tf
           dependsOnEnv: ${{ env.dependsOnEnv }}
           workingDirectory: ${{ variables.tfDirectory }}
+
+  - ${{ if and(ne(env.name, 'Prod'), eq(contains(lower(variables['Build.SourceBranch']), lower(variables.release_branch_prefix))) }}:
+    - template: templates/terraform-plan-apply.yaml
+      parameters:
+        terraformVersion: ${{ variables.tfVersion }}
+        env: ${{ env.name }}
+        location: ${{ variables.azureLocation }}
+        environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+        product: wowza
+        activityName: Video_Hearing_Wowza
+        tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
+        tfStateStorageAccountName: vhinfracore${{ env.name }}tf
+        dependsOnEnv: ${{ env.dependsOnEnv }}
+        workingDirectory: ${{ variables.tfDirectory }}
