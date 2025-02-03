@@ -107,15 +107,15 @@ stages:
 
   - ${{ else }}:
     - template: templates/terraform-plan-apply.yaml
-        parameters:
-          terraformVersion: ${{ variables.tfVersion }}
-          env: ${{ env.name }}
-          location: ${{ variables.azureLocation }}
-          environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
-          product: wowza
-          activityName: Video_Hearing_Wowza
-          tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
-          tfStateStorageAccountName: vhinfracore${{ env.name }}tf
-          dependsOnEnv: ${{ env.dependsOnEnv }}
-          workingDirectory: ${{ variables.tfDirectory }}
-          
+      parameters:
+        terraformVersion: ${{ variables.tfVersion }}
+        env: ${{ env.name }}
+        location: ${{ variables.azureLocation }}
+        environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+        product: wowza
+        activityName: Video_Hearing_Wowza
+        tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
+        tfStateStorageAccountName: vhinfracore${{ env.name }}tf
+        dependsOnEnv: ${{ env.dependsOnEnv }}
+        workingDirectory: ${{ variables.tfDirectory }}
+        
