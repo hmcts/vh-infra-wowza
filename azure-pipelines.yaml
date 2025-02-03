@@ -33,7 +33,7 @@ parameters:
       dependsOnEnv: "Dev"
     - name: Stg
       dependsOnEnv: "Dev"
-    - name: Prod
+  
 
 
 variables:
