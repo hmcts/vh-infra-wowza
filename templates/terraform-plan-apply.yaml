@@ -101,6 +101,13 @@ stages:
           activity_name: ${{ parameters.activityName  }}
           destroyInfra: ${{ parameters.destroyInfra }}
 
+      - template: templates\Azure\Storage\firewall-update.yaml@templates
+        parameters:
+          subscriptionName: ${{parameters.environmentServiceConnection}}
+          resourceGroupName: "vh-infra-wowza-${{variables.environment}}"
+          storageAccountName: "vhinfrawowza${{ lower(variables.environment) }}"
+          action: Deny
+
 ################################################
 # Terraform Apply Dev. #########################
 
