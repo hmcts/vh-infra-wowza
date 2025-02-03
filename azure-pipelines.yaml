@@ -90,7 +90,7 @@ stages:
           dependsOnEnv: ${{ env.dependsOnEnv }}
           workingDirectory: ${{ variables.tfDirectory }}
 
-  - ${{ if and(ne(env.name, 'Prod'), eq(contains(lower(variables['Build.SourceBranch']), lower(variables.release_branch_prefix))) }}:
+  - ${{ if and(ne(env.name, 'Prod'), eq(contains(lower(variables['Build.SourceBranch']), lower(variables.release_branch_prefix)) }}:
     - template: templates/terraform-plan-apply.yaml
       parameters:
         terraformVersion: ${{ variables.tfVersion }}
