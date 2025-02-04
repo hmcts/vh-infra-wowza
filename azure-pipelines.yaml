@@ -34,8 +34,6 @@ parameters:
       dependsOnEnv: "Dev"
     - name: Stg
       dependsOnEnv: "Dev"
-    - name: Prod
-      dependsOnEnv: "Stg"
 
 variables:
 - name: tfVersion
