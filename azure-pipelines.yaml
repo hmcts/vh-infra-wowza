@@ -22,6 +22,7 @@ pool:
 parameters:
 - name: environment
   type: object
+  values: [Prod]
   default:
     - name: Dev
       dependsOnEnv: ""
@@ -33,6 +34,8 @@ parameters:
       dependsOnEnv: "Dev"
     - name: Stg
       dependsOnEnv: "Dev"
+    - name: Prod
+      dependsOnEnv: "Stg"
 
 variables:
 - name: tfVersion
@@ -89,15 +92,16 @@ stages:
           dependsOnEnv: ${{ env.dependsOnEnv }}
           workingDirectory: ${{ variables.tfDirectory }}
     - ${{ else }}:
-      - template: templates/terraform-plan-apply.yaml
-        parameters:
-          terraformVersion: ${{ variables.tfVersion }}
-          env: ${{ env.name }}
-          location: ${{ variables.azureLocation }}
-          environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
-          product: wowza
-          activityName: Video_Hearing_Wowza
-          tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
-          tfStateStorageAccountName: vhinfracore${{ env.name }}tf
-          dependsOnEnv: ${{ env.dependsOnEnv }}
-          workingDirectory: ${{ variables.tfDirectory }}
+      - ${{ if and(ne(env.name, 'Prod'), contains(lower(variables['Build.SourceBranch']), lower(variables.release_branch_prefix))) }}:
+        - template: templates/terraform-plan-apply.yaml
+          parameters:
+            terraformVersion: ${{ variables.tfVersion }}
+            env: ${{ env.name }}
+            location: ${{ variables.azureLocation }}
+            environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+            product: wowza
+            activityName: Video_Hearing_Wowza
+            tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
+            tfStateStorageAccountName: vhinfracore${{ env.name }}tf
+            dependsOnEnv: ${{ env.dependsOnEnv }}
+            workingDirectory: ${{ variables.tfDirectory }}
