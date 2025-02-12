@@ -1,2 +1,3 @@
 variables:
  dynatrace_network_zone: "azure.sds"
+ release_branch_prefix: 'release'

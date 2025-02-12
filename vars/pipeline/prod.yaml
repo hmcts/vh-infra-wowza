@@ -5,4 +5,3 @@ variables:
   dynatrace_token_secret_name: 'dynatrace-prod-api-key'
   dynatrace_api_token_secret_name: 'dynatrace-prod-api-event-token'
   central_infra_kv: 'infra-vault-prod'
-  release_branch_prefix: 'release'
