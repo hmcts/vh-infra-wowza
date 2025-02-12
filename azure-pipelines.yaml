@@ -73,7 +73,7 @@ stages:
         activityName: Video_Hearing_Wowza
         tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
         tfStateStorageAccountName: vhinfracore${{ env.name }}tf
-        dependsOnEnv: ${{ env.dependsOnEnv }}
+        dependsOnEnv: ''
         workingDirectory: ${{ variables.tfDirectory }}
 
   - ${{ else }}:
