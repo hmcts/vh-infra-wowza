@@ -98,3 +98,14 @@ resource "azurerm_monitor_diagnostic_setting" "load_balancer_public" {
     enabled  = true
   }
 }
+
+resource "azurerm_monitor_diagnostic_setting" "key_vault_audit" {
+  name                       = "vh-kv-${var.environment}-audit-diag-set"
+  target_resource_id         = data.azurerm_key_vault.vh-infra-core.id
+  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.core.id
+
+  enabled_log {
+    category = "AuditEvent"
+  }
+}
+
