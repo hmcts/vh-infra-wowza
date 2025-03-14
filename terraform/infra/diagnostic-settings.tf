@@ -105,7 +105,7 @@ resource "azurerm_monitor_diagnostic_setting" "key_vault_audit" {
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.core.id
 
   enabled_log {
-    category = "AuditEvent"
+    category_group = "audit"
   }
 }
 
