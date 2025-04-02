@@ -1157,7 +1157,7 @@ write_files:
 
         miClientId="${managedIdentityClientId}"
 
-        az login --identity --username $miClientId
+        az login --identity --client-id $miClientId
 
         keyVaultName="${keyVaultName}"
         certName="${certName}"
