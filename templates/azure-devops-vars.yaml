@@ -22,4 +22,5 @@ variables:
     - group: FeatureFlags_Prod
   - ${{ else }}:
     - group: vh-common
+    - group: govuk-notify-dev
     - group: FeatureFlags_Non-Prod
