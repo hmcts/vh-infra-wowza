@@ -38,7 +38,7 @@ variable "vm_size" {
 
 variable "vm_image_version" {
   type    = string
-  default = "4.8.28"
+  default = "4.9.3"
 }
 
 variable "admin_user" {
