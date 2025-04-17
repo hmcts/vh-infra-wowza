@@ -166,3 +166,8 @@ variable "default_action" {
   description = "(Optional) Network rules default action"
   default     = "Deny"
 }
+
+variable "allow_nested_items_to_be_public" {
+  description = "(Optional) Allow or disallow public access to all blobs or containers in the storage account."
+  default     = "false"
+}
