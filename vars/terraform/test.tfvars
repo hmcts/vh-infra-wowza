@@ -66,7 +66,7 @@ storage_allowed_ips = [
   "51.149.249.0/29",  #AnyConnect VPN egress range
   "51.149.249.32/29", #AnyConnect VPN egress range
   "194.33.249.0/29",  #AnyConnect VPN egress backup range
-  "194.33.248.0/29"   #AnyConnect VPN egress backup range
+  "194.33.248.0/29",  #AnyConnect VPN egress backup range
   "13.107.6.0/24",    #Azure DevOps Agent outbound range
   "13.107.9.0/24",    #Azure DevOps Agent outbound range
   "13.107.42.0/24",   #Azure DevOps Agent outbound range
