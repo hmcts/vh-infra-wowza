@@ -26,7 +26,7 @@ module "wowza_recordings" {
   account_kind                    = "StorageV2"
   account_tier                    = "Standard"
   account_replication_type        = "RAGRS"
-  allow_nested_items_to_be_public = "true"
+  allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
 
   enable_data_protection = true
   enable_change_feed     = true
