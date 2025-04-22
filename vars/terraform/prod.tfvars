@@ -52,6 +52,16 @@ storage_allowed_ips = [
   "51.149.249.32/29", #AnyConnect VPN egress range
   "194.33.249.0/29",  #AnyConnect VPN egress backup range
   "194.33.248.0/29"   #AnyConnect VPN egress backup range
+  "13.107.6.0/24",    #Azure DevOps Agent outbound range
+  "13.107.9.0/24",    #Azure DevOps Agent outbound range
+  "13.107.42.0/24",   #Azure DevOps Agent outbound range
+  "13.107.43.0/24",   #Azure DevOps Agent outbound range
+  "150.171.22.0/24",  #Azure DevOps Agent outbound range
+  "150.171.23.0/24",  #Azure DevOps Agent outbound range
+  "150.171.73.0/24",  #Azure DevOps Agent outbound range
+  "150.171.74.0/24",  #Azure DevOps Agent outbound range
+  "150.171.75.0/24",  #Azure DevOps Agent outbound range
+  "150.171.76.0/24"   #Azure DevOps Agent outbound range
 ]
 
  allow_nested_items_to_be_public = "true"
