@@ -65,3 +65,5 @@ storage_allowed_ips = [
 ]
 
  allow_nested_items_to_be_public = "true"
+
+ enable_dynatrace = true
