@@ -142,7 +142,7 @@ resource "azurerm_network_security_rule" "AllowWowzaToBlobStorage" {
 }
 
 resource "azurerm_network_security_rule" "AllowDynatrace" {
-  count                       = var.environment == "prod" ? 1 : 0
+  count                       = var.enable_dynatrace ? 1 : 0
   name                        = "AllowDynatrace"
   resource_group_name         = azurerm_resource_group.wowza.name
   network_security_group_name = azurerm_network_security_group.wowza.name
