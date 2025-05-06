@@ -1,5 +1,8 @@
 provider "azurerm" {
   storage_use_azuread = true
+  resource_providers_to_register = [
+    "Microsoft.Storage/BlobIndex"
+  ]
   features {}
 }
 
