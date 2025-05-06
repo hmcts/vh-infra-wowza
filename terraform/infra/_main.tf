@@ -60,16 +60,3 @@ data "azuread_group" "dts_vh_contributors_prod" {
 data "azuread_group" "dts_vh_storage_blob_data_contributors_prod" {
   display_name = "DTS VH Wowza Storage Blob Data Reader (env:prod)"
 }
-
-resource "azurerm_resource_provider_registration" "azure_terraform" {
-  name = "Microsoft.AzureTerraform"
-}
-
-resource "azurerm_resource_provider_registration" "blob_index" {
-  name = "Microsoft.Storage"
-
-  feature {
-    name       = "BlobIndex"
-    registered = true
-  }
-}
