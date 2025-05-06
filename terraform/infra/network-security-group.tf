@@ -210,8 +210,8 @@ resource "azurerm_network_watcher_flow_log" "nsg" {
   location             = data.azurerm_log_analytics_workspace.core.location
 
   target_resource_id = azurerm_network_security_group.wowza.id
-  storage_account_id        = module.wowza_recordings.storageaccount_id
-  enabled                   = true
+  storage_account_id = module.wowza_recordings.storageaccount_id
+  enabled            = true
 
   retention_policy {
     enabled = true
