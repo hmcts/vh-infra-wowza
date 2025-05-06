@@ -40,6 +40,15 @@ module "wowza_recordings" {
   default_action = var.default_action
 }
 
+resource "azurerm_resource_provider_registration" "blob_index" {
+  name = "Microsoft.Storage"
+
+  feature {
+    name       = "BlobIndex"
+    registered = true
+  }
+}
+
 # policy created outside of the SA module as the module does not allow for index tags filter
 # TODO: add functionallity to module
 resource "azurerm_storage_management_policy" "hrs_processed" {
