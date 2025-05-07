@@ -55,10 +55,14 @@ stages:
       - job: Register_Azure_Providers
         displayName: Register Azure Providers
         steps:
-        - template: templates/register-providers.yaml
-          parameters:
-            environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
-            env: ${{ env.name }}
+        - task: AzureCLI@2
+          inputs:
+            azureSubscription: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              az feature register --namespace Microsoft.Storage --name BlobIndex --wait
+              az provider register -n Microsoft.Storage --wait    
 
 ################################################
 # Validate Infra Code. #########################
