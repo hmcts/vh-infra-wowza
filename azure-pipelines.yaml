@@ -45,7 +45,7 @@ variables:
   value: $(System.DefaultWorkingDirectory)/terraform/infra
 - group: external
 
-stages:                                
+stages:
 ################################################
 # Validate Infra Code. #########################
 - stage: Validate_Terraform_Code
