@@ -52,19 +52,24 @@ stages:
   - stage: Register_Azure_Providers_${{ env.name }}
     displayName: 'Register Azure Providers ${{ env.name }}'
     jobs:
-      # - job: Register_Azure_Providers_${{ env.name }}
-      #   displayName: Register Azure Providers ${{ env.name }}
-      #   steps:
-      #   - task: AzureCLI@2
-      #     displayName: Register Azure Providers ${{ env.name }}
-      #     inputs:
-      #       azureSubscription: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
-      #       scriptType: 'bash'
-      #       scriptLocation: 'inlineScript'
-      #       inlineScript: |
-      #         az provider register -n Microsoft.Storage --wait   
-      #         - stage: Register_Azure_Providers_${{ env.name }}
-
+      - job: Register_Azure_Providers_${{ env.name }}
+        displayName: Register Azure Providers ${{ env.name }}
+        steps:
+        - task: AzureCLI@2
+          displayName: Register Azure Providers ${{ env.name }}
+          inputs:
+            azureSubscription: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              az provider register -n Microsoft.Storage --wait   
+              - stage: Register_Azure_Providers_${{ env.name }}
+################################################
+# Register Azure Providers #####################
+- ${{ each env in parameters.environment }}:
+  - stage: Show_Azure_Providers_${{ env.name }}
+    displayName: 'Show Azure Providers ${{ env.name }}'
+    jobs:
       - job: Show_Azure_Providers_${{ env.name }}
         displayName: Show Azure Providers ${{ env.name }}
         steps:
