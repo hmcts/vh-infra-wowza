@@ -21,6 +21,12 @@ route_table = [
     next_hop_in_ip_address = null
   },
   {
+    name                   = "default"
+    address_prefix         = "0.0.0.0/0"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "10.11.8.36"
+  },
+  {
     name                   = "ss_prod_aks"
     address_prefix         = "10.144.0.0/18"
     next_hop_type          = "VirtualAppliance"
