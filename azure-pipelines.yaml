@@ -48,16 +48,17 @@ variables:
 stages:
 ################################################
 # Register Azure Providers #####################
-- stage: Register_Azure_Providers
-  displayName: 'Register Azure Providers'
-  jobs:
-    - job: Register_Azure_Providers
-      displayName: Register Azure Providers
-      steps:
-      - template: templates/register-providers.yaml
-        parameters:
-          environmentServiceConnection: DTS-SHAREDSERVICES-${{ parameters.environment }}-Video Hearings
-          env: ${{ parameters.environment }}
+- ${{ each env in parameters.environment }}:
+  - stage: Register_Azure_Providers
+    displayName: 'Register Azure Providers'
+    jobs:
+      - job: Register_Azure_Providers
+        displayName: Register Azure Providers
+        steps:
+        - template: templates/register-providers.yaml
+          parameters:
+            environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+            env: ${{ env.name }}
 
 ################################################
 # Validate Infra Code. #########################
