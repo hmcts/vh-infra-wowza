@@ -49,11 +49,11 @@ stages:
 ################################################
 # Register Azure Providers #####################
 - ${{ each env in parameters.environment }}:
-  - stage: Register_Azure_Providers
-    displayName: 'Register Azure Providers'
+  - stage: Register_Azure_Providers_${{ env.name }}
+    displayName: 'Register Azure Providers ${{ env.name }}'
     jobs:
-      - job: Register_Azure_Providers
-        displayName: Register Azure Providers
+      - job: Register_Azure_Providers_${{ env.name }}
+        displayName: Register Azure Providers ${{ env.name }}
         steps:
         - task: AzureCLI@2
           inputs:
