@@ -171,3 +171,9 @@ variable "allow_nested_items_to_be_public" {
   description = "(Optional) Allow or disallow public access to all blobs or containers in the storage account."
   default     = "false"
 }
+
+variable "enable_dynatrace" {
+  description = "Enable Dynatrace network security rule"
+  type        = bool
+  default     = false
+}

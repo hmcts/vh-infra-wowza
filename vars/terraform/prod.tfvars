@@ -70,4 +70,4 @@ storage_allowed_ips = [
   "150.171.76.0/24"   #Azure DevOps Agent outbound range
 ]
 
- allow_nested_items_to_be_public = "true"
+ enable_dynatrace = true

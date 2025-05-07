@@ -142,7 +142,7 @@ resource "azurerm_network_security_rule" "AllowWowzaToBlobStorage" {
 }
 
 resource "azurerm_network_security_rule" "AllowDynatrace" {
-  count                       = var.environment == "prod" ? 1 : 0
+  count                       = var.enable_dynatrace ? 1 : 0
   name                        = "AllowDynatrace"
   resource_group_name         = azurerm_resource_group.wowza.name
   network_security_group_name = azurerm_network_security_group.wowza.name
@@ -209,9 +209,9 @@ resource "azurerm_network_watcher_flow_log" "nsg" {
   resource_group_name  = "NetworkWatcherRG"
   location             = data.azurerm_log_analytics_workspace.core.location
 
-  network_security_group_id = azurerm_network_security_group.wowza.id
-  storage_account_id        = module.wowza_recordings.storageaccount_id
-  enabled                   = true
+  target_resource_id = azurerm_network_security_group.wowza.id
+  storage_account_id = module.wowza_recordings.storageaccount_id
+  enabled            = true
 
   retention_policy {
     enabled = true
