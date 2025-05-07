@@ -47,6 +47,24 @@ variables:
 
 stages:
 ################################################
+# Register Azure Provider Feature ##############
+- ${{ each env in parameters.environment }}:
+  - stage: Register_Azure_Provider_Feature_${{ env.name }}
+    displayName: 'Register Azure Provider Feature ${{ env.name }}'
+    jobs:
+      - job: Register_Azure_Provider_Feature_${{ env.name }}
+        displayName: Register Azure Provider Feature ${{ env.name }}
+        steps:
+        - task: AzureCLI@2
+          displayName: Register Azure Provider Feature ${{ env.name }}
+          inputs:
+            azureSubscription: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              az feature register --namespace Microsoft.Storage --name BlobIndex
+
+################################################
 # Register Azure Providers #####################
 - ${{ each env in parameters.environment }}:
   - stage: Register_Azure_Providers_${{ env.name }}
@@ -56,13 +74,13 @@ stages:
         displayName: Register Azure Providers ${{ env.name }}
         steps:
         - task: AzureCLI@2
+          displayName: Register Azure Providers ${{ env.name }}
           inputs:
             azureSubscription: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
             scriptType: 'bash'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              az feature register --namespace Microsoft.Storage --name BlobIndex --wait
-              az provider register -n Microsoft.Storage --wait    
+              az provider register -n Microsoft.Storage --wait                  
 
 ################################################
 # Validate Infra Code. #########################
