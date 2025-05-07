@@ -47,6 +47,19 @@ variables:
 
 stages:
 ################################################
+# Register Azure Providers #####################
+- stage: Register_Azure_Providers
+  displayName: 'Register Azure Providers'
+  jobs:
+    - job: Register_Azure_Providers
+      displayName: Register Azure Providers
+      steps:
+      - template: templates/register-providers.yaml
+        parameters:
+          environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
+          env: ${{ env.name }}
+          
+################################################
 # Validate Infra Code. #########################
 - stage: Validate_Terraform_Code
   displayName: 'Validate Terraform Code'
