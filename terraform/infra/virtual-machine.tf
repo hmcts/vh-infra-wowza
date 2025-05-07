@@ -62,8 +62,6 @@ resource "azurerm_linux_virtual_machine" "wowza" {
 
   provision_vm_agent = true
 
-  vm_agent_platform_updates_enabled = false
-
   custom_data = data.template_cloudinit_config.wowza_setup.rendered
 
   source_image_reference {

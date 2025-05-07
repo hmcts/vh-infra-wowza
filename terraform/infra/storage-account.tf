@@ -40,9 +40,10 @@ module "wowza_recordings" {
   default_action = var.default_action
 }
 
+
 # policy created outside of the SA module as the module does not allow for index tags filter
 # TODO: add functionallity to module
-resource "azurerm_storage_management_policy" "example" {
+resource "azurerm_storage_management_policy" "hrs_processed" {
   storage_account_id = module.wowza_recordings.storageaccount_id
 
   rule {
