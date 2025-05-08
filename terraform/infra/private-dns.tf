@@ -76,3 +76,21 @@ resource "azurerm_private_dns_zone_virtual_network_link" "platform" {
 
   tags = local.common_tags
 }
+
+data "azurerm_virtual_network" "dynatrace-activegate-vnet-nonprod" {
+  count               = var.environment == "prod" ? 0 : 1
+  provider            = azurerm.dts-management-nonprod-intsvc
+  name                = "dynatrace-activegate-vnet-nonprod"
+  resource_group_name = local.private_dns_zone_rg
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "vnet_link_dynatrace_nonprod" {
+  count                 = var.environment == "prod" ? 0 : 1
+  provider              = azurerm.private-endpoint-dns
+  name                  = "dynatrace-activegate-vnet-nonprod"
+  resource_group_name   = local.private_dns_zone_rg
+  private_dns_zone_name = data.azurerm_private_dns_zone.wowza.name
+  virtual_network_id    = data.azurerm_virtual_network.dynatrace-activegate-vnet-nonprod[0].id
+  registration_enabled  = false
+  tags                  = local.common_tags
+}

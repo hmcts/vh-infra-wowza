@@ -89,3 +89,9 @@ provider "azurerm" {
   alias           = "dcd-cnp-demo"
   subscription_id = "1c4f0704-a29e-403d-b719-b90c34ef14c9" # dcd-cnp-DEV
 }
+
+provider "azurerm" {
+  features {}
+  alias           = "dts-management-nonprod-intsvc"
+  subscription_id = "b44eb479-9ae2-42e7-9c63-f3c599719b6f" # DTS-MANAGEMENT-NONPROD-INTSVC
+}
