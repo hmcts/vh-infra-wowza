@@ -81,7 +81,7 @@ data "azurerm_virtual_network" "dynatrace-activegate-vnet-nonprod" {
   count               = var.environment == "prod" ? 0 : 1
   provider            = azurerm.dts-management-nonprod-intsvc
   name                = "dynatrace-activegate-vnet-nonprod"
-  resource_group_name = local.private_dns_zone_rg
+  resource_group_name = "dynatrace-activegate-nonprod"
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "vnet_link_dynatrace_nonprod" {
