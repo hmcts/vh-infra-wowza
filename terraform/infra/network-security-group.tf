@@ -200,7 +200,7 @@ resource "azurerm_network_security_rule" "AllowF5VPNSSH" {
   source_address_prefix       = "10.99.72.4/32"
   source_port_range           = "*"
   destination_address_prefix  = var.address_space
-  destination_port_range      = "22"
+  destination_port_ranges     = ["22", "443", "80", "8087"]
 }
 
 resource "azurerm_network_watcher_flow_log" "nsg" {
