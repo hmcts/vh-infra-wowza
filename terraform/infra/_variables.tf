@@ -177,3 +177,9 @@ variable "enable_dynatrace" {
   type        = bool
   default     = false
 }
+
+variable "create_vm_schedule" {
+  description = "Enable the vm schedule"
+  type        = bool
+  default     = true
+}

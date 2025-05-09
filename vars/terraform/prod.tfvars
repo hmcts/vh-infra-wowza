@@ -6,11 +6,11 @@ service_name = "vh-infra-wowza-prod"
 
 schedules = [
   {
-    name      = "vm-on",
+    name      = "vm-off",
     frequency = "Day"
     interval  = 1
-    run_time  = "06:00:00"
-    start_vm  = true
+    run_time  = "20:00:00"
+    start_vm  = false
   }
 ]
 route_table = [
