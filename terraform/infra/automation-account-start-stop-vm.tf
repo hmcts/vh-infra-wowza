@@ -7,7 +7,7 @@ locals {
 
 module "vm_automation" {
   source = "git::https://github.com/hmcts/cnp-module-automation-runbook-start-stop-vm"
-  count  = var.create_vm_scedule ? 1 : 0
+  count  = var.create_vm_schedule ? 1 : 0
 
   product                 = var.product
   env                     = var.environment
