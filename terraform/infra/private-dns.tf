@@ -36,6 +36,7 @@ locals {
   private_dns_zone      = "${local.domain_env}platform.hmcts.net"
   private_root_dns_zone = "platform.hmcts.net"
   private_dns_zone_rg   = "core-infra-intsvc-rg"
+  dynatrace_vnet_name   = "dynatrace-activegate-vnet-${var.environment}"
 }
 
 data "azurerm_private_dns_zone" "wowza" {
@@ -87,7 +88,7 @@ data "azurerm_virtual_network" "dynatrace-activegate-vnet-nonprod" {
 resource "azurerm_private_dns_zone_virtual_network_link" "vnet_link_dynatrace_nonprod" {
   count                 = var.environment == "prod" ? 0 : 1
   provider              = azurerm.private-endpoint-dns
-  name                  = "dynatrace-activegate-vnet-nonprod"
+  name                  = local.dynatrace_vnet_name
   resource_group_name   = local.private_dns_zone_rg
   private_dns_zone_name = data.azurerm_private_dns_zone.wowza.name
   virtual_network_id    = data.azurerm_virtual_network.dynatrace-activegate-vnet-nonprod[0].id
