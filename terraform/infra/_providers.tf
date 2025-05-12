@@ -92,7 +92,7 @@ provider "azurerm" {
 
 provider "azurerm" {
   features {}
-  alias                      = "dts-management-nonprod-intsvc"
-  subscription_id            = "b44eb479-9ae2-42e7-9c63-f3c599719b6f" # DTS-MANAGEMENT-NONPROD-INTSVC
-  skip_provider_registration = true
+  alias                           = "dts-management-nonprod-intsvc"
+  subscription_id                 = "b44eb479-9ae2-42e7-9c63-f3c599719b6f" # DTS-MANAGEMENT-NONPROD-INTSVC
+  resource_provider_registrations = "none"
 }
