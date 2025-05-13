@@ -90,9 +90,10 @@ provider "azurerm" {
   subscription_id = "1c4f0704-a29e-403d-b719-b90c34ef14c9" # dcd-cnp-DEV
 }
 
+# DTS-MANAGEMENT-NONPROD-INTSVC/DTS-MANAGEMENT-PROD-INTSVC
 provider "azurerm" {
   features {}
   alias                           = "dts-management-nonprod-intsvc"
-  subscription_id                 = "b44eb479-9ae2-42e7-9c63-f3c599719b6f" # DTS-MANAGEMENT-NONPROD-INTSVC
+  subscription_id                 = var.environment == "prod" ? "2b1afc19-5ca9-4796-a56f-574a58670244" : "b44eb479-9ae2-42e7-9c63-f3c599719b6f"
   resource_provider_registrations = "none"
 }
