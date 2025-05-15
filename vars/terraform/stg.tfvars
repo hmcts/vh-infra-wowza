@@ -91,3 +91,17 @@ storage_allowed_ips = [
   "150.171.75.0/24",  #Azure DevOps Agent outbound range
   "150.171.76.0/24"   #Azure DevOps Agent outbound range
 ]
+
+dynatrace_allowed_ips = [
+  "10.10.80.0/24" # Dynatrace Non-Prod ActiveGate VNET
+  "51.105.8.19",
+  "51.105.13.99",
+  "51.105.16.253",
+  "51.105.19.65",
+  "51.145.2.40",
+  "51.145.5.6",
+  "51.145.125.238",
+  "52.151.104.144",
+  "52.151.109.153",
+  "52.151.111.195"
+]
