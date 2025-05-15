@@ -53,6 +53,12 @@ route_table = [
     address_prefix         = "51.145.56.125/32"
     next_hop_type          = "Internet"
     next_hop_in_ip_address = null
+  },
+  {
+    name                   = "dynatrace_non_prod"
+    address_prefix         = "10.10.80.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "10.11.72.36"
   }
 ]
 dcd_cnp_subscription = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
