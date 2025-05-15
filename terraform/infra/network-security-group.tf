@@ -150,7 +150,7 @@ resource "azurerm_network_security_rule" "AllowDynatrace" {
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
-  source_address_prefixes     = ["51.105.8.19", "51.105.13.99", "51.105.16.253", "51.105.19.65", "51.145.2.40", "51.145.5.6", "51.145.125.238", "52.151.104.144", "52.151.109.153", "52.151.111.195"]
+  source_address_prefixes     = var.dynatrace_allowed_ips
   source_port_range           = "*"
   destination_address_prefix  = var.address_space
   destination_port_range      = "443"
