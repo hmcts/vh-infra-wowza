@@ -186,7 +186,7 @@ variable "create_vm_schedule" {
 
 variable "dynatrace_allowed_ips" {
   description = "Allowed Dynatrace IPs"
-  type        = list()
+  type        = list(string)
   default = [
     "10.10.80.0/24",
     "51.105.8.19",
