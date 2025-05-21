@@ -73,7 +73,7 @@ storage_allowed_ips = [
  enable_dynatrace = true
 
  dynatrace_allowed_ips = [
-  "10.10.81.0/24" # Dynatrace Prod ActiveGate VNET
+  "10.10.81.0/24", # Dynatrace Prod ActiveGate VNET
   "51.105.8.19",
   "51.105.13.99",
   "51.105.16.253",
