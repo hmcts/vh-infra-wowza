@@ -35,6 +35,7 @@ provider "azurerm" {
 
 provider "azurerm" {
   features {}
+  alias           = "peering_target_nonprod"
   client_id       = var.network_client_id
   client_secret   = var.network_client_secret
   tenant_id       = var.network_tenant_id
