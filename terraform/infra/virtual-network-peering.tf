@@ -1,9 +1,9 @@
 locals {
-  peering_prod_vnets           = var.environment == "prod" || var.environment == "stg" ? ["hmcts-hub-prod-int"] : []
-  peering_prod_subscription    = "0978315c-75fe-4ada-9d11-1eb5e0e0b214"
-  peering_vpn_vnets            = ["core-infra-vnet-mgmt"]
-  peering_vpn_subscription     = "ed302caf-ec27-4c64-a05e-85731c3ce90e"
-  peering_vpn_resourcegroup    = "rg-mgmt"
+  peering_prod_vnets        = var.environment == "prod" || var.environment == "stg" ? ["hmcts-hub-prod-int"] : []
+  peering_prod_subscription = "0978315c-75fe-4ada-9d11-1eb5e0e0b214"
+  peering_vpn_vnets         = ["core-infra-vnet-mgmt"]
+  peering_vpn_subscription  = "ed302caf-ec27-4c64-a05e-85731c3ce90e"
+  peering_vpn_resourcegroup = "rg-mgmt"
 }
 
 ##########################################################
