@@ -23,18 +23,8 @@ parameters:
 - name: environment
   type: object
   default:
-    - name: Dev
-      dependsOnEnv: ""
-    - name: Demo
-      dependsOnEnv: "Dev"
     - name: ITHC
-      dependsOnEnv: "Dev"
-    - name: Test
-      dependsOnEnv: "Dev"
-    - name: Stg
-      dependsOnEnv: "Dev"
-    - name: Prod
-      dependsOnEnv: "Stg"
+      dependsOnEnv: ""
 
 variables:
 - name: tfVersion
