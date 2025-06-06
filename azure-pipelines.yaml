@@ -1,108 +1,3 @@
-# resources:
-#   repositories:
-#     - repository: templates
-#       type: github
-#       name: hmcts/azure-devops-templates
-#       ref: master 
-#       endpoint: hmcts
-
-# pr: 
-#   branches:
-#     include:
-#     - master
-
-# trigger:
-#   branches:
-#     include:
-#     - master
-
-# pool:
-#   vmImage: 'ubuntu-latest'
-
-# # parameters:
-# # - name: environment
-# #   type: object
-# #   default:
-# #     - name: Dev
-# #       dependsOnEnv: ""
-# #     - name: Demo
-# #       dependsOnEnv: "Dev"
-# #     - name: ITHC
-# #       dependsOnEnv: "Dev"
-# #     - name: Test
-# #       dependsOnEnv: "Dev"
-# #     - name: Stg
-# #       dependsOnEnv: "Dev"
-# #     - name: Prod
-# #       dependsOnEnv: "Stg"
-
-# variables:
-# - name: tfVersion
-#   value: 1.11.3
-# - name: azureLocation
-#   value: 'UK South'
-# - name: tfDirectory
-#   value: $(System.DefaultWorkingDirectory)/terraform/infra
-# - group: external
-
-# stages:
-# ################################################
-# # Validate Infra Code. #########################
-# - stage: Validate_Terraform_Code
-#   displayName: 'Validate Terraform Code'
-#   jobs:
-#     - job: Validate_Terraform_Code
-#       displayName: Validate Terraform Code
-#       steps:
-#       - template: templates/terraform-validate.yaml
-#         parameters:
-#           tfversion: ${{ variables.tfversion }}
-#           workingDirectory: ${{ variables.tfDirectory }}
-
-# ################################################
-# # Terraform Plan & Apply. ######################
-# - ${{ each env in parameters.environment }}:
-#   - ${{ if and( eq(env.name, 'Dev'), contains(variables['Build.SourceBranch'], 'refs/pull')) }}:
-#     - template: templates/terraform-plan-apply.yaml
-#       parameters:
-#         terraformVersion: ${{ variables.tfVersion }}
-#         env: ${{ env.name }}
-#         location: ${{ variables.azureLocation }}
-#         environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
-#         product: wowza
-#         activityName: Video_Hearing_Wowza
-#         tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
-#         tfStateStorageAccountName: vhinfracore${{ env.name }}tf
-#         dependsOnEnv: ${{ env.dependsOnEnv }}
-#         workingDirectory: ${{ variables.tfDirectory }}
-
-#   - ${{ else }}:
-#     - ${{ if and(eq(env.name, 'Prod'), startsWith(lower(variables['Build.SourceBranch']), format('refs/heads/{0}/', lower(variables.release_branch_prefix)))) }}:
-#       - template: templates/terraform-plan-apply.yaml
-#         parameters:
-#           terraformVersion: ${{ variables.tfVersion }}
-#           env: ${{ env.name }}
-#           location: ${{ variables.azureLocation }}
-#           environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
-#           product: wowza
-#           activityName: Video_Hearing_Wowza
-#           tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
-#           tfStateStorageAccountName: vhinfracore${{ env.name }}tf
-#           workingDirectory: ${{ variables.tfDirectory }}
-#     - ${{ else }}:
-#         - template: templates/terraform-plan-apply.yaml
-#           parameters:
-#             terraformVersion: ${{ variables.tfVersion }}
-#             env: ${{ env.name }}
-#             location: ${{ variables.azureLocation }}
-#             environmentServiceConnection: DTS-SHAREDSERVICES-${{ env.name }}-Video Hearings
-#             product: wowza
-#             activityName: Video_Hearing_Wowza
-#             tfStateResourceGroup: vh-infra-core-${{ env.name }}-tf
-#             tfStateStorageAccountName: vhinfracore${{ env.name }}tf
-#             dependsOnEnv: ${{ env.dependsOnEnv }}
-#             workingDirectory: ${{ variables.tfDirectory }}
-
 resources:
   repositories:
     - repository: templates
@@ -111,22 +6,25 @@ resources:
       ref: master 
       endpoint: hmcts
 
-pr: none
-trigger: none
+pr: 
+  branches:
+    include:
+    - master
+
+trigger:
+  branches:
+    include:
+    - master
 
 pool:
   vmImage: 'ubuntu-latest'
 
 parameters:
 - name: environment
-  type: string
-  values:
-  - 'Dev'
-  - 'Stg'
-  - 'ITHC'
-  - 'Test'
-  - 'Demo'
-  - 'Prod'
+  type: object
+  default:
+    - name: Test
+      dependsOnEnv: ""
 
 variables:
 - name: tfVersion
