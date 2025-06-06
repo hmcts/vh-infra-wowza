@@ -23,12 +23,12 @@ parameters:
 - name: environment
   type: string
   values:
+  - 'Dev'
+  - 'Stg'
   - 'ITHC'
-  - 'TEST'
-  - 'STG'
-  - 'DEMO'
-  - 'PROD'
-  - 'DEV'
+  - 'Test'
+  - 'Demo'
+  - 'Prod'
 
 variables:
 - name: tfVersion
