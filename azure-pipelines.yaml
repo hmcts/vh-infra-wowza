@@ -21,10 +21,14 @@ pool:
 
 parameters:
 - name: environment
-  type: object
-  default:
-    - name: ITHC
-      dependsOnEnv: ""
+  type: string
+  values:
+  - 'ITHC'
+  - 'TEST'
+  - 'STG'
+  - 'SBOX'
+  - 'DEMO'
+  - 'PROD'
 
 variables:
 - name: tfVersion
