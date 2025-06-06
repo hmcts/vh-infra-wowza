@@ -28,6 +28,7 @@ parameters:
   - 'STG'
   - 'DEMO'
   - 'PROD'
+  - 'DEV'
 
 variables:
 - name: tfVersion
