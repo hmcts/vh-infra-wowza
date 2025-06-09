@@ -27,7 +27,6 @@ provider "azurerm" { ## TODO: delete after first run. needs to be left in to rem
 provider "azurerm" {
   features {}
   alias           = "peering_target_prod"
-  subscription_id = local.peering_prod_subscription
   client_id       = var.network_client_id
   client_secret   = var.network_client_secret
   tenant_id       = var.network_tenant_id
@@ -44,7 +43,6 @@ provider "azurerm" {
 provider "azurerm" {
   features {}
   alias           = "peering_target_vpn"
-  subscription_id = local.peering_vpn_subscription
   client_id       = var.network_client_id
   client_secret   = var.network_client_secret
   tenant_id       = var.network_tenant_id
