@@ -138,16 +138,16 @@ resource "azurerm_role_assignment" "wowza-sa-tag-role-prod" {
 #   resource_group_name = "sds-platform-${var.environment}-rg"
 # }
 
-# resource "azurerm_user_assigned_identity" "wowza_cert" {
-#   resource_group_name = azurerm_resource_group.wowza.name
-#   location            = azurerm_resource_group.wowza.location
+resource "azurerm_user_assigned_identity" "wowza_cert" {
+  resource_group_name = azurerm_resource_group.wowza.name
+  location            = azurerm_resource_group.wowza.location
 
-#   name = "vh-wowza-cert-${var.environment}-mi"
-#   tags = local.common_tags
-# }
+  name = "vh-wowza-cert-${var.environment}-mi"
+  tags = local.common_tags
+}
 
-# resource "azurerm_role_assignment" "kv_access" {
-#   scope                = data.azurerm_key_vault.acmekv.id
-#   role_definition_name = "Key Vault Secrets User"
-#   principal_id         = azurerm_user_assigned_identity.wowza_cert.principal_id
-# }
+resource "azurerm_role_assignment" "kv_access" {
+  scope                = data.azurerm_key_vault.acmekv.id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = azurerm_user_assigned_identity.wowza_cert.principal_id
+}
