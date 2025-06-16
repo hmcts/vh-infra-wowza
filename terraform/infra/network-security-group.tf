@@ -5,9 +5,9 @@ resource "azurerm_network_security_group" "wowza" {
 
   tags = local.common_tags
 
-  depends_on = [
-    azurerm_linux_virtual_machine.wowza
-  ]
+  # depends_on = [
+  #   azurerm_linux_virtual_machine.wowza
+  # ]
 }
 
 resource "azurerm_subnet_network_security_group_association" "wowza" {
