@@ -86,4 +86,5 @@ storage_allowed_ips = [
   "52.151.111.195"
 ]
 
+default_action = "Allow"
 allow_nested_items_to_be_public = "true"
