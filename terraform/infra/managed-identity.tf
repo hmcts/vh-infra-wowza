@@ -133,10 +133,10 @@ resource "azurerm_role_assignment" "wowza-sa-tag-role-prod" {
 # # Key Vault Access. ###########################################
 # ###############################################################
 
-# data "azurerm_key_vault" "acmekv" {
-#   name                = "acmedtssds${var.environment}"
-#   resource_group_name = "sds-platform-${var.environment}-rg"
-# }
+data "azurerm_key_vault" "acmekv" {
+  name                = "acmedtssds${var.environment}"
+  resource_group_name = "sds-platform-${var.environment}-rg"
+}
 
 resource "azurerm_user_assigned_identity" "wowza_cert" {
   resource_group_name = azurerm_resource_group.wowza.name
