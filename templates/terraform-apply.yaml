@@ -75,21 +75,21 @@ steps:
         lockName: ${{ parameters.environment }}-lock
         resourceGroup: vh-infra-wowza-${{ parameters.environment }}
 
-  - ${{ if or(eq(parameters.environment, 'Stg'), eq(parameters.environment, 'Prod')) }}:
-    - template: templates/Azure/Common/unlock-lock.yaml@templates
-      parameters:
-        addOrDelete: delete
-        azureSubscription: ${{ parameters.serviceConnection }}
-        lockName: ${{ parameters.environment }}-lock
-        resourceGroup: "NetworkWatcherRG"
+  # - ${{ if or(eq(parameters.environment, 'Stg'), eq(parameters.environment, 'Prod')) }}:
+  #   - template: templates/Azure/Common/unlock-lock.yaml@templates
+  #     parameters:
+  #       addOrDelete: delete
+  #       azureSubscription: ${{ parameters.serviceConnection }}
+  #       lockName: ${{ parameters.environment }}-lock
+  #       resourceGroup: "NetworkWatcherRG"
   
-  - ${{ if or(eq(parameters.environment, 'Stg'), eq(parameters.environment, 'Prod')) }}:
-    - template: templates/Azure/Common/unlock-lock.yaml@templates
-      parameters:
-        addOrDelete: delete
-        azureSubscription: ${{ parameters.serviceConnection }}
-        lockName: ${{ parameters.environment }}-lock
-        resourceGroup: "sds-platform-prod-rg"
+  # - ${{ if or(eq(parameters.environment, 'Stg'), eq(parameters.environment, 'Prod')) }}:
+  #   - template: templates/Azure/Common/unlock-lock.yaml@templates
+  #     parameters:
+  #       addOrDelete: delete
+  #       azureSubscription: ${{ parameters.serviceConnection }}
+  #       lockName: ${{ parameters.environment }}-lock
+  #       resourceGroup: "sds-platform-prod-rg"
   
 
 
@@ -102,9 +102,9 @@ steps:
       environmentServiceName: ${{ parameters.serviceConnection }}
       commandOptions: '-input=false $(Build.BuildId)-${{ parameters.project }}-${{ lower(parameters.environment) }}-wowza.tfplan'
 
-  - template: templates\Azure\Storage\break-lease.yaml@templates
-    parameters:
-      azureSubscription: ${{ parameters.serviceConnection }}
-      storageAccountName: ${{ lower(parameters.tfStateStorageAccountName) }}
-      containerName: tfstate
-      blobName: '${{ parameters.location }}/${{ parameters.project }}/${{ lower(parameters.environment) }}/wowza/terraform.tfstate'
+  # - template: templates\Azure\Storage\break-lease.yaml@templates
+  #   parameters:
+  #     azureSubscription: ${{ parameters.serviceConnection }}
+  #     storageAccountName: ${{ lower(parameters.tfStateStorageAccountName) }}
+  #     containerName: tfstate
+  #     blobName: '${{ parameters.location }}/${{ parameters.project }}/${{ lower(parameters.environment) }}/wowza/terraform.tfstate'
